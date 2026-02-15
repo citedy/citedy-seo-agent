@@ -34,28 +34,17 @@ This skill follows the open [Agent Skills](https://github.com/topics/agent-skill
 
 ## Support Matrix
 
-| Platform                                   | Status    | How to connect                                                                  |
-| ------------------------------------------ | --------- | ------------------------------------------------------------------------------- |
-| Manus / Agent Skills-compatible runtimes   | Supported | Import `SKILL.md` as an Agent Skill                                             |
-| OpenClaw / ClawhubAI                       | Supported | Import `openclaw/SKILL.md` (extended metadata + CLI registration)               |
-| TinyClaw                                   | Supported | Install `SKILL.md` into TinyClaw skills directory (`.agent/skills`) and restart |
-| AutoGPT Builder                            | Supported | Import workflow templates from `autogpt/agents/*.agent.json`                    |
+| Platform                                    | Status    | How to connect                                                                  |
+| ------------------------------------------- | --------- | ------------------------------------------------------------------------------- |
+| OpenClaw / Agent Skills-compatible runtimes | Supported | Import `citedy-seo-agent/SKILL.md` as an Agent Skill                            |
+| TinyClaw                                    | Supported | Install `SKILL.md` into TinyClaw skills directory (`.agent/skills`) and restart |
+| AutoGPT Builder                             | Supported | Import workflow templates from `citedy-seo-agent/autogpt/agents/*.agent.json`   |
 
 ## Package Contents
 
-- `SKILL.md` — canonical Agent Skill definition (Manus/Agent Skills/TinyClaw)
+- `SKILL.md` — canonical Agent Skill definition (OpenClaw/Agent Skills/TinyClaw)
 - `TINYCLAW.md` — TinyClaw install and verification guide
-- `openclaw/` — OpenClaw/ClawhubAI package (extended metadata, CLI registration script)
 - `autogpt/` — AutoGPT package (actions, templates, validator, quickstart)
-
-## OpenClaw Install
-
-1. Open `./openclaw/README.md`.
-2. Import `./openclaw/SKILL.md` as an Agent Skill, or use the CLI:
-
-```bash
-node ./openclaw/scripts/register.mjs [agent_name]
-```
 
 ## TinyClaw Install
 
