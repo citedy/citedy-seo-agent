@@ -1,0 +1,61 @@
+{
+  "version": "1.0.0",
+  "templates": [
+    {
+      "id": "citedy-gap-to-publish",
+      "file": "citedy-gap-to-publish.agent.json",
+      "name": "Citedy Gap Generator",
+      "description": "Generate competitor content gaps.",
+      "endpoint": "https://www.citedy.com/api/agent/gaps/generate",
+      "method": "POST"
+    },
+    {
+      "id": "citedy-reddit-to-publish",
+      "file": "citedy-reddit-to-publish.agent.json",
+      "name": "Citedy Trend Scout (Reddit)",
+      "description": "Scout Reddit trends for content opportunities.",
+      "endpoint": "https://www.citedy.com/api/agent/scout/reddit",
+      "method": "POST"
+    },
+    {
+      "id": "citedy-scout-to-publish",
+      "file": "citedy-scout-to-publish.agent.json",
+      "name": "Citedy Scout to Publish",
+      "description": "Extended scout preset to discover topics before autopilot generation.",
+      "endpoint": "https://www.citedy.com/api/agent/scout/x",
+      "method": "POST"
+    },
+    {
+      "id": "citedy-session-manager",
+      "file": "citedy-session-manager.agent.json",
+      "name": "Citedy Session Manager",
+      "description": "Create recurring automated content session.",
+      "endpoint": "https://www.citedy.com/api/agent/session",
+      "method": "POST"
+    },
+    {
+      "id": "citedy-topic-to-publish",
+      "file": "citedy-topic-to-publish.agent.json",
+      "name": "Citedy Topic to Publish",
+      "description": "Generate an SEO article from topic via Citedy autopilot endpoint.",
+      "endpoint": "https://www.citedy.com/api/agent/autopilot",
+      "method": "POST"
+    },
+    {
+      "id": "citedy-trend-to-publish",
+      "file": "citedy-trend-to-publish.agent.json",
+      "name": "Citedy Trend Scout (X)",
+      "description": "Scout X/Twitter trends to pick publishable topics.",
+      "endpoint": "https://www.citedy.com/api/agent/scout/x",
+      "method": "POST"
+    },
+    {
+      "id": "citedy-url-to-publish",
+      "file": "citedy-url-to-publish.agent.json",
+      "name": "Citedy URL to Publish",
+      "description": "Generate an SEO article from source URLs via Citedy autopilot.",
+      "endpoint": "https://www.citedy.com/api/agent/autopilot",
+      "method": "POST"
+    }
+  ]
+}

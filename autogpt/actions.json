@@ -1,0 +1,132 @@
+{
+  "version": "1.0.0",
+  "base_url": "https://www.citedy.com",
+  "auth": {
+    "type": "bearer",
+    "header": "Authorization",
+    "prefix": "Bearer "
+  },
+  "actions": [
+    {
+      "id": "register",
+      "method": "POST",
+      "path": "/api/agent/register",
+      "description": "Register a new Citedy agent and get approval URL",
+      "payload_example": {
+        "agent_name": "my_autogpt_agent"
+      }
+    },
+    {
+      "id": "me",
+      "method": "GET",
+      "path": "/api/agent/me",
+      "description": "Get balance, limits, connected platforms, referral info"
+    },
+    {
+      "id": "scout_x",
+      "method": "POST",
+      "path": "/api/agent/scout/x",
+      "description": "Scout trends on X/Twitter",
+      "payload_example": {
+        "query": "AI content marketing",
+        "mode": "fast",
+        "limit": 5
+      }
+    },
+    {
+      "id": "scout_reddit",
+      "method": "POST",
+      "path": "/api/agent/scout/reddit",
+      "description": "Scout trends on Reddit",
+      "payload_example": {
+        "subreddits": ["marketing", "seo"],
+        "query": "AI content marketing",
+        "limit": 5
+      }
+    },
+    {
+      "id": "autopilot",
+      "method": "POST",
+      "path": "/api/agent/autopilot",
+      "description": "Generate article by topic or source_urls"
+    },
+    {
+      "id": "autopilot_status",
+      "method": "GET",
+      "path": "/api/agent/autopilot/{job_id}",
+      "description": "Poll autopilot job status"
+    },
+    {
+      "id": "adapt",
+      "method": "POST",
+      "path": "/api/agent/adapt",
+      "description": "Adapt article to social platforms",
+      "payload_example": {
+        "article_id": "<article_id>",
+        "platforms": ["linkedin", "x_thread"],
+        "include_ref_link": true
+      }
+    },
+    {
+      "id": "session",
+      "method": "POST",
+      "path": "/api/agent/session",
+      "description": "Create recurring automated content session"
+    },
+    {
+      "id": "articles",
+      "method": "GET",
+      "path": "/api/agent/articles",
+      "description": "List generated/published articles"
+    },
+    {
+      "id": "gaps_generate",
+      "method": "POST",
+      "path": "/api/agent/gaps/generate",
+      "description": "Generate competitor content gaps"
+    },
+    {
+      "id": "gaps_status",
+      "method": "GET",
+      "path": "/api/agent/gaps-status/{job_id}",
+      "description": "Poll gap generation status"
+    }
+  ],
+  "agent_templates": [
+    {
+      "id": "topic_to_publish",
+      "file": "./agents/citedy-topic-to-publish.agent.json",
+      "description": "Generate article from topic via autopilot"
+    },
+    {
+      "id": "url_to_publish",
+      "file": "./agents/citedy-url-to-publish.agent.json",
+      "description": "Generate article from source URLs via autopilot"
+    },
+    {
+      "id": "trend_to_publish",
+      "file": "./agents/citedy-trend-to-publish.agent.json",
+      "description": "Scout trends on X"
+    },
+    {
+      "id": "reddit_to_publish",
+      "file": "./agents/citedy-reddit-to-publish.agent.json",
+      "description": "Scout trends on Reddit"
+    },
+    {
+      "id": "gap_to_publish",
+      "file": "./agents/citedy-gap-to-publish.agent.json",
+      "description": "Generate content gaps"
+    },
+    {
+      "id": "session_manager",
+      "file": "./agents/citedy-session-manager.agent.json",
+      "description": "Configure recurring content session"
+    },
+    {
+      "id": "scout_to_publish",
+      "file": "./agents/citedy-scout-to-publish.agent.json",
+      "description": "Extended scout preset for topic pipeline"
+    }
+  ]
+}
