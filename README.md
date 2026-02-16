@@ -28,7 +28,7 @@ The Citedy SEO Agent is designed for developers, marketers, and AI enthusiasts w
 
 This skill follows the open [Agent Skills](https://github.com/topics/agent-skills) standard and works with:
 
-- **Manus** — import directly from GitHub or add via the Skills Directory
+- **Manus, Kimi** — import directly from GitHub or add via the Skills Directory
 - **Skills Directory** — [skillsdirectory.com](https://skillsdirectory.com)
 - **Any Agent Skills-compatible platform** — Kilo, SkillHub, and others
 
