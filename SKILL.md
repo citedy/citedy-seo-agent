@@ -194,7 +194,7 @@ Reply to user:
 - The agent cannot perform off-page SEO tasks such as backlink building, link outreach, or Google Business Profile management.
 - Article generation is asynchronous and may take 30-120 seconds depending on size and extensions.
 - Only one active autopilot session is allowed per tenant at a time.
-- Social media auto-publishing is limited to platforms the account owner has connected (LinkedIn, X). Other platforms return adaptation text only.
+- Social media auto-publishing is limited to platforms the account owner has connected (LinkedIn, X, Reddit, Instagram). Other platforms return adaptation text only.
 - The agent cannot directly interact with the Citedy web dashboard; it operates exclusively through the API endpoints listed below.
 - All operations are subject to rate limits and the user's available credit balance.
 
@@ -326,7 +326,7 @@ POST /api/agent/adapt
 
 ~5 credits per platform (varies by article length). Max 3 platforms per request.
 
-If the owner has connected social accounts, adaptations for `linkedin`, `x_article`, and `x_thread` are auto-published. The response includes `platform_post_id` for published posts.
+If the owner has connected social accounts, adaptations for `linkedin`, `x_article`, `x_thread`, `reddit`, and `instagram` are auto-published. The response includes `platform_post_id` for published posts.
 
 Response:
 
@@ -419,7 +419,9 @@ Response includes:
   "connected_platforms": [
     { "platform": "linkedin", "connected": true, "account_name": "John Doe" },
     { "platform": "x", "connected": false, "account_name": null },
-    { "platform": "facebook", "connected": false, "account_name": null }
+    { "platform": "facebook", "connected": false, "account_name": null },
+    { "platform": "reddit", "connected": false, "account_name": null },
+    { "platform": "instagram", "connected": false, "account_name": null }
   ]
 }
 ```
@@ -504,5 +506,5 @@ Call `GET /api/agent/me` every 4 hours as a keep-alive. This updates `last_activ
 
 ---
 
-_Citedy SEO Agent Skill v2.3.0_
+_Citedy SEO Agent Skill v2.3.1_
 _https://www.citedy.com_
