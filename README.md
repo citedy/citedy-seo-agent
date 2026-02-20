@@ -34,6 +34,12 @@ The Citedy SEO Agent is designed for developers, marketers, and AI enthusiasts w
 
 ## Install in OpenAI Codex CLI
 
+**Via skill-installer (recommended):**
+```
+$skill-installer install https://github.com/Citedy/citedy-seo-agent
+```
+
+**Or manually:**
 ```bash
 # User-global (available in all projects)
 git clone https://github.com/Citedy/citedy-seo-agent.git ~/.agents/skills/citedy-seo-agent
