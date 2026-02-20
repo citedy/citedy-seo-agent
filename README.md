@@ -24,10 +24,19 @@ The Citedy SEO Agent is designed for developers, marketers, and AI enthusiasts w
 - **Marketers:** Automate your content workflow, from research to publication, and scale your content production.
 - **AI Enthusiasts:** Explore the cutting edge of AI-powered content creation and build your own autonomous content agents.
 
+## Install in Claude Code
+
+1. Type `/plugin`
+2. Enter: `citedy/claude-plugins`
+3. Select **citedy-seo-agent** → install
+4. Restart Claude Code
+5. Use `/citedy-seo-agent` to start
+
 ## Compatible Platforms
 
 This skill follows the open [Agent Skills](https://github.com/topics/agent-skills) standard and works with:
 
+- **Claude Code** — install as a plugin from the `citedy` marketplace (see above)
 - **Manus, Kimi** — import directly from GitHub or add via the Skills Directory
 - **Skills Directory** — [skillsdirectory.com](https://skillsdirectory.com)
 - **Any Agent Skills-compatible platform** — Kilo, SkillHub, and others
@@ -36,6 +45,7 @@ This skill follows the open [Agent Skills](https://github.com/topics/agent-skill
 
 | Platform                                    | Status    | How to connect                                                                  |
 | ------------------------------------------- | --------- | ------------------------------------------------------------------------------- |
+| Claude Code                                 | Supported | `/plugin` → `citedy/claude-plugins` → install `citedy-seo-agent`               |
 | OpenClaw / Agent Skills-compatible runtimes | Supported | Import `citedy-seo-agent/SKILL.md` as an Agent Skill                            |
 | TinyClaw                                    | Supported | Install `SKILL.md` into TinyClaw skills directory (`.agent/skills`) and restart |
 | AutoGPT Builder                             | Supported | Import workflow templates from `citedy-seo-agent/autogpt/agents/*.agent.json`   |
