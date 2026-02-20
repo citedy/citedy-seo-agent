@@ -1,0 +1,11 @@
+{
+  "name": "citedy-seo-agent",
+  "version": "2.3.1",
+  "description": "SEO content automation — trends, competitors, content gaps, articles in 55 languages with AI illustrations and voice-over, social adaptations, cron sessions.",
+  "author": {
+    "name": "Citedy",
+    "email": "hello@citedy.com"
+  },
+  "homepage": "https://www.citedy.com",
+  "repository": "https://github.com/Citedy/citedy-seo-agent"
+}
