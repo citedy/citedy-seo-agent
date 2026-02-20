@@ -32,11 +32,43 @@ The Citedy SEO Agent is designed for developers, marketers, and AI enthusiasts w
 4. Restart Claude Code
 5. Use `/citedy-seo-agent` to start
 
+## Install in OpenAI Codex CLI
+
+```bash
+# User-global (available in all projects)
+git clone https://github.com/Citedy/citedy-seo-agent.git ~/.agents/skills/citedy-seo-agent
+
+# Or project-level
+git clone https://github.com/Citedy/citedy-seo-agent.git .agents/skills/citedy-seo-agent
+```
+
+Use `$citedy-seo-agent` to invoke, or Codex will auto-activate based on task context.
+
+## Install in Factory Droid
+
+```bash
+# User-global
+git clone https://github.com/Citedy/citedy-seo-agent.git ~/.factory/skills/citedy-seo-agent
+
+# Or project-level
+git clone https://github.com/Citedy/citedy-seo-agent.git .factory/skills/citedy-seo-agent
+```
+
+## Universal Install (openskills)
+
+Works with Codex, Claude Code, Droid, Cursor, and other Agent Skills-compatible tools:
+
+```bash
+npx openskills install Citedy/citedy-seo-agent
+```
+
 ## Compatible Platforms
 
 This skill follows the open [Agent Skills](https://github.com/topics/agent-skills) standard and works with:
 
 - **Claude Code** — install as a plugin from the `citedy` marketplace (see above)
+- **OpenAI Codex CLI** — clone into `~/.agents/skills/` (see above)
+- **Factory Droid** — clone into `~/.factory/skills/` (see above)
 - **Manus, Kimi** — import directly from GitHub or add via the Skills Directory
 - **Skills Directory** — [skillsdirectory.com](https://skillsdirectory.com)
 - **Any Agent Skills-compatible platform** — Kilo, SkillHub, and others
@@ -46,6 +78,8 @@ This skill follows the open [Agent Skills](https://github.com/topics/agent-skill
 | Platform                                    | Status    | How to connect                                                                  |
 | ------------------------------------------- | --------- | ------------------------------------------------------------------------------- |
 | Claude Code                                 | Supported | `/plugin` → `citedy/claude-plugins` → install `citedy-seo-agent`               |
+| OpenAI Codex CLI                            | Supported | `git clone` into `~/.agents/skills/citedy-seo-agent`                            |
+| Factory Droid                               | Supported | `git clone` into `~/.factory/skills/citedy-seo-agent`                           |
 | OpenClaw / Agent Skills-compatible runtimes | Supported | Import `citedy-seo-agent/SKILL.md` as an Agent Skill                            |
 | TinyClaw                                    | Supported | Install `SKILL.md` into TinyClaw skills directory (`.agent/skills`) and restart |
 | AutoGPT Builder                             | Supported | Import workflow templates from `citedy-seo-agent/autogpt/agents/*.agent.json`   |
