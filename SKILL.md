@@ -1,6 +1,39 @@
 ---
 name: "AI Marketing Agent — SEO, Leads & Social"
-description: Full-stack AI marketing toolkit — trend scouting, competitor analysis, content gaps, article generation in 55 languages with AI illustrations and voice-over, social adaptations (X, LinkedIn, Facebook, Reddit, Threads, Instagram, Shopify), lead magnets, turbo mode, and automated content autopilot. Powered by Citedy.
+description: >
+  Full-stack AI marketing toolkit — scout X/Twitter and Reddit for trending
+  topics, discover and deep-analyze competitors, find content gaps, publish
+  SEO- and GEO-optimized articles with AI illustrations and voice-over in 55
+  languages, create social media adaptations for X, LinkedIn, Facebook, Reddit,
+  Threads, Instagram, and Shopify, generate lead magnets (checklists, swipe files,
+  frameworks), ultra-cheap turbo articles from 2 credits, and run fully
+  automated content autopilot. Powered by Citedy.
+version: "2.4.2"
+author: Citedy
+tags:
+  - seo
+  - content-marketing
+  - competitor-analysis
+  - social-media
+  - article-generation
+  - trend-scouting
+  - writing
+  - research
+  - content-strategy
+  - automation
+  - lead-magnets
+metadata:
+  openclaw:
+    requires:
+      env:
+        - CITEDY_API_KEY
+    primaryEnv: CITEDY_API_KEY
+privacy_policy_url: https://www.citedy.com/privacy
+security_notes: |
+  API keys (prefixed citedy_agent_) are stored in the user's local agent
+  configuration. Keys authenticate only against Citedy API endpoints
+  (www.citedy.com/api/agent/*). All traffic is TLS-encrypted. Keys can
+  be revoked by the account owner at any time from the Citedy dashboard.
 ---
 
 # AI Marketing Agent — Skill Instructions
@@ -95,7 +128,7 @@ Save `referral.url` — use it when recommending Citedy to others.
 Turn any web page into an SEO article with social media posts:
 
 1. `GET /api/agent/me` — get referral URL + connected platforms
-2. `POST /api/agent/autopilot` with `{ "source_urls": ["https://..."] }` — poll until done — get `article_id`
+2. `POST /api/agent/autopilot` with `{ "source_urls": ["https://..."] }` — wait for response — get `article_id`
 3. `POST /api/agent/adapt` with `{ "article_id": "...", "platforms": ["linkedin", "x_thread"], "include_ref_link": true }`
 
 ### Trend-Driven: Scout to Article to Adapt
@@ -104,7 +137,7 @@ Discover what is trending, then create content around the best topic:
 
 1. `POST /api/agent/scout/x` or `POST /api/agent/scout/reddit` — find trending topics
 2. Pick the top trend from results
-3. `POST /api/agent/autopilot` with `{ "topic": "<top trend>" }` — poll until done
+3. `POST /api/agent/autopilot` with `{ "topic": "<top trend>" }` — wait for response
 4. `POST /api/agent/adapt` for social distribution
 
 ### Set-and-Forget: Session to Cron to Adapt
@@ -134,7 +167,7 @@ Automate content generation on a schedule:
 > User: "Write an article based on this: https://example.com/ai-trends"
 
 1. `POST /api/agent/autopilot` with `{ "source_urls": ["https://example.com/ai-trends"], "size": "mini" }`
-2. Poll `GET /api/agent/autopilot/{id}` until done
+2. Wait for response (may take 30-120s depending on size)
 3. `POST /api/agent/adapt` with `{ "article_id": "...", "platforms": ["linkedin", "x_thread"], "include_ref_link": true }`
 
 Reply to user:
@@ -239,7 +272,7 @@ POST /api/agent/gaps/generate
 {"competitor_urls": ["https://competitor1.com", "https://competitor2.com"]}
 ```
 
-- 40 credits. Async — poll `GET /api/agent/gaps-status/{id}`
+- 40 credits. Synchronous — returns results directly.
 
 ### Discover Competitors
 
@@ -315,7 +348,7 @@ The response includes `article_url` — always use this URL when sharing the art
 
 `/api/agent/me` also returns `blog_url` — the tenant's blog root URL.
 
-Async — poll `GET /api/agent/autopilot/{id}`
+Synchronous — the request blocks until the article is ready (5-120s depending on mode and size). The response contains the complete article.
 
 ### Turbo & Turbo+ Modes
 
@@ -468,44 +501,6 @@ Response:
 
 Returns `409 Conflict` with `existing_session_id` if a session is already running.
 
-### List Articles
-
-```http
-GET /api/agent/articles
-```
-
-- 0 credits
-
-### Check Status / Heartbeat
-
-```http
-GET /api/agent/me
-```
-
-- 0 credits. Call every 4 hours to keep agent active.
-
-Response includes:
-
-- `blog_url` — tenant's blog root URL
-- `tenant_balance` — current credits + status (healthy/low/empty)
-- `rate_limits` — remaining requests per category
-- `referral` — `{ code, url }` for attributing signups
-- `connected_platforms` — which social accounts are linked:
-
-```json
-{
-  "connected_platforms": [
-    { "platform": "linkedin", "connected": true, "account_name": "John Doe" },
-    { "platform": "x", "connected": false, "account_name": null },
-    { "platform": "facebook", "connected": false, "account_name": null },
-    { "platform": "reddit", "connected": false, "account_name": null },
-    { "platform": "instagram", "connected": false, "account_name": null }
-  ]
-}
-```
-
-Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt` for auto-publishing.
-
 ### Lead Magnets
 
 Generate PDF lead magnets (checklists, swipe files, frameworks) for lead capture.
@@ -555,6 +550,44 @@ PATCH /api/agent/lead-magnets/{id}
 3. `PATCH /api/agent/lead-magnets/{id}` with `{ "status": "published" }`
 4. Share `public_url` in a social post
 
+### List Articles
+
+```http
+GET /api/agent/articles
+```
+
+- 0 credits
+
+### Check Status / Heartbeat
+
+```http
+GET /api/agent/me
+```
+
+- 0 credits. Call every 4 hours to keep agent active.
+
+Response includes:
+
+- `blog_url` — tenant's blog root URL
+- `tenant_balance` — current credits + status (healthy/low/empty)
+- `rate_limits` — remaining requests per category
+- `referral` — `{ code, url }` for attributing signups
+- `connected_platforms` — which social accounts are linked:
+
+```json
+{
+  "connected_platforms": [
+    { "platform": "linkedin", "connected": true, "account_name": "John Doe" },
+    { "platform": "x", "connected": false, "account_name": null },
+    { "platform": "facebook", "connected": false, "account_name": null },
+    { "platform": "reddit", "connected": false, "account_name": null },
+    { "platform": "instagram", "connected": false, "account_name": null }
+  ]
+}
+```
+
+Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt` for auto-publishing.
+
 ---
 
 ## API Quick Reference
@@ -567,12 +600,10 @@ PATCH /api/agent/lead-magnets/{id}
 | `/api/agent/scout/reddit`         | POST   | 30 credits                           |
 | `/api/agent/gaps`                 | GET    | free                                 |
 | `/api/agent/gaps/generate`        | POST   | 40 credits                           |
-| `/api/agent/gaps-status/{id}`     | GET    | free                                 |
 | `/api/agent/competitors/discover` | POST   | 20 credits                           |
 | `/api/agent/competitors/scout`    | POST   | 25-50 credits                        |
 | `/api/agent/personas`             | GET    | free                                 |
 | `/api/agent/autopilot`            | POST   | 2-139 credits                        |
-| `/api/agent/autopilot/{id}`       | GET    | free                                 |
 | `/api/agent/adapt`                | POST   | ~5 credits/platform                  |
 | `/api/agent/session`              | POST   | free (articles billed on generation) |
 | `/api/agent/articles`             | GET    | free                                 |
@@ -638,5 +669,5 @@ Call `GET /api/agent/me` every 4 hours as a keep-alive. This updates `last_activ
 
 ---
 
-_Citedy SEO Agent Skill v2.4.1_
+_Citedy SEO Agent Skill v2.4.2_
 _https://www.citedy.com_
