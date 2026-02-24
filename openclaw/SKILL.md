@@ -1,5 +1,5 @@
 ---
-name: "AI Marketing Agent \u2014 SEO, Leads & Social"
+name: "AI Marketing Agent — SEO, Leads & Social"
 description: >
   Full-stack AI marketing toolkit — scout X/Twitter and Reddit for trending
   topics, discover and deep-analyze competitors, find content gaps, publish
@@ -302,6 +302,23 @@ POST /api/agent/competitors/scout
 
 - `fast` = 25 credits, `ultimate` = 50 credits
 
+### List Personas
+
+```http
+GET /api/agent/personas
+```
+
+Returns available writing personas (25 total). Pass the `slug` as `persona` param in autopilot.
+
+**Writers:** hemingway, proust, orwell, tolkien, nabokov, christie, bulgakov, dostoevsky, strugatsky, bradbury
+**Tech Leaders:** altman, musk, jobs, bezos, trump
+**Entertainment:** tarantino, nolan, ryanreynolds, keanureeves
+**Creators:** mrbeast, taylorswift, kanye, zendaya, timotheechalamet, billieeilish
+
+Response: array of `{ slug, displayName, group, description }`
+
+- 0 credits (free)
+
 ### Generate Article (Autopilot)
 
 ```http
@@ -313,7 +330,7 @@ POST /api/agent/autopilot
   "size": "standard",
   "mode": "standard",
   "enable_search": false,
-  "persona": "tech-writer",
+  "persona": "musk",
   "illustrations": true,
   "audio": true,
   "disable_competition": false
@@ -329,7 +346,7 @@ POST /api/agent/autopilot
 - `size` — `mini` (~500w), `standard` (~1000w, default), `full` (~1500w), `pillar` (~2500w)
 - `mode` — `standard` (default, full pipeline) or `turbo` (ultra-cheap micro-articles, see below)
 - `enable_search` (bool, default false) — enable web + X/Twitter search for fresh facts (turbo mode only)
-- `persona` — persona identifier for brand voice (string, max 100 chars)
+- `persona` — writing style persona slug (call GET /api/agent/personas for list, e.g. "musk", "hemingway", "jobs")
 - `language` — ISO code, default `"en"`
 - `illustrations` (bool, default false) — AI-generated images injected into article (disabled in turbo mode)
 - `audio` (bool, default false) — AI voice-over narration (disabled in turbo mode)
@@ -596,6 +613,7 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | `/api/agent/gaps-status/{id}`     | GET    | free                                 |
 | `/api/agent/competitors/discover` | POST   | 20 credits                           |
 | `/api/agent/competitors/scout`    | POST   | 25-50 credits                        |
+| `/api/agent/personas`             | GET    | free                                 |
 | `/api/agent/autopilot`            | POST   | 2-139 credits                        |
 | `/api/agent/autopilot/{id}`       | GET    | free                                 |
 | `/api/agent/adapt`                | POST   | ~5 credits/platform                  |
@@ -663,5 +681,5 @@ Call `GET /api/agent/me` every 4 hours as a keep-alive. This updates `last_activ
 
 ---
 
-_Citedy SEO Agent Skill v2.4.0_
+_Citedy SEO Agent Skill v2.4.1_
 _https://www.citedy.com_
