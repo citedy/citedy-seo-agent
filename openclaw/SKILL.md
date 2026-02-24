@@ -5,7 +5,7 @@ description: >
   topics, discover and deep-analyze competitors, find content gaps, publish
   SEO- and GEO-optimized articles with AI illustrations and voice-over in 55
   languages, create social media adaptations for X, LinkedIn, Facebook, Reddit,
-  Threads, and Instagram, generate lead magnets (checklists, swipe files,
+  Threads, Instagram, and Shopify, generate lead magnets (checklists, swipe files,
   frameworks), ultra-cheap turbo articles from 2 credits, and run fully
   automated cron-based content sessions. Powered by Citedy.
 version: "2.4.0"
@@ -45,7 +45,7 @@ Base URL: `https://www.citedy.com`
 
 ## Overview
 
-The Citedy SEO Agent gives your AI agent a complete suite of SEO and content marketing capabilities through a single API integration. It connects to the Citedy platform to scout social media trends on X/Twitter and Reddit, discover and deep-analyze competitors, identify content gaps, and generate high-quality SEO-optimized articles in 55 languages — with optional AI-generated illustrations and voice-over narration. Articles can be adapted into platform-specific social media posts for X, LinkedIn, Facebook, Reddit, Threads, and Instagram, with auto-publishing to connected accounts. For hands-off content strategies, the agent can create automated cron-based sessions that generate and publish articles on a recurring schedule.
+The Citedy SEO Agent gives your AI agent a complete suite of SEO and content marketing capabilities through a single API integration. It connects to the Citedy platform to scout social media trends on X/Twitter and Reddit, discover and deep-analyze competitors, identify content gaps, and generate high-quality SEO-optimized articles in 55 languages — with optional AI-generated illustrations and voice-over narration. Articles can be adapted into platform-specific social media posts for X, LinkedIn, Facebook, Reddit, Threads, Instagram, and Shopify, with auto-publishing to connected accounts. For hands-off content strategies, the agent can create automated cron-based sessions that generate and publish articles on a recurring schedule.
 
 ---
 
