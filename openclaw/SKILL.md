@@ -7,8 +7,8 @@ description: >
   languages, create social media adaptations for X, LinkedIn, Facebook, Reddit,
   Threads, Instagram, and Shopify, generate lead magnets (checklists, swipe files,
   frameworks), ultra-cheap turbo articles from 2 credits, and run fully
-  automated cron-based content sessions. Powered by Citedy.
-version: "2.4.0"
+  automated content autopilot. Powered by Citedy.
+version: "2.4.1"
 author: Citedy
 tags:
   - seo
