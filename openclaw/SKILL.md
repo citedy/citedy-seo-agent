@@ -6,8 +6,9 @@ description: >
   SEO- and GEO-optimized articles with AI illustrations and voice-over in 55
   languages, create social media adaptations for X, LinkedIn, Facebook, Reddit,
   Threads, Instagram, and Shopify, generate lead magnets (checklists, swipe files,
-  frameworks), ultra-cheap turbo articles from 2 credits, and run fully
-  automated content autopilot. Powered by Citedy.
+  frameworks), ingest any URL (YouTube, web articles, PDFs, audio files)
+  into structured content, ultra-cheap turbo articles from 2 credits, and
+  run fully automated content autopilot. Powered by Citedy.
 version: "2.4.2"
 author: Citedy
 tags:
@@ -60,6 +61,7 @@ Use this skill when the user asks to:
 - Generate articles from URLs (source_urls) — extract text from web pages and create original SEO articles
 - Create social media adaptations of articles for X, LinkedIn, Facebook, Reddit, Threads, Instagram
 - Set up automated content sessions (cron-based article generation)
+- Ingest any URL (YouTube, web articles, PDFs, audio files) into structured content
 - Generate lead magnets (checklists, swipe files, frameworks) for lead capture
 - List published articles or check agent balance, status, and rate limits
 - Check which social platforms the owner has connected for auto-publishing
@@ -511,6 +513,75 @@ Response:
 
 Returns `409 Conflict` with `existing_session_id` if a session is already running.
 
+### Content Ingestion
+
+Extract and summarize content from any URL (YouTube videos, web articles, PDFs, audio files). Async — submit URL, poll for result.
+
+**Submit URL:**
+
+```http
+POST /api/agent/ingest
+{
+  "url": "https://youtube.com/watch?v=abc123"
+}
+```
+
+- Returns `202 Accepted` with `{ id, status: "processing", content_type, credits_charged, poll_url }`
+- Duplicate URL (already completed within 24h) returns `200` with cached result for 1 credit
+- YouTube videos >120 min are rejected (Gemini context limit)
+- Audio files >50MB are rejected (size limit)
+- Supported content types: `youtube_video`, `web_article`, `pdf_document`, `audio_file`
+
+**Poll Status:**
+
+```http
+GET /api/agent/ingest/{id}
+```
+
+- 0 credits. Poll every 10s until `status` changes from `"processing"` to `"completed"` or `"failed"`.
+- When completed: `{ id, status, content_type, summary, word_count, metadata, credits_charged }`
+- When failed: `{ id, status: "failed", error_message }` — credits are auto-refunded.
+
+**Get Full Content:**
+
+```http
+GET /api/agent/ingest/{id}/content
+```
+
+- 0 credits. Returns the full extracted text (authenticated R2 proxy).
+
+**List Jobs:**
+
+```http
+GET /api/agent/ingest
+```
+
+- 0 credits. Returns recent ingestion jobs for the tenant.
+
+**Pricing:**
+
+| Content Type           | Duration   | Credits |
+| ---------------------- | ---------- | ------- |
+| web_article            | —          | 1       |
+| pdf_document           | —          | 2       |
+| youtube_video (short)  | <10 min    | 5       |
+| youtube_video (medium) | 10-30 min  | 15      |
+| youtube_video (long)   | 30-60 min  | 30      |
+| youtube_video (extra)  | 60-120 min | 55      |
+| audio_file (short)     | <10 min    | 3       |
+| audio_file (medium)    | 10-30 min  | 8       |
+| audio_file (long)      | 30-60 min  | 15      |
+| audio_file (extra)     | 60-120 min | 30      |
+| cache hit (any)        | —          | 1       |
+
+**Workflow:**
+
+1. `POST /api/agent/ingest` with `{ "url": "..." }` → get `id` and `poll_url`
+2. Poll `GET /api/agent/ingest/{id}` every 10s until `status != "processing"`
+3. If completed: read `summary` and `metadata` from response
+4. Optionally: `GET /api/agent/ingest/{id}/content` for full extracted text
+5. Use extracted content as input for `POST /api/agent/autopilot` with `topic`
+
 ### Lead Magnets
 
 Generate PDF lead magnets (checklists, swipe files, frameworks) for lead capture.
@@ -617,7 +688,12 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | `/api/agent/adapt`                | POST   | ~5 credits/platform                  |
 | `/api/agent/session`              | POST   | free (articles billed on generation) |
 | `/api/agent/articles`             | GET    | free                                 |
+| `/api/agent/ingest`               | POST   | 1-55 credits                         |
+| `/api/agent/ingest`               | GET    | free                                 |
+| `/api/agent/ingest/{id}`          | GET    | free                                 |
+| `/api/agent/ingest/{id}/content`  | GET    | free                                 |
 | `/api/agent/lead-magnets`         | POST   | 30-100 credits                       |
+| `/api/agent/lead-magnets`         | GET    | free                                 |
 | `/api/agent/lead-magnets/{id}`    | GET    | free                                 |
 | `/api/agent/lead-magnets/{id}`    | PATCH  | free                                 |
 
