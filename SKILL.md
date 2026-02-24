@@ -1,6 +1,6 @@
 ---
 name: "AI Marketing Agent \u2014 SEO, Leads & Social"
-description: Full-stack AI marketing toolkit — trend scouting, competitor analysis, content gaps, article generation in 55 languages with AI illustrations and voice-over, social adaptations, lead magnets, turbo mode, and cron-based sessions. Powered by Citedy.
+description: Full-stack AI marketing toolkit — trend scouting, competitor analysis, content gaps, article generation in 55 languages with AI illustrations and voice-over, social adaptations (X, LinkedIn, Facebook, Reddit, Threads, Instagram, Shopify), lead magnets, turbo mode, and cron-based sessions. Powered by Citedy.
 ---
 
 # AI Marketing Agent — Skill Instructions
@@ -12,7 +12,7 @@ Base URL: `https://www.citedy.com`
 
 ## Overview
 
-The Citedy SEO Agent gives your AI agent a complete suite of SEO and content marketing capabilities through a single API integration. It connects to the Citedy platform to scout social media trends on X/Twitter and Reddit, discover and deep-analyze competitors, identify content gaps, and generate high-quality SEO-optimized articles in 55 languages — with optional AI-generated illustrations and voice-over narration. Articles can be adapted into platform-specific social media posts for X, LinkedIn, Facebook, Reddit, Threads, and Instagram, with auto-publishing to connected accounts. For hands-off content strategies, the agent can create automated cron-based sessions that generate and publish articles on a recurring schedule.
+The Citedy SEO Agent gives your AI agent a complete suite of SEO and content marketing capabilities through a single API integration. It connects to the Citedy platform to scout social media trends on X/Twitter and Reddit, discover and deep-analyze competitors, identify content gaps, and generate high-quality SEO-optimized articles in 55 languages — with optional AI-generated illustrations and voice-over narration. Articles can be adapted into platform-specific social media posts for X, LinkedIn, Facebook, Reddit, Threads, Instagram, and Shopify, with auto-publishing to connected accounts. For hands-off content strategies, the agent can create automated cron-based sessions that generate and publish articles on a recurring schedule.
 
 ---
 
