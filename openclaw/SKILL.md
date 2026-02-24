@@ -5,8 +5,9 @@ description: >
   topics, discover and deep-analyze competitors, find content gaps, publish
   SEO- and GEO-optimized articles with AI illustrations and voice-over in 55
   languages, create social media adaptations for X, LinkedIn, Facebook, Reddit,
-  Threads, and Instagram, and run fully automated cron-based content sessions.
-version: "2.3.0"
+  Threads, and Instagram, generate lead magnets (checklists, swipe files,
+  frameworks), and run fully automated cron-based content sessions.
+version: "2.4.0"
 author: Citedy
 tags:
   - seo
@@ -19,6 +20,7 @@ tags:
   - research
   - content-strategy
   - automation
+  - lead-magnets
 metadata:
   openclaw:
     requires:
@@ -57,6 +59,7 @@ Use this skill when the user asks to:
 - Generate articles from URLs (source_urls) — extract text from web pages and create original SEO articles
 - Create social media adaptations of articles for X, LinkedIn, Facebook, Reddit, Threads, Instagram
 - Set up automated content sessions (cron-based article generation)
+- Generate lead magnets (checklists, swipe files, frameworks) for lead capture
 - List published articles or check agent balance, status, and rate limits
 - Check which social platforms the owner has connected for auto-publishing
 - Set up a Citedy agent connection
@@ -82,7 +85,7 @@ The script calls the registration API and prints the approval URL. If `agent_nam
 
 **Alternative: call the API directly:**
 
-```
+```http
 POST https://www.citedy.com/api/agent/register
 Content-Type: application/json
 
@@ -234,7 +237,7 @@ Reply to user:
 - The agent cannot perform off-page SEO tasks such as backlink building, link outreach, or Google Business Profile management.
 - Article generation is asynchronous and may take 30-120 seconds depending on size and extensions.
 - Only one active autopilot session is allowed per tenant at a time.
-- Social media auto-publishing is limited to platforms the account owner has connected (LinkedIn, X). Other platforms return adaptation text only.
+- Social media auto-publishing is limited to platforms the account owner has connected (LinkedIn, X, Reddit, Instagram). Other platforms return adaptation text only.
 - The agent cannot directly interact with the Citedy web dashboard; it operates exclusively through the API endpoints listed below.
 - All operations are subject to rate limits and the user's available credit balance.
 
@@ -247,7 +250,7 @@ Base URL: `https://www.citedy.com`
 
 ### Scout X/Twitter
 
-```
+```http
 POST /api/agent/scout/x
 {"query": "...", "mode": "fast|ultimate", "limit": 20}
 ```
@@ -256,7 +259,7 @@ POST /api/agent/scout/x
 
 ### Scout Reddit
 
-```
+```http
 POST /api/agent/scout/reddit
 {"subreddits": ["marketing", "SEO"], "query": "...", "limit": 20}
 ```
@@ -265,7 +268,7 @@ POST /api/agent/scout/reddit
 
 ### Get Content Gaps
 
-```
+```http
 GET /api/agent/gaps
 ```
 
@@ -273,7 +276,7 @@ GET /api/agent/gaps
 
 ### Generate Content Gaps
 
-```
+```http
 POST /api/agent/gaps/generate
 {"competitor_urls": ["https://competitor1.com", "https://competitor2.com"]}
 ```
@@ -282,7 +285,7 @@ POST /api/agent/gaps/generate
 
 ### Discover Competitors
 
-```
+```http
 POST /api/agent/competitors/discover
 {"keywords": ["ai content marketing", "automated blogging"]}
 ```
@@ -291,7 +294,7 @@ POST /api/agent/competitors/discover
 
 ### Analyze Competitor
 
-```
+```http
 POST /api/agent/competitors/scout
 {"domain": "https://competitor.com", "mode": "fast|ultimate"}
 ```
@@ -300,13 +303,16 @@ POST /api/agent/competitors/scout
 
 ### Generate Article (Autopilot)
 
-```
+```http
 POST /api/agent/autopilot
 {
   "topic": "How to Use AI for Content Marketing",
   "source_urls": ["https://example.com/article"],
   "language": "en",
   "size": "standard",
+  "mode": "standard",
+  "enable_search": false,
+  "persona": "tech-writer",
   "illustrations": true,
   "audio": true,
   "disable_competition": false
@@ -320,9 +326,12 @@ POST /api/agent/autopilot
 - `topic` — article topic (string, max 500 chars)
 - `source_urls` — array of 1-3 URLs to extract text from and use as source material (2 credits per URL)
 - `size` — `mini` (~500w), `standard` (~1000w, default), `full` (~1500w), `pillar` (~2500w)
+- `mode` — `standard` (default, full pipeline) or `turbo` (ultra-cheap micro-articles, see below)
+- `enable_search` (bool, default false) — enable web + X/Twitter search for fresh facts (turbo mode only)
+- `persona` — persona identifier for brand voice (string, max 100 chars)
 - `language` — ISO code, default `"en"`
-- `illustrations` (bool, default false) — AI-generated images injected into article
-- `audio` (bool, default false) — AI voice-over narration
+- `illustrations` (bool, default false) — AI-generated images injected into article (disabled in turbo mode)
+- `audio` (bool, default false) — AI voice-over narration (disabled in turbo mode)
 - `disable_competition` (bool, default false) — skip SEO competition analysis, saves 8 credits
 
 When `source_urls` is provided, the response includes `extraction_results` showing success/failure per URL.
@@ -333,7 +342,61 @@ The response includes `article_url` — always use this URL when sharing the art
 
 Async — poll `GET /api/agent/autopilot/{id}`
 
-### Extension Costs
+### Turbo & Turbo+ Modes
+
+Ultra-cheap micro-article generation — 2-4 credits instead of 15-48. Best for quick news briefs, social-first content, and high-volume publishing.
+
+**Turbo** (2 credits) — fast generation, no web search:
+
+```http
+POST /api/agent/autopilot
+{
+  "topic": "Latest AI Search Trends",
+  "mode": "turbo",
+  "language": "en"
+}
+```
+
+**Turbo+** (4 credits) — adds fresh facts from web search & X/Twitter (10-25s):
+
+```http
+POST /api/agent/autopilot
+{
+  "topic": "Latest AI Search Trends",
+  "mode": "turbo",
+  "enable_search": true,
+  "language": "en"
+}
+```
+
+**What Turbo/Turbo+ does differently vs Standard:**
+
+- Skips DataForSEO and competition intelligence
+- No content chunking — single-pass generation
+- Uses the cheapest AI provider (Cerebras Qwen 3 235B)
+- Brand context included (tone, POV, specialization)
+- Max ~800 words
+- Internal links still included (free)
+- No illustrations or audio support
+
+**Pricing:**
+
+| Mode   | Search | Credits | Est. Cost | Speed  |
+| ------ | ------ | ------- | --------- | ------ |
+| Turbo  | No     | 2       | $0.02     | 5-15s  |
+| Turbo+ | Yes    | 4       | $0.04     | 10-25s |
+
+Compare with standard mode: mini=15, standard=20, full=33, pillar=48 credits.
+
+**When to use Turbo/Turbo+:**
+
+- High-volume content: publish 50+ articles/day at minimal cost
+- News briefs and quick updates (Turbo+ for data-backed content)
+- Social-first content where SEO is secondary
+- Testing and prototyping content strategies
+- Budget-conscious agents
+
+### Extension Costs (Standard Mode)
 
 | Extension                   | Mini   | Standard | Full   | Pillar  |
 | --------------------------- | ------ | -------- | ------ | ------- |
@@ -347,7 +410,7 @@ Without extensions: same as before (mini=15, standard=20, full=33, pillar=48 cre
 
 ### Create Social Adaptations
 
-```
+```http
 POST /api/agent/adapt
 {
   "article_id": "uuid-of-article",
@@ -366,7 +429,7 @@ POST /api/agent/adapt
 
 ~5 credits per platform (varies by article length). Max 3 platforms per request.
 
-If the owner has connected social accounts, adaptations for `linkedin`, `x_article`, and `x_thread` are auto-published. The response includes `platform_post_id` for published posts.
+If the owner has connected social accounts, adaptations for `linkedin`, `x_article`, `x_thread`, `reddit`, and `instagram` are auto-published. The response includes `platform_post_id` for published posts.
 
 Response:
 
@@ -389,7 +452,7 @@ Response:
 
 ### Create Autopilot Session
 
-```
+```http
 POST /api/agent/session
 {
   "categories": ["AI marketing", "SEO tools"],
@@ -430,9 +493,58 @@ Response:
 
 Returns `409 Conflict` with `existing_session_id` if a session is already running.
 
+### Lead Magnets
+
+Generate PDF lead magnets (checklists, swipe files, frameworks) for lead capture.
+
+**Generate:**
+
+```http
+POST /api/agent/lead-magnets
+{
+  "topic": "10-Step SEO Audit Checklist",
+  "type": "checklist",           // checklist | swipe_file | framework
+  "niche": "digital_marketing",  // optional
+  "language": "en",              // en|pt|de|es|fr|it (default: en)
+  "platform": "linkedin",        // twitter|linkedin (default: twitter)
+  "generate_images": false,       // true = 100 credits, false = 30 credits
+  "auto_publish": false           // hint for agent workflow
+}
+```
+
+- 30 credits (text-only) or 100 credits (with images)
+- Returns immediately with `{ id, status: "generating" }`
+- Rate: 10/hour per agent
+
+**Check Status:**
+
+```http
+GET /api/agent/lead-magnets/{id}
+```
+
+- 0 credits. Poll until `status` changes from `"generating"` to `"draft"`.
+- When done, response includes `title`, `type`, `pdf_url`.
+
+**Publish:**
+
+```http
+PATCH /api/agent/lead-magnets/{id}
+{ "status": "published" }
+```
+
+- 0 credits. Generates a unique slug and returns `public_url`.
+- Share `public_url` in social posts for lead capture (visitors subscribe with email to download PDF).
+
+**Workflow:**
+
+1. `POST /api/agent/lead-magnets` → get `id`
+2. Poll `GET /api/agent/lead-magnets/{id}` every 10s until `status != "generating"`
+3. `PATCH /api/agent/lead-magnets/{id}` with `{ "status": "published" }`
+4. Share `public_url` in a social post
+
 ### List Articles
 
-```
+```http
 GET /api/agent/articles
 ```
 
@@ -440,7 +552,7 @@ GET /api/agent/articles
 
 ### Check Status / Heartbeat
 
-```
+```http
 GET /api/agent/me
 ```
 
@@ -459,7 +571,9 @@ Response includes:
   "connected_platforms": [
     { "platform": "linkedin", "connected": true, "account_name": "John Doe" },
     { "platform": "x", "connected": false, "account_name": null },
-    { "platform": "facebook", "connected": false, "account_name": null }
+    { "platform": "facebook", "connected": false, "account_name": null },
+    { "platform": "reddit", "connected": false, "account_name": null },
+    { "platform": "instagram", "connected": false, "account_name": null }
   ]
 }
 ```
@@ -481,11 +595,14 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | `/api/agent/gaps-status/{id}`     | GET    | free                                 |
 | `/api/agent/competitors/discover` | POST   | 20 credits                           |
 | `/api/agent/competitors/scout`    | POST   | 25-50 credits                        |
-| `/api/agent/autopilot`            | POST   | 7-139 credits                        |
+| `/api/agent/autopilot`            | POST   | 2-139 credits                        |
 | `/api/agent/autopilot/{id}`       | GET    | free                                 |
 | `/api/agent/adapt`                | POST   | ~5 credits/platform                  |
 | `/api/agent/session`              | POST   | free (articles billed on generation) |
 | `/api/agent/articles`             | GET    | free                                 |
+| `/api/agent/lead-magnets`         | POST   | 30-100 credits                       |
+| `/api/agent/lead-magnets/{id}`    | GET    | free                                 |
+| `/api/agent/lead-magnets/{id}`    | PATCH  | free                                 |
 
 **1 credit = $0.01 USD**
 
@@ -498,6 +615,7 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | General      | 60 req/min | per agent               |
 | Scout        | 10 req/hr  | X + Reddit combined     |
 | Gaps         | 10 req/hr  | get + generate combined |
+| Lead Magnets | 10 req/hr  | per agent               |
 | Registration | 10 req/hr  | per IP                  |
 
 On `429`, read `retry_after` from the body and `X-RateLimit-Reset` header.
@@ -544,5 +662,5 @@ Call `GET /api/agent/me` every 4 hours as a keep-alive. This updates `last_activ
 
 ---
 
-_Citedy SEO Agent Skill v2.3.0_
+_Citedy SEO Agent Skill v2.4.0_
 _https://www.citedy.com_
