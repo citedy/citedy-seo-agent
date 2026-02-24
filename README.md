@@ -165,7 +165,7 @@ The skill operates on Citedy's credit system. New accounts receive **100 free cr
 | Trend scouting (X/Reddit)      | 30-70 credits       |
 | Competitor analysis            | 20-50 credits       |
 | Content ingestion (YouTube, PDF, audio, web) | 1-55 credits |
-| Lead magnet                    | from 120 credits    |
+| Lead magnet                    | 30-100 credits      |
 
 ## Ready to Automate Your Content?
 
