@@ -1,6 +1,6 @@
 # Citedy SEO Agent: Your AI-Powered Content Marketing Team
 
-> **citedy-seo-agent** is an Agent Skill that connects your AI agent to the Citedy platform, transforming it into a complete SEO content marketing team. From trend scouting and competitor analysis to generating high-quality, multilingual articles with AI-powered illustrations and voice-overs — this skill automates your entire content workflow.
+> **citedy-seo-agent** is an Agent Skill that connects your AI agent to the Citedy platform, transforming it into a complete SEO content marketing team. From trend scouting and competitor analysis to generating high-quality, multilingual articles with AI-powered illustrations and voice-overs, ingesting YouTube videos, PDFs, and audio into structured content, to generating lead magnets — this skill automates your entire content workflow.
 
 ## Effortless SEO Content Creation. At Scale.
 
@@ -16,6 +16,8 @@ The Citedy SEO Agent is designed for developers, marketers, and AI enthusiasts w
 | **Article Generation**      | Generate SEO-optimized articles in 55 languages, from mini-articles to pillar posts.                              |
 | **AI-Powered Enhancements** | Add AI-generated illustrations and voice-over narration to your articles.                                         |
 | **Social Media Adaptation** | Adapt articles into platform-specific posts for X, LinkedIn, Facebook, Reddit, Threads, and Instagram.            |
+| **Content Ingestion**       | Extract content from YouTube videos, web articles, PDFs, and audio files into structured summaries.               |
+| **Lead Magnets**            | Generate checklists, swipe files, and frameworks for lead capture — from 120 credits.                             |
 | **Content Automation**      | Set up cron-based sessions to generate and publish articles on a recurring schedule.                              |
 
 ## Who Is This For?
@@ -162,6 +164,8 @@ The skill operates on Citedy's credit system. New accounts receive **100 free cr
 | Social media adaptation        | ~5 credits/platform |
 | Trend scouting (X/Reddit)      | 30-70 credits       |
 | Competitor analysis            | 20-50 credits       |
+| Content ingestion (YouTube, PDF, audio, web) | 1-55 credits |
+| Lead magnet                    | from 120 credits    |
 
 ## Ready to Automate Your Content?
 

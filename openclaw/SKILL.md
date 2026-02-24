@@ -6,10 +6,10 @@ description: >
   SEO- and GEO-optimized articles with AI illustrations and voice-over in 55
   languages, create social media adaptations for X, LinkedIn, Facebook, Reddit,
   Threads, Instagram, and Shopify, generate lead magnets (checklists, swipe files,
-  frameworks), ingest any URL (YouTube, web articles, PDFs, audio files)
-  into structured content, ultra-cheap turbo articles from 2 credits, and
-  run fully automated content autopilot. Powered by Citedy.
-version: "2.4.2"
+  frameworks), ingest any URL (YouTube videos, web articles, PDFs, audio files) into structured
+  content, ultra-cheap turbo articles from 2 credits, and run fully
+  automated content autopilot. Powered by Citedy.
+version: "2.5.0"
 author: Citedy
 tags:
   - seo
@@ -23,6 +23,7 @@ tags:
   - content-strategy
   - automation
   - lead-magnets
+  - content-ingestion
 metadata:
   openclaw:
     requires:
@@ -61,7 +62,7 @@ Use this skill when the user asks to:
 - Generate articles from URLs (source_urls) — extract text from web pages and create original SEO articles
 - Create social media adaptations of articles for X, LinkedIn, Facebook, Reddit, Threads, Instagram
 - Set up automated content sessions (cron-based article generation)
-- Ingest any URL (YouTube, web articles, PDFs, audio files) into structured content
+- Ingest any URL (YouTube video, web article) into structured content with summary and metadata
 - Generate lead magnets (checklists, swipe files, frameworks) for lead capture
 - List published articles or check agent balance, status, and rate limits
 - Check which social platforms the owner has connected for auto-publishing
@@ -160,6 +161,14 @@ Automate content generation on a schedule:
 2. Periodically: `GET /api/agent/articles` — find new articles
 3. `POST /api/agent/adapt` for each new article
 
+### Ingest → Research → Article
+
+Extract content from any URL first, then use it for article creation:
+
+1. `POST /api/agent/ingest` with `{ "url": "https://youtube.com/watch?v=abc123" }` → get `id`
+2. Poll `GET /api/agent/ingest/{id}` every 10s until `status` is `"completed"`
+3. Use the extracted summary/content as research for `POST /api/agent/autopilot`
+
 ### Choosing the Right Path
 
 | User intent                   | Best path         | Why                                     |
@@ -168,6 +177,7 @@ Automate content generation on a schedule:
 | "Write about AI marketing"    | `topic`           | Direct topic, no scraping needed        |
 | "What's trending on X?"       | scout → autopilot | Discover topics first, then generate    |
 | "Find gaps vs competitor.com" | gaps → autopilot  | Data-driven content strategy            |
+| "Extract this YouTube video"  | `ingest`          | Get transcript + summary, no article    |
 | "Post 2 articles daily"       | session           | Set-and-forget automation               |
 
 ---
@@ -401,10 +411,10 @@ POST /api/agent/autopilot
 
 **Pricing:**
 
-| Mode   | Search | Credits | Est. Cost | Speed  |
-| ------ | ------ | ------- | --------- | ------ |
-| Turbo  | No     | 2       | $0.02     | 5-15s  |
-| Turbo+ | Yes    | 4       | $0.04     | 10-25s |
+| Mode   | Search | Credits | Speed  |
+| ------ | ------ | ------- | ------ |
+| Turbo  | No     | 2       | 5-15s  |
+| Turbo+ | Yes    | 4       | 10-25s |
 
 Compare with standard mode: mini=15, standard=20, full=33, pillar=48 credits.
 
@@ -709,6 +719,7 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | Scout        | 10 req/hr  | X + Reddit combined     |
 | Gaps         | 10 req/hr  | get + generate combined |
 | Lead Magnets | 10 req/hr  | per agent               |
+| Ingest       | 10 req/hr  | per tenant              |
 | Registration | 10 req/hr  | per IP                  |
 
 On `429`, read `retry_after` from the body and `X-RateLimit-Reset` header.
@@ -755,5 +766,5 @@ Call `GET /api/agent/me` every 4 hours as a keep-alive. This updates `last_activ
 
 ---
 
-_Citedy SEO Agent Skill v2.4.2_
+_Citedy SEO Agent Skill v2.5.0_
 _https://www.citedy.com_
