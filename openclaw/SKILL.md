@@ -1,12 +1,13 @@
 ---
-name: Citedy SEO Agent
+name: "AI Marketing Agent \u2014 SEO, Leads & Social"
 description: >
-  Give your AI agent SEO superpowers — scout X/Twitter and Reddit for trending
+  Full-stack AI marketing toolkit — scout X/Twitter and Reddit for trending
   topics, discover and deep-analyze competitors, find content gaps, publish
   SEO- and GEO-optimized articles with AI illustrations and voice-over in 55
   languages, create social media adaptations for X, LinkedIn, Facebook, Reddit,
   Threads, and Instagram, generate lead magnets (checklists, swipe files,
-  frameworks), and run fully automated cron-based content sessions.
+  frameworks), ultra-cheap turbo articles from 2 credits, and run fully
+  automated cron-based content sessions. Powered by Citedy.
 version: "2.4.0"
 author: Citedy
 tags:
@@ -35,7 +36,7 @@ security_notes: |
   be revoked by the account owner at any time from the Citedy dashboard.
 ---
 
-# Citedy SEO Agent — Skill Instructions
+# AI Marketing Agent — Skill Instructions
 
 You are now connected to **Citedy**, an AI-powered SEO content platform.
 Base URL: `https://www.citedy.com`
