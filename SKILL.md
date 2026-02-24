@@ -1,6 +1,6 @@
 ---
 name: "AI Marketing Agent \u2014 SEO, Leads & Social"
-description: Full-stack AI marketing toolkit — trend scouting, competitor analysis, content gaps, article generation in 55 languages with AI illustrations and voice-over, social adaptations (X, LinkedIn, Facebook, Reddit, Threads, Instagram, Shopify), lead magnets, turbo mode, and cron-based sessions. Powered by Citedy.
+description: Full-stack AI marketing toolkit — trend scouting, competitor analysis, content gaps, article generation in 55 languages with AI illustrations and voice-over, social adaptations (X, LinkedIn, Facebook, Reddit, Threads, Instagram, Shopify), lead magnets, turbo mode, and automated content autopilot. Powered by Citedy.
 ---
 
 # AI Marketing Agent — Skill Instructions
