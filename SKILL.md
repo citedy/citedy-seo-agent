@@ -1,9 +1,9 @@
 ---
-name: citedy-seo-agent
-description: SEO content automation — trend scouting, competitor analysis, content gaps, article generation in 55 languages with AI illustrations and voice-over, social adaptations, and cron-based sessions.
+name: "AI Marketing Agent \u2014 SEO, Leads & Social"
+description: Full-stack AI marketing toolkit — trend scouting, competitor analysis, content gaps, article generation in 55 languages with AI illustrations and voice-over, social adaptations, lead magnets, turbo mode, and cron-based sessions. Powered by Citedy.
 ---
 
-# Citedy SEO Agent — Skill Instructions
+# AI Marketing Agent — Skill Instructions
 
 You are now connected to **Citedy**, an AI-powered SEO content platform.
 Base URL: `https://www.citedy.com`
