@@ -47,7 +47,7 @@
       "input_default": {
         "name": "Request JSON",
         "title": null,
-        "value": "{\n  \"source_urls\": [\n    \"https://example.com/ai-content-trends\"\n  ],\n  \"size\": \"mini\",\n  \"language\": \"en\",\n  \"illustrations\": false,\n  \"audio\": false\n}",
+        "value": "{\n  \"source_urls\": [\n    \"https://example.com/ai-content-trends\"\n  ],\n  \"size\": \"standard\",\n  \"mode\": \"standard\",\n  \"language\": \"en\",\n  \"persona\": null,\n  \"illustrations\": false,\n  \"audio\": false,\n  \"disable_competition\": false\n}",
         "secret": false,
         "advanced": false,
         "description": "JSON payload for this endpoint.",

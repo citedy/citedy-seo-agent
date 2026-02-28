@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "3.0.0",
   "base_url": "https://www.citedy.com",
   "auth": {
     "type": "bearer",
@@ -12,55 +12,141 @@
       "method": "POST",
       "path": "/api/agent/register",
       "description": "Register a new Citedy agent and get approval URL",
+      "cost": "free (public)",
       "payload_example": {
         "agent_name": "my_autogpt_agent"
       }
     },
     {
+      "id": "health",
+      "method": "GET",
+      "path": "/api/agent/health",
+      "description": "Public health check (no auth required)",
+      "cost": "free (public)"
+    },
+    {
       "id": "me",
       "method": "GET",
       "path": "/api/agent/me",
-      "description": "Get balance, limits, connected platforms, referral info"
+      "description": "Get balance, limits, connected platforms, referral info, blog URL",
+      "cost": "free"
     },
     {
-      "id": "scout_x",
+      "id": "rotate_key",
       "method": "POST",
-      "path": "/api/agent/scout/x",
-      "description": "Scout trends on X/Twitter",
+      "path": "/api/agent/rotate-key",
+      "description": "Rotate API key (old key invalidated immediately)",
+      "cost": "free (1/hour)"
+    },
+    {
+      "id": "settings_get",
+      "method": "GET",
+      "path": "/api/agent/settings",
+      "description": "Read agent settings (platforms, tone, trust level, scan sources)",
+      "cost": "free"
+    },
+    {
+      "id": "settings_update",
+      "method": "PUT",
+      "path": "/api/agent/settings",
+      "description": "Update agent settings (partial update)",
+      "cost": "free",
       "payload_example": {
-        "query": "AI content marketing",
-        "mode": "fast",
-        "limit": 5
+        "defaultPlatforms": ["linkedin", "x_article"],
+        "contentTone": "professional",
+        "imageStylePreset": "minimal",
+        "trustLevel": "show_preview",
+        "scanSources": ["x", "google"],
+        "targetTimezone": "America/New_York",
+        "publishSchedule": {"postsPerDay": 2, "slots": ["09:00", "17:00"]}
       }
     },
     {
-      "id": "scout_reddit",
-      "method": "POST",
-      "path": "/api/agent/scout/reddit",
-      "description": "Scout trends on Reddit",
+      "id": "image_style",
+      "method": "PUT",
+      "path": "/api/agent/image-style",
+      "description": "Set illustration style preset (minimal, tech, bold)",
+      "cost": "free",
       "payload_example": {
-        "subreddits": ["marketing", "seo"],
-        "query": "AI content marketing",
-        "limit": 5
+        "preset": "minimal"
+      }
+    },
+    {
+      "id": "personas",
+      "method": "GET",
+      "path": "/api/agent/personas",
+      "description": "List 25 writing personas (slug, name, group, description)",
+      "cost": "free"
+    },
+    {
+      "id": "articles",
+      "method": "GET",
+      "path": "/api/agent/articles",
+      "description": "List generated/published articles",
+      "cost": "free",
+      "query_params": ["limit", "offset", "status"]
+    },
+    {
+      "id": "scan",
+      "method": "POST",
+      "path": "/api/agent/scan",
+      "description": "Fast trend scan across X, web, HackerNews, Reddit",
+      "cost": "2-8 credits (by mode)",
+      "payload_example": {
+        "query": "AI content marketing trends",
+        "mode": "deep",
+        "limit": 10
+      }
+    },
+    {
+      "id": "post",
+      "method": "POST",
+      "path": "/api/agent/post",
+      "description": "Create micro social post from topic",
+      "cost": "free (2cr balance check)",
+      "payload_example": {
+        "topic": "AI agents are the future of marketing",
+        "platforms": ["linkedin", "x_thread"],
+        "tone": "casual",
+        "contentType": "short"
+      }
+    },
+    {
+      "id": "publish",
+      "method": "POST",
+      "path": "/api/agent/publish",
+      "description": "Publish or schedule a social adaptation",
+      "cost": "free",
+      "payload_example": {
+        "adaptationId": "uuid",
+        "action": "now",
+        "platform": "linkedin",
+        "accountId": "uuid"
       }
     },
     {
       "id": "autopilot",
       "method": "POST",
       "path": "/api/agent/autopilot",
-      "description": "Generate article by topic or source_urls"
-    },
-    {
-      "id": "autopilot_status",
-      "method": "GET",
-      "path": "/api/agent/autopilot/{job_id}",
-      "description": "Poll autopilot job status"
+      "description": "Generate article by topic or source_urls (standard or turbo mode)",
+      "cost": "2-139 credits",
+      "payload_example": {
+        "topic": "AI content marketing trends 2026",
+        "size": "standard",
+        "mode": "standard",
+        "language": "en",
+        "persona": null,
+        "illustrations": false,
+        "audio": false,
+        "disable_competition": false
+      }
     },
     {
       "id": "adapt",
       "method": "POST",
       "path": "/api/agent/adapt",
-      "description": "Adapt article to social platforms",
+      "description": "Adapt article to social platforms (max 3 per request)",
+      "cost": "~5 credits/platform",
       "payload_example": {
         "article_id": "<article_id>",
         "platforms": ["linkedin", "x_thread"],
@@ -71,52 +157,347 @@
       "id": "session",
       "method": "POST",
       "path": "/api/agent/session",
-      "description": "Create recurring automated content session"
+      "description": "Create recurring automated content session",
+      "cost": "free (articles billed on generation)",
+      "payload_example": {
+        "categories": ["AI marketing", "SEO tools"],
+        "languages": ["en"],
+        "interval_minutes": 720,
+        "article_size": "mini"
+      }
     },
     {
-      "id": "articles",
+      "id": "schedule",
       "method": "GET",
-      "path": "/api/agent/articles",
-      "description": "List generated/published articles"
+      "path": "/api/agent/schedule",
+      "description": "View content timeline",
+      "cost": "free",
+      "query_params": ["from", "to", "type"]
+    },
+    {
+      "id": "schedule_gaps",
+      "method": "GET",
+      "path": "/api/agent/schedule/gaps",
+      "description": "Find schedule gaps (days with fewer posts than target)",
+      "cost": "free",
+      "query_params": ["days", "timezone"]
+    },
+    {
+      "id": "schedule_suggest",
+      "method": "GET",
+      "path": "/api/agent/schedule/suggest",
+      "description": "Get optimal time slot recommendations",
+      "cost": "free"
+    },
+    {
+      "id": "scout_x",
+      "method": "POST",
+      "path": "/api/agent/scout/x",
+      "description": "Scout trends on X/Twitter (async, poll with scout_x_status)",
+      "cost": "35-70 credits",
+      "payload_example": {
+        "query": "AI content marketing",
+        "mode": "fast",
+        "limit": 20
+      }
+    },
+    {
+      "id": "scout_x_status",
+      "method": "GET",
+      "path": "/api/agent/scout/x/{run_id}",
+      "description": "Poll X scout run status",
+      "cost": "free"
+    },
+    {
+      "id": "scout_reddit",
+      "method": "POST",
+      "path": "/api/agent/scout/reddit",
+      "description": "Scout trends on Reddit (async, poll with scout_reddit_status)",
+      "cost": "30 credits",
+      "payload_example": {
+        "subreddits": ["marketing", "seo"],
+        "query": "AI content marketing",
+        "limit": 20
+      }
+    },
+    {
+      "id": "scout_reddit_status",
+      "method": "GET",
+      "path": "/api/agent/scout/reddit/{run_id}",
+      "description": "Poll Reddit scout run status",
+      "cost": "free"
+    },
+    {
+      "id": "gaps_get",
+      "method": "GET",
+      "path": "/api/agent/gaps",
+      "description": "Get existing content gaps",
+      "cost": "free"
     },
     {
       "id": "gaps_generate",
       "method": "POST",
       "path": "/api/agent/gaps/generate",
-      "description": "Generate competitor content gaps"
+      "description": "Generate competitor content gaps",
+      "cost": "40 credits",
+      "payload_example": {
+        "competitor_urls": ["https://competitor1.com", "https://competitor2.com"]
+      }
     },
     {
-      "id": "gaps_status",
+      "id": "competitors_discover",
+      "method": "POST",
+      "path": "/api/agent/competitors/discover",
+      "description": "Discover competitors by keywords",
+      "cost": "20 credits",
+      "payload_example": {
+        "keywords": ["ai content marketing", "automated blogging"]
+      }
+    },
+    {
+      "id": "competitors_scout",
+      "method": "POST",
+      "path": "/api/agent/competitors/scout",
+      "description": "Deep-analyze a competitor domain",
+      "cost": "25-50 credits",
+      "payload_example": {
+        "domain": "https://competitor.com",
+        "mode": "fast"
+      }
+    },
+    {
+      "id": "products_upload",
+      "method": "POST",
+      "path": "/api/agent/products",
+      "description": "Upload product document for context-aware content",
+      "cost": "1 credit",
+      "payload_example": {
+        "title": "Our AI Writing Platform",
+        "content": "Product description...",
+        "source_type": "manual"
+      }
+    },
+    {
+      "id": "products_list",
       "method": "GET",
-      "path": "/api/agent/gaps-status/{job_id}",
-      "description": "Poll gap generation status"
+      "path": "/api/agent/products",
+      "description": "List product knowledge documents",
+      "cost": "free"
+    },
+    {
+      "id": "products_delete",
+      "method": "DELETE",
+      "path": "/api/agent/products/{id}",
+      "description": "Delete product document",
+      "cost": "free"
+    },
+    {
+      "id": "products_search",
+      "method": "POST",
+      "path": "/api/agent/products/search",
+      "description": "Vector similarity search over product knowledge",
+      "cost": "free",
+      "payload_example": {
+        "query": "AI writing features",
+        "limit": 5
+      }
+    },
+    {
+      "id": "ingest",
+      "method": "POST",
+      "path": "/api/agent/ingest",
+      "description": "Ingest URL (YouTube, article, PDF, audio) into structured content",
+      "cost": "1-55 credits",
+      "payload_example": {
+        "url": "https://youtube.com/watch?v=abc123"
+      }
+    },
+    {
+      "id": "ingest_list",
+      "method": "GET",
+      "path": "/api/agent/ingest",
+      "description": "List ingestion jobs",
+      "cost": "free",
+      "query_params": ["limit", "offset", "status"]
+    },
+    {
+      "id": "ingest_status",
+      "method": "GET",
+      "path": "/api/agent/ingest/{id}",
+      "description": "Poll ingestion job status",
+      "cost": "free"
+    },
+    {
+      "id": "ingest_content",
+      "method": "GET",
+      "path": "/api/agent/ingest/{id}/content",
+      "description": "Get full extracted text from ingestion",
+      "cost": "free"
+    },
+    {
+      "id": "ingest_batch",
+      "method": "POST",
+      "path": "/api/agent/ingest/batch",
+      "description": "Batch ingest up to 20 URLs",
+      "cost": "1-55 credits per URL",
+      "payload_example": {
+        "urls": ["https://example.com/article1", "https://example.com/article2"],
+        "callback_url": "https://your-server.com/webhook"
+      }
+    },
+    {
+      "id": "lead_magnets_create",
+      "method": "POST",
+      "path": "/api/agent/lead-magnets",
+      "description": "Generate PDF lead magnet (checklist, swipe file, framework)",
+      "cost": "30-100 credits",
+      "payload_example": {
+        "topic": "10-Step SEO Audit Checklist",
+        "type": "checklist",
+        "language": "en",
+        "generate_images": false
+      }
+    },
+    {
+      "id": "lead_magnets_status",
+      "method": "GET",
+      "path": "/api/agent/lead-magnets/{id}",
+      "description": "Poll lead magnet generation status",
+      "cost": "free"
+    },
+    {
+      "id": "lead_magnets_publish",
+      "method": "PATCH",
+      "path": "/api/agent/lead-magnets/{id}",
+      "description": "Publish lead magnet (generates public_url)",
+      "cost": "free",
+      "payload_example": {
+        "status": "published"
+      }
+    },
+    {
+      "id": "shorts_script",
+      "method": "POST",
+      "path": "/api/agent/shorts/script",
+      "description": "Generate speech script for short-form video",
+      "cost": "1 credit",
+      "payload_example": {
+        "topic": "AI personas let you write as Elon Musk",
+        "duration": "short",
+        "style": "hook",
+        "language": "en"
+      }
+    },
+    {
+      "id": "shorts_avatar",
+      "method": "POST",
+      "path": "/api/agent/shorts/avatar",
+      "description": "Generate AI avatar image for video",
+      "cost": "3 credits",
+      "payload_example": {
+        "gender": "female",
+        "origin": "latin",
+        "age_range": "26-35",
+        "type": "tech_founder",
+        "location": "coffee_shop"
+      }
+    },
+    {
+      "id": "shorts_video",
+      "method": "POST",
+      "path": "/api/agent/shorts",
+      "description": "Generate AI avatar video segment (async)",
+      "cost": "60-185 credits (by duration)",
+      "payload_example": {
+        "prompt": "Close-up portrait 9:16, woman in coffee shop...",
+        "avatar_url": "https://download.citedy.com/agent/avatars/...",
+        "duration": 10,
+        "speech_text": "AI is changing content marketing."
+      }
+    },
+    {
+      "id": "shorts_status",
+      "method": "GET",
+      "path": "/api/agent/shorts/{id}",
+      "description": "Poll video generation status",
+      "cost": "free"
+    },
+    {
+      "id": "shorts_merge",
+      "method": "POST",
+      "path": "/api/agent/shorts/merge",
+      "description": "Merge video segments with subtitles",
+      "cost": "5 credits",
+      "payload_example": {
+        "video_urls": ["https://download.citedy.com/...1.mp4", "https://download.citedy.com/...2.mp4"],
+        "phrases": [{"text": "First part"}, {"text": "Second part"}]
+      }
+    },
+    {
+      "id": "webhooks_create",
+      "method": "POST",
+      "path": "/api/agent/webhooks",
+      "description": "Register webhook endpoint (max 10 per agent)",
+      "cost": "free",
+      "payload_example": {
+        "url": "https://your-server.com/webhooks/citedy",
+        "event_types": ["article.generated", "ingestion.completed"],
+        "description": "Production webhook"
+      }
+    },
+    {
+      "id": "webhooks_list",
+      "method": "GET",
+      "path": "/api/agent/webhooks",
+      "description": "List webhook endpoints",
+      "cost": "free"
+    },
+    {
+      "id": "webhooks_delete",
+      "method": "DELETE",
+      "path": "/api/agent/webhooks/{id}",
+      "description": "Delete webhook endpoint",
+      "cost": "free"
+    },
+    {
+      "id": "webhooks_deliveries",
+      "method": "GET",
+      "path": "/api/agent/webhooks/deliveries",
+      "description": "View webhook delivery history",
+      "cost": "free",
+      "query_params": ["status", "limit", "offset"]
     }
   ],
   "agent_templates": [
     {
       "id": "topic_to_publish",
       "file": "./agents/citedy-topic-to-publish.agent.json",
-      "description": "Generate article from topic via autopilot"
+      "description": "Generate article from topic (standard mode, 15-48 credits)"
     },
     {
       "id": "url_to_publish",
       "file": "./agents/citedy-url-to-publish.agent.json",
-      "description": "Generate article from source URLs via autopilot"
+      "description": "Generate article from source URLs (standard mode)"
+    },
+    {
+      "id": "turbo_article",
+      "file": "./agents/citedy-turbo-article.agent.json",
+      "description": "Generate ultra-cheap turbo article (2-4 credits)"
     },
     {
       "id": "trend_to_publish",
       "file": "./agents/citedy-trend-to-publish.agent.json",
-      "description": "Scout trends on X"
+      "description": "Scout trends on X/Twitter (async)"
     },
     {
       "id": "reddit_to_publish",
       "file": "./agents/citedy-reddit-to-publish.agent.json",
-      "description": "Scout trends on Reddit"
+      "description": "Scout trends on Reddit (async)"
     },
     {
       "id": "gap_to_publish",
       "file": "./agents/citedy-gap-to-publish.agent.json",
-      "description": "Generate content gaps"
+      "description": "Generate competitor content gaps"
     },
     {
       "id": "session_manager",
@@ -127,6 +508,61 @@
       "id": "scout_to_publish",
       "file": "./agents/citedy-scout-to-publish.agent.json",
       "description": "Extended scout preset for topic pipeline"
+    },
+    {
+      "id": "scan",
+      "file": "./agents/citedy-scan.agent.json",
+      "description": "Fast trend scan across X, web, HN, Reddit (2-8 credits)"
+    },
+    {
+      "id": "micro_post",
+      "file": "./agents/citedy-micro-post.agent.json",
+      "description": "Create micro social post from topic"
+    },
+    {
+      "id": "ingest",
+      "file": "./agents/citedy-ingest.agent.json",
+      "description": "Ingest URL into structured content (1-55 credits)"
+    },
+    {
+      "id": "lead_magnet",
+      "file": "./agents/citedy-lead-magnet.agent.json",
+      "description": "Generate PDF lead magnet (30-100 credits)"
+    },
+    {
+      "id": "shorts_script",
+      "file": "./agents/citedy-shorts-script.agent.json",
+      "description": "Generate speech script for short-form video (1 credit)"
+    },
+    {
+      "id": "shorts_avatar",
+      "file": "./agents/citedy-shorts-avatar.agent.json",
+      "description": "Generate AI avatar image (3 credits)"
+    },
+    {
+      "id": "shorts_video",
+      "file": "./agents/citedy-shorts-video.agent.json",
+      "description": "Generate AI avatar video segment (60-185 credits)"
+    },
+    {
+      "id": "shorts_merge",
+      "file": "./agents/citedy-shorts-merge.agent.json",
+      "description": "Merge video segments with subtitles (5 credits)"
+    },
+    {
+      "id": "publish",
+      "file": "./agents/citedy-publish.agent.json",
+      "description": "Publish or schedule social adaptation"
+    },
+    {
+      "id": "webhook_register",
+      "file": "./agents/citedy-webhook-register.agent.json",
+      "description": "Register webhook endpoint for events"
+    },
+    {
+      "id": "product_upload",
+      "file": "./agents/citedy-product-upload.agent.json",
+      "description": "Upload product knowledge document (1 credit)"
     }
   ]
 }
