@@ -5,7 +5,7 @@ description: >
   topics, discover and deep-analyze competitors, find content gaps, publish
   SEO- and GEO-optimized articles with AI illustrations and voice-over in 55
   languages, create social media adaptations for X, LinkedIn, Facebook, Reddit,
-  Threads, Instagram, and Shopify, generate lead magnets (checklists, swipe files,
+  Threads, Instagram, Instagram Reels, YouTube Shorts, and Shopify, generate lead magnets (checklists, swipe files,
   frameworks), ingest any URL (YouTube videos, web articles, PDFs, audio files) into structured
   content, ultra-cheap turbo articles from 2 credits, generate short-form
   AI avatar videos with subtitles, and run fully automated content autopilot.
@@ -48,7 +48,7 @@ Base URL: `https://www.citedy.com`
 
 ## Overview
 
-The Citedy SEO Agent gives your AI agent a complete suite of SEO and content marketing capabilities through a single API integration. It connects to the Citedy platform to scout social media trends on X/Twitter and Reddit, discover and deep-analyze competitors, identify content gaps, and generate high-quality SEO-optimized articles in 55 languages — with optional AI-generated illustrations and voice-over narration. Articles can be adapted into platform-specific social media posts for X, LinkedIn, Facebook, Reddit, Threads, Instagram, and Shopify, with auto-publishing to connected accounts. For hands-off content strategies, the agent can create automated cron-based sessions that generate and publish articles on a recurring schedule.
+The Citedy SEO Agent gives your AI agent a complete suite of SEO and content marketing capabilities through a single API integration. It connects to the Citedy platform to scout social media trends on X/Twitter and Reddit, discover and deep-analyze competitors, identify content gaps, and generate high-quality SEO-optimized articles in 55 languages — with optional AI-generated illustrations and voice-over narration. Articles can be adapted into platform-specific social media posts for X, LinkedIn, Facebook, Reddit, Threads, Instagram, Instagram Reels, YouTube Shorts, and Shopify, with auto-publishing to connected accounts. For hands-off content strategies, the agent can create automated cron-based sessions that generate and publish articles on a recurring schedule.
 
 ---
 
@@ -61,11 +61,13 @@ Use this skill when the user asks to:
 - Find content gaps vs competitors
 - Generate SEO- and GEO-optimized articles — mini to pillar size, with optional AI illustrations and voice-over in 55 languages
 - Generate articles from URLs (source_urls) — extract text from web pages and create original SEO articles
-- Create social media adaptations of articles for X, LinkedIn, Facebook, Reddit, Threads, Instagram
+- Create social media adaptations of articles for X, LinkedIn, Facebook, Reddit, Threads, Instagram, Instagram Reels, YouTube Shorts
 - Set up automated content sessions (cron-based article generation)
 - Generate lead magnets (checklists, swipe files, frameworks) for lead capture
 - Ingest any URL (YouTube video, web article) into structured content with summary and metadata
 - Generate short-form AI avatar videos with subtitles (script, avatar, video, merge)
+- Register webhook endpoints to receive real-time event notifications (article published, ingestion complete, etc.)
+- List or delete webhook endpoints, view webhook delivery history
 - List published articles or check agent balance, status, and rate limits
 - Check which social platforms the owner has connected for auto-publishing
 - Set up a Citedy agent connection
@@ -457,7 +459,7 @@ POST /api/agent/adapt
 
 **Required:** `article_id` (UUID), `platforms` (1-3 unique values)
 
-**Platforms:** `x_article`, `x_thread`, `linkedin`, `facebook`, `reddit`, `threads`, `instagram`, `instagram_reels`
+**Platforms:** `x_article`, `x_thread`, `linkedin`, `facebook`, `reddit`, `threads`, `instagram`, `instagram_reels`, `youtube_shorts`
 
 **Optional:**
 
@@ -465,7 +467,7 @@ POST /api/agent/adapt
 
 ~5 credits per platform (varies by article length). Max 3 platforms per request.
 
-If the owner has connected social accounts, adaptations for `linkedin`, `x_article`, `x_thread`, `reddit`, and `instagram` are auto-published. The response includes `platform_post_id` for published posts.
+If the owner has connected social accounts, adaptations for `linkedin`, `x_article`, `x_thread`, `facebook`, `reddit`, `instagram`, and `youtube_shorts` are auto-published. The response includes `platform_post_id` for published posts.
 
 Response:
 
@@ -759,15 +761,15 @@ POST /api/agent/shorts/merge
 
 **Pricing:**
 
-| Step                | Credits |
-| ------------------- | ------- |
-| Script              | 1       |
-| Avatar              | 3       |
-| Video (5s)          | 60      |
-| Video (10s)         | 130     |
-| Video (15s)         | 185     |
-| Merge + subtitles   | 5       |
-| **Full 10s video**  | **139** |
+| Step               | Credits |
+| ------------------ | ------- |
+| Script             | 1       |
+| Avatar             | 3       |
+| Video (5s)         | 60      |
+| Video (10s)        | 130     |
+| Video (15s)        | 185     |
+| Merge + subtitles  | 5       |
+| **Full 10s video** | **139** |
 
 ### Trend Scan
 
@@ -801,7 +803,7 @@ POST /api/agent/post
 
 - 0 credits billed (2cr balance check required)
 - `topic` — required, max 500 chars
-- `platforms` — optional, from settings default. Values: `linkedin`, `x_article`, `x_thread`, `facebook`, `reddit`, `threads`, `instagram`, `instagram_reels`
+- `platforms` — optional, from settings default. Values: `linkedin`, `x_article`, `x_thread`, `facebook`, `reddit`, `threads`, `instagram`, `instagram_reels`, `youtube_shorts`
 - `tone` — optional, from settings default
 - `contentType` — `short` (default) | `detailed`
 - `scheduledAt` — optional ISO datetime (must be future)
