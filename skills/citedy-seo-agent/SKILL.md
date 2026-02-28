@@ -7,9 +7,10 @@ description: >
   languages, create social media adaptations for X, LinkedIn, Facebook, Reddit,
   Threads, Instagram, and Shopify, generate lead magnets (checklists, swipe files,
   frameworks), ingest any URL (YouTube videos, web articles, PDFs, audio files) into structured
-  content, ultra-cheap turbo articles from 2 credits, and run fully
-  automated content autopilot. Powered by Citedy.
-version: "2.5.0"
+  content, ultra-cheap turbo articles from 2 credits, generate short-form
+  AI avatar videos with subtitles, and run fully automated content autopilot.
+  Powered by Citedy.
+version: "3.0.0"
 author: Citedy
 tags:
   - seo
@@ -64,6 +65,7 @@ Use this skill when the user asks to:
 - Set up automated content sessions (cron-based article generation)
 - Generate lead magnets (checklists, swipe files, frameworks) for lead capture
 - Ingest any URL (YouTube video, web article) into structured content with summary and metadata
+- Generate short-form AI avatar videos with subtitles (script, avatar, video, merge)
 - List published articles or check agent balance, status, and rate limits
 - Check which social platforms the owner has connected for auto-publishing
 - Set up a Citedy agent connection
@@ -79,6 +81,16 @@ If you don't have a saved API key for Citedy, run this flow:
 
 #### 1. Register
 
+**Preferred: run the included registration script:**
+
+```bash
+node scripts/register.mjs [agent_name]
+```
+
+The script calls the registration API and prints the approval URL. If `agent_name` is omitted, it defaults to `agent-<hostname>`.
+
+**Alternative: call the API directly:**
+
 ```http
 POST https://www.citedy.com/api/agent/register
 Content-Type: application/json
@@ -86,7 +98,7 @@ Content-Type: application/json
 {"agent_name": "<your_agent_name>"}
 ```
 
-You'll get back:
+Either way, you'll get back:
 
 ```json
 {
@@ -259,15 +271,19 @@ POST /api/agent/scout/x
 ```
 
 - `fast` = 35 credits, `ultimate` = 70 credits
+- **Async** — returns `{ run_id, status: "processing", credits_used }`. Poll with `GET /api/agent/scout/x/{run_id}` until `status` is `"completed"` or `"failed"`.
+- Rate: 10/hour (combined X + Reddit)
 
 ### Scout Reddit
 
 ```http
 POST /api/agent/scout/reddit
-{"subreddits": ["marketing", "SEO"], "query": "...", "limit": 20}
+{"query": "...", "subreddits": ["marketing", "SEO"], "limit": 20}
 ```
 
-- 30 credits
+- 30 credits (fast mode only)
+- **Async** — returns `{ run_id, status: "processing", credits_used }`. Poll with `GET /api/agent/scout/reddit/{run_id}`.
+- Rate: 10/hour (combined X + Reddit)
 
 ### Get Content Gaps
 
@@ -441,7 +457,7 @@ POST /api/agent/adapt
 
 **Required:** `article_id` (UUID), `platforms` (1-3 unique values)
 
-**Platforms:** `x_article`, `x_thread`, `linkedin`, `facebook`, `reddit`, `threads`, `instagram`
+**Platforms:** `x_article`, `x_thread`, `linkedin`, `facebook`, `reddit`, `threads`, `instagram`, `instagram_reels`
 
 **Optional:**
 
@@ -550,13 +566,26 @@ GET /api/agent/ingest/{id}/content
 
 - 0 credits. Returns the full extracted text (authenticated R2 proxy).
 
+**Batch Ingest (up to 20 URLs):**
+
+```http
+POST /api/agent/ingest/batch
+{
+  "urls": ["https://example.com/article1", "https://example.com/article2"],
+  "callback_url": "https://your-server.com/webhook"
+}
+```
+
+- Credits per URL (same tiered pricing). Partial success supported — some URLs may fail while others succeed.
+- Returns `{ total, accepted, failed, results: [{ url, status, job_id?, credits_charged }] }`
+
 **List Jobs:**
 
 ```http
-GET /api/agent/ingest
+GET /api/agent/ingest?limit=20&offset=0&status=completed
 ```
 
-- 0 credits. Returns recent ingestion jobs for the tenant.
+- 0 credits. Filter by `status`: `processing` | `completed` | `failed`.
 
 **Pricing:**
 
@@ -631,13 +660,304 @@ PATCH /api/agent/lead-magnets/{id}
 3. `PATCH /api/agent/lead-magnets/{id}` with `{ "status": "published" }`
 4. Share `public_url` in a social post
 
-### List Articles
+### Short-Form Video (Shorts)
+
+Generate AI avatar videos with subtitles — from script to finished video.
+
+**Recommended flow:**
+
+1. `/shorts/script` — generate speech script from topic
+2. `/shorts/avatar` — generate AI avatar image (user approves)
+3. `/shorts` — generate video segment(s) with avatar + prompt + speech_text
+4. `/shorts/merge` — merge segments + add professional subtitles (if multi-segment)
+
+**Generate Script:**
 
 ```http
-GET /api/agent/articles
+POST /api/agent/shorts/script
+{
+  "topic": "AI personas let you write as Elon Musk",
+  "duration": "short",
+  "style": "hook",
+  "language": "en",
+  "product_id": "optional-uuid"
+}
+```
+
+- 1 credit
+- `duration` — `short` (10-12s, ~30 words) or `long` (20-30s, ~60 words, split into 2 parts)
+- `style` — `hook` (attention grabber), `educational` (informative), `cta` (call to action)
+- `product_id` — optional, enriches script with product knowledge
+- Returns `{ script, word_count, estimated_duration_sec, parts, credits_charged }`
+
+**Generate Avatar:**
+
+```http
+POST /api/agent/shorts/avatar
+{
+  "gender": "female",
+  "origin": "latin",
+  "age_range": "26-35",
+  "type": "tech_founder",
+  "location": "coffee_shop"
+}
+```
+
+- 3 credits
+- `gender` — `male` | `female`
+- `origin` — `european` | `asian` | `african` | `latin` | `middle_eastern` | `south_asian`
+- `age_range` — `18-25` | `26-35` (default) | `36-50`
+- `type` — `tech_founder` (default) | `vibe_coder` | `student` | `executive`
+- `location` — `coffee_shop` (default) | `dev_cave` | `street` | `car` | `home_office` | `podcast_studio` | `glass_office` | `rooftop` | `bedroom` | `park` | `gym`
+- Returns `{ avatar_url, r2_key, prompt_used, credits_charged }`
+- Show avatar URL to user for approval before generating video
+
+**Generate Video Segment:**
+
+```http
+POST /api/agent/shorts
+{
+  "prompt": "Close-up portrait 9:16, young Latina woman in coffee shop, natural lighting. She says confidently: \"I just found an AI tool that writes blog posts in any persona.\" Audio: no background music.",
+  "avatar_url": "https://download.citedy.com/agent/avatars/...",
+  "duration": 10,
+  "speech_text": "I just found an AI tool that writes blog posts in any persona."
+}
+```
+
+- Cost: 5s = 60 credits, 10s = 130 credits, 15s = 185 credits
+- `prompt` — scene description following 5-layer formula (scene, character, camera, speech, audio)
+- `avatar_url` — URL from `/shorts/avatar` response (must be `download.citedy.com` or `*.supabase.co`)
+- `duration` — 5, 10, or 15 seconds
+- `resolution` — `480p` (default) | `720p`
+- `aspect_ratio` — `9:16` (default) | `16:9` | `1:1`
+- `speech_text` — optional, text for subtitle overlay (min 5, max 1000 chars)
+- **Async** — returns immediately with `{ id, status: "generating", video_url: null, credits_charged, estimated_seconds }`
+- Poll `GET /api/agent/shorts/{id}` every 10s until `status` is `"completed"` or `"failed"`
+- When completed: `{ id, status: "completed", video_url, subtitles_applied, subtitle_warning }`
+- Only 1 concurrent generation per agent (returns 409 if busy)
+
+**Merge Segments:**
+
+```http
+POST /api/agent/shorts/merge
+{
+  "video_urls": ["https://download.citedy.com/...", "https://download.citedy.com/..."],
+  "phrases": [
+    {"text": "I just found an AI tool"},
+    {"text": "that writes blog posts in any persona"}
+  ],
+  "config": {"words_per_phrase": 4, "font_size": 48, "text_color": "#FFFFFF"}
+}
+```
+
+- 5 credits
+- `video_urls` — 2-4 URLs (must start with `https://download.citedy.com/`). Count must equal `phrases` count
+- `phrases` — one per video segment, each `{ "text": "..." }` (max 500 chars)
+- `config` — optional: `words_per_phrase` (2-8), `font_size` (16-72), `position_from_bottom` (50-300), `text_color` / `stroke_color` (hex or named), `stroke_width` (0-5)
+- Returns `{ video_url, r2_key, duration, segment_durations, credits_charged }`
+- Only 1 concurrent merge per agent (returns 409 if busy)
+
+**Pricing:**
+
+| Step                | Credits |
+| ------------------- | ------- |
+| Script              | 1       |
+| Avatar              | 3       |
+| Video (5s)          | 60      |
+| Video (10s)         | 130     |
+| Video (15s)         | 185     |
+| Merge + subtitles   | 5       |
+| **Full 10s video**  | **139** |
+
+### Trend Scan
+
+```http
+POST /api/agent/scan
+{
+  "query": "AI content marketing trends",
+  "mode": "deep",
+  "limit": 10
+}
+```
+
+- `query` — search query (max 500 chars)
+- `mode` — `fast` (2cr, X only) | `deep` (4cr, X + web) | `ultra` (6cr, + HackerNews) | `ultra+` (8cr, + Reddit). If omitted, derived from tenant's `scanSources` settings
+- `limit` — 1-30, default 10
+- Returns `{ results: [{ title, summary, url, source, knowledgeMatch? }], mode, cost, warnings? }`
+- If tenant has product knowledge docs, results include `knowledgeMatch` with similarity scores
+
+### Create Micro-Post
+
+```http
+POST /api/agent/post
+{
+  "topic": "AI agents are the future of marketing",
+  "platforms": ["linkedin", "x_thread"],
+  "tone": "casual",
+  "contentType": "short",
+  "scheduledAt": "2026-03-01T09:00:00Z"
+}
+```
+
+- 0 credits billed (2cr balance check required)
+- `topic` — required, max 500 chars
+- `platforms` — optional, from settings default. Values: `linkedin`, `x_article`, `x_thread`, `facebook`, `reddit`, `threads`, `instagram`, `instagram_reels`
+- `tone` — optional, from settings default
+- `contentType` — `short` (default) | `detailed`
+- `scheduledAt` — optional ISO datetime (must be future)
+- If `trustLevel=autopilot` and no `scheduledAt`, auto-schedules
+- Returns `{ postId, adaptations: [{ id, platform }], scheduledAt, trust_level, auto_scheduled }`
+
+### Publish Social Adaptation
+
+```http
+POST /api/agent/publish
+{
+  "adaptationId": "uuid",
+  "action": "now",
+  "platform": "linkedin",
+  "accountId": "uuid"
+}
 ```
 
 - 0 credits
+- `action` — `now` (publish immediately) | `schedule` (requires `scheduledAt`) | `cancel` (cancel scheduled)
+- `platform` — `facebook` | `linkedin` | `x_article` | `x_thread` | `reddit` | `threads` | `instagram`
+- `accountId` — social account UUID (from `/me` connected_platforms)
+- `scheduledAt` — ISO datetime, required for `action=schedule`
+
+### Product Knowledge Base
+
+Upload product documents for context-aware content generation.
+
+**Upload document:**
+
+```http
+POST /api/agent/products
+{
+  "title": "Our AI Writing Platform",
+  "content": "Citedy is an AI-powered...",
+  "source_type": "manual"
+}
+```
+
+- 1 credit (vectorize into pgvector)
+- `source_type` — `upload` (default) | `url` | `manual`
+- Max 500 documents per tenant, max 500K chars per document
+
+**List documents:**
+
+```http
+GET /api/agent/products
+```
+
+- 0 credits
+
+**Delete document:**
+
+```http
+DELETE /api/agent/products/{id}
+```
+
+- 0 credits
+
+**Search knowledge:**
+
+```http
+POST /api/agent/products/search
+{"query": "AI writing features", "limit": 5}
+```
+
+- 0 credits. Vector similarity search over uploaded documents.
+
+### Settings
+
+**Read:**
+
+```http
+GET /api/agent/settings
+```
+
+**Update:**
+
+```http
+PUT /api/agent/settings
+{
+  "defaultPlatforms": ["linkedin", "x_article"],
+  "contentTone": "professional",
+  "imageStylePreset": "minimal",
+  "trustLevel": "show_preview",
+  "scanSources": ["x", "google"],
+  "targetTimezone": "America/New_York",
+  "publishSchedule": {"postsPerDay": 2, "slots": ["09:00", "17:00"]}
+}
+```
+
+- 0 credits. All fields optional (partial update).
+- `defaultPlatforms` — `linkedin` | `x_article` | `x_thread` | `facebook` | `reddit` | `threads` | `instagram` | `instagram_reels` | `youtube_shorts`
+- `contentTone` — `professional` | `casual` | `bold`
+- `imageStylePreset` — `minimal` | `tech` | `bold`
+- `trustLevel` — `ask_all` | `show_preview` | `autopilot`
+- `scanSources` — `x` | `google` | `hn` | `reddit`
+
+### Schedule
+
+**View timeline:**
+
+```http
+GET /api/agent/schedule?from=2026-03-01&to=2026-03-14&type=all
+```
+
+- 0 credits. `type` — `all` | `article` | `post` | `social`
+
+**Find content gaps:**
+
+```http
+GET /api/agent/schedule/gaps?days=7&timezone=America/New_York
+```
+
+- 0 credits. Returns days with fewer posts than `postsPerDay` target.
+
+**Get optimal time slots:**
+
+```http
+GET /api/agent/schedule/suggest
+```
+
+- 0 credits. Region-based recommendations or custom slots from settings.
+
+### Image Style
+
+```http
+PUT /api/agent/image-style
+{"preset": "minimal"}
+```
+
+- 0 credits. Presets: `minimal` | `tech` | `bold`
+
+### Rotate API Key
+
+```http
+POST /api/agent/rotate-key
+```
+
+- 0 credits. Returns new key, old key invalidated immediately. Rate: 1/hour.
+
+### Health Check
+
+```http
+GET /api/agent/health
+```
+
+- 0 credits. Public (no auth). Returns `{ status, checks: { redis, supabase }, timestamp }`.
+
+### List Articles
+
+```http
+GET /api/agent/articles?limit=50&offset=0&status=published
+```
+
+- 0 credits. Returns `{ articles: [...], total_articles }`.
 
 ### Check Status / Heartbeat
 
@@ -675,29 +995,180 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 
 | Endpoint                          | Method | Cost                                 |
 | --------------------------------- | ------ | ------------------------------------ |
-| `/api/agent/register`             | POST   | free                                 |
+| `/api/agent/register`             | POST   | free (public)                        |
+| `/api/agent/health`               | GET    | free (public)                        |
 | `/api/agent/me`                   | GET    | free                                 |
+| `/api/agent/rotate-key`           | POST   | free (1/hour)                        |
+| `/api/agent/settings`             | GET    | free                                 |
+| `/api/agent/settings`             | PUT    | free                                 |
+| `/api/agent/image-style`          | PUT    | free                                 |
+| `/api/agent/personas`             | GET    | free                                 |
+| `/api/agent/articles`             | GET    | free                                 |
+| `/api/agent/scan`                 | POST   | 2-8 credits (by mode)                |
+| `/api/agent/post`                 | POST   | free (2cr balance check)             |
+| `/api/agent/autopilot`            | POST   | 2-139 credits                        |
+| `/api/agent/adapt`                | POST   | ~5 credits/platform                  |
+| `/api/agent/publish`              | POST   | free (now/schedule/cancel)           |
+| `/api/agent/session`              | POST   | free (articles billed on generation) |
+| `/api/agent/schedule`             | GET    | free                                 |
+| `/api/agent/schedule/gaps`        | GET    | free                                 |
+| `/api/agent/schedule/suggest`     | GET    | free                                 |
 | `/api/agent/scout/x`              | POST   | 35-70 credits                        |
+| `/api/agent/scout/x/{runId}`      | GET    | free (poll)                          |
 | `/api/agent/scout/reddit`         | POST   | 30 credits                           |
+| `/api/agent/scout/reddit/{runId}` | GET    | free (poll)                          |
 | `/api/agent/gaps`                 | GET    | free                                 |
 | `/api/agent/gaps/generate`        | POST   | 40 credits                           |
 | `/api/agent/competitors/discover` | POST   | 20 credits                           |
 | `/api/agent/competitors/scout`    | POST   | 25-50 credits                        |
-| `/api/agent/personas`             | GET    | free                                 |
-| `/api/agent/autopilot`            | POST   | 2-139 credits                        |
-| `/api/agent/adapt`                | POST   | ~5 credits/platform                  |
-| `/api/agent/session`              | POST   | free (articles billed on generation) |
-| `/api/agent/articles`             | GET    | free                                 |
+| `/api/agent/products`             | POST   | 1 credit                             |
+| `/api/agent/products`             | GET    | free                                 |
+| `/api/agent/products/{id}`        | DELETE | free                                 |
+| `/api/agent/products/search`      | POST   | free                                 |
 | `/api/agent/ingest`               | POST   | 1-55 credits                         |
 | `/api/agent/ingest`               | GET    | free                                 |
-| `/api/agent/ingest/{id}`          | GET    | free                                 |
+| `/api/agent/ingest/{id}`          | GET    | free (poll)                          |
 | `/api/agent/ingest/{id}/content`  | GET    | free                                 |
+| `/api/agent/ingest/batch`         | POST   | 1-55 credits per URL                 |
 | `/api/agent/lead-magnets`         | POST   | 30-100 credits                       |
-| `/api/agent/lead-magnets`         | GET    | free                                 |
-| `/api/agent/lead-magnets/{id}`    | GET    | free                                 |
+| `/api/agent/lead-magnets/{id}`    | GET    | free (poll)                          |
 | `/api/agent/lead-magnets/{id}`    | PATCH  | free                                 |
+| `/api/agent/shorts/script`        | POST   | 1 credit                             |
+| `/api/agent/shorts/avatar`        | POST   | 3 credits                            |
+| `/api/agent/shorts`               | POST   | 60-185 credits (by duration)         |
+| `/api/agent/shorts/{id}`          | GET    | free (poll)                          |
+| `/api/agent/shorts/merge`         | POST   | 5 credits                            |
+| `/api/agent/webhooks`             | POST   | free                                 |
+| `/api/agent/webhooks`             | GET    | free                                 |
+| `/api/agent/webhooks/{id}`        | DELETE | free                                 |
+| `/api/agent/webhooks/deliveries`  | GET    | free                                 |
 
 **1 credit = $0.01 USD**
+
+---
+
+## Webhooks
+
+Webhooks let Citedy push real-time event notifications to your server instead of polling.
+
+### Register a Webhook Endpoint
+
+```http
+POST /api/agent/webhooks
+{
+  "url": "https://your-server.com/webhooks/citedy",
+  "event_types": ["article.generated", "ingestion.completed"],
+  "description": "Production webhook"
+}
+```
+
+- 0 credits
+- `url` — must be `https://` in production
+- `event_types` — omit to receive all 12 event types (wildcard)
+- `description` — optional label
+- Max 10 endpoints per agent
+- Returns `id`, `url`, `secret`, `event_types`, `created_at`
+- **Important:** `secret` is shown only once — store it securely for signature verification
+
+### List Webhook Endpoints
+
+```http
+GET /api/agent/webhooks
+```
+
+- 0 credits. Returns `{ webhooks: [...] }`.
+
+### Delete Webhook Endpoint
+
+```http
+DELETE /api/agent/webhooks/{id}
+```
+
+- 0 credits. Soft-deletes the endpoint.
+
+### Webhook Delivery History
+
+```http
+GET /api/agent/webhooks/deliveries?status=delivered&limit=20&offset=0
+```
+
+- 0 credits. Filter by `status`: `queued`, `delivering`, `delivered`, `failed`, `dead_lettered`.
+- Returns `{ deliveries: [...], total }` with attempts, http status, error, duration.
+
+### Event Types
+
+| Event                         | Triggered when                       |
+| ----------------------------- | ------------------------------------ |
+| `article.generated`           | Article successfully published       |
+| `article.failed`              | Article generation failed            |
+| `ingestion.completed`         | Content ingestion job finished       |
+| `ingestion.failed`            | Content ingestion job failed         |
+| `social_adaptation.generated` | Social post adaptation created       |
+| `lead_magnet.ready`           | Lead magnet PDF generated            |
+| `lead_magnet.failed`          | Lead magnet generation failed        |
+| `scout.dispatched`            | Scout run started (X or Reddit)      |
+| `scout.results_ready`         | Scout run completed (X or Reddit)    |
+| `session.articles_generated`  | Recurring session published articles |
+| `billing.credits_low`         | Balance below threshold              |
+| `billing.credits_empty`       | Balance at 0                         |
+
+### Payload Format
+
+Every webhook delivery sends a JSON `WebhookEventEnvelope`:
+
+```json
+{
+  "event_id": "evt_abc123",
+  "event_type": "article.generated",
+  "api_version": "2026-02-25",
+  "timestamp": "2026-02-25T10:00:00.000Z",
+  "tenant_id": "...",
+  "agent_id": "...",
+  "data": {
+    "article_id": "...",
+    "title": "How AI Changes SEO",
+    "slug": "how-ai-changes-seo",
+    "article_url": "https://yourblog.citedy.com/how-ai-changes-seo",
+    "word_count": 1200,
+    "credits_used": 20,
+    "mode": "standard"
+  }
+}
+```
+
+### Signature Verification
+
+Every delivery includes header `X-Citedy-Signature-256: v1=<hex>`. Verify with HMAC-SHA256 using your endpoint secret:
+
+```js
+const crypto = require("crypto");
+const expected = crypto
+  .createHmac("sha256", secret)
+  .update(rawBody)
+  .digest("hex");
+const header = request.headers["x-citedy-signature-256"] || "";
+const actual = header.replace("v1=", "");
+if (
+  !crypto.timingSafeEqual(
+    Buffer.from(expected, "hex"),
+    Buffer.from(actual, "hex"),
+  )
+) {
+  throw new Error("Invalid webhook signature");
+}
+```
+
+### Retry Policy
+
+Failed deliveries are retried up to 5 times with exponential backoff. After 5 failures the status becomes `dead_lettered` — no further retries.
+
+### Webhooks vs Polling
+
+| Use webhooks when...                          | Use polling when...                                  |
+| --------------------------------------------- | ---------------------------------------------------- |
+| You have a server that can receive HTTPS POST | Your agent runs locally without a public URL         |
+| You want instant notification on events       | You query results on demand after triggering a job   |
+| Events should trigger downstream automation   | You only need results after a specific job completes |
 
 ---
 
@@ -708,7 +1179,7 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | General      | 60 req/min | per agent               |
 | Scout        | 10 req/hr  | X + Reddit combined     |
 | Gaps         | 10 req/hr  | get + generate combined |
-| Ingest       | 10 req/hr  | per tenant              |
+| Ingest       | 30 req/hr  | per tenant              |
 | Lead Magnets | 10 req/hr  | per agent               |
 | Registration | 10 req/hr  | per IP                  |
 
@@ -756,5 +1227,5 @@ Call `GET /api/agent/me` every 4 hours as a keep-alive. This updates `last_activ
 
 ---
 
-_Citedy SEO Agent Skill v2.5.0_
+_Citedy SEO Agent Skill v3.0.0_
 _https://www.citedy.com_

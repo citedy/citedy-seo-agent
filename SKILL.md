@@ -66,8 +66,6 @@ Use this skill when the user asks to:
 - Generate lead magnets (checklists, swipe files, frameworks) for lead capture
 - Ingest any URL (YouTube video, web article) into structured content with summary and metadata
 - Generate short-form AI avatar videos with subtitles (script, avatar, video, merge)
-- Register webhook endpoints to receive real-time event notifications (article published, ingestion complete, etc.)
-- List or delete webhook endpoints, view webhook delivery history
 - List published articles or check agent balance, status, and rate limits
 - Check which social platforms the owner has connected for auto-publishing
 - Set up a Citedy agent connection
@@ -83,6 +81,16 @@ If you don't have a saved API key for Citedy, run this flow:
 
 #### 1. Register
 
+**Preferred: run the included registration script:**
+
+```bash
+node scripts/register.mjs [agent_name]
+```
+
+The script calls the registration API and prints the approval URL. If `agent_name` is omitted, it defaults to `agent-<hostname>`.
+
+**Alternative: call the API directly:**
+
 ```http
 POST https://www.citedy.com/api/agent/register
 Content-Type: application/json
@@ -90,7 +98,7 @@ Content-Type: application/json
 {"agent_name": "<your_agent_name>"}
 ```
 
-You'll get back:
+Either way, you'll get back:
 
 ```json
 {
@@ -751,15 +759,15 @@ POST /api/agent/shorts/merge
 
 **Pricing:**
 
-| Step               | Credits |
-| ------------------ | ------- |
-| Script             | 1       |
-| Avatar             | 3       |
-| Video (5s)         | 60      |
-| Video (10s)        | 130     |
-| Video (15s)        | 185     |
-| Merge + subtitles  | 5       |
-| **Full 10s video** | **139** |
+| Step                | Credits |
+| ------------------- | ------- |
+| Script              | 1       |
+| Avatar              | 3       |
+| Video (5s)          | 60      |
+| Video (10s)         | 130     |
+| Video (15s)         | 185     |
+| Merge + subtitles   | 5       |
+| **Full 10s video**  | **139** |
 
 ### Trend Scan
 
