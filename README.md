@@ -37,11 +37,13 @@ The Citedy SEO Agent is designed for developers, marketers, and AI enthusiasts w
 ## Install in OpenAI Codex CLI
 
 **Via skill-installer (recommended):**
+
 ```
 $skill-installer install https://github.com/Citedy/citedy-seo-agent
 ```
 
 **Or manually:**
+
 ```bash
 # User-global (available in all projects)
 git clone https://github.com/Citedy/citedy-seo-agent.git ~/.agents/skills/citedy-seo-agent
@@ -85,7 +87,7 @@ This skill follows the open [Agent Skills](https://github.com/topics/agent-skill
 
 | Platform                                    | Status    | How to connect                                                                  |
 | ------------------------------------------- | --------- | ------------------------------------------------------------------------------- |
-| Claude Code                                 | Supported | `/plugin` → `citedy/claude-plugins` → install `citedy-seo-agent`               |
+| Claude Code                                 | Supported | `/plugin` → `citedy/claude-plugins` → install `citedy-seo-agent`                |
 | OpenAI Codex CLI                            | Supported | `git clone` into `~/.agents/skills/citedy-seo-agent`                            |
 | Factory Droid                               | Supported | `git clone` into `~/.factory/skills/citedy-seo-agent`                           |
 | OpenClaw / Agent Skills-compatible runtimes | Supported | Import `citedy-seo-agent/SKILL.md` as an Agent Skill                            |
@@ -155,17 +157,17 @@ In a world of single-tasking tools, the Citedy SEO Agent offers a complete, inte
 
 The skill operates on Citedy's credit system. New accounts receive **100 free credits** to get started — no credit card required.
 
-| Operation                      | Cost                |
-| ------------------------------ | ------------------- |
-| Mini article (~500 words)      | from 7 credits      |
-| Standard article (~1000 words) | from 12 credits     |
-| Full article (~1500 words)     | from 25 credits     |
-| Pillar article (~2500 words)   | from 40 credits     |
-| Social media adaptation        | ~5 credits/platform |
-| Trend scouting (X/Reddit)      | 30-70 credits       |
-| Competitor analysis            | 20-50 credits       |
-| Content ingestion (YouTube, PDF, audio, web) | 1-55 credits |
-| Lead magnet                    | 30-100 credits      |
+| Operation                                    | Cost                |
+| -------------------------------------------- | ------------------- |
+| Mini article (~500 words)                    | from 7 credits      |
+| Standard article (~1000 words)               | from 12 credits     |
+| Full article (~1500 words)                   | from 25 credits     |
+| Pillar article (~2500 words)                 | from 40 credits     |
+| Social media adaptation                      | ~5 credits/platform |
+| Trend scouting (X/Reddit)                    | 30-70 credits       |
+| Competitor analysis                          | 20-50 credits       |
+| Content ingestion (YouTube, PDF, audio, web) | 1-55 credits        |
+| Lead magnet                                  | 30-100 credits      |
 
 ## Ready to Automate Your Content?
 
