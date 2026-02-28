@@ -1,7 +1,7 @@
 {
   "name": "citedy-seo-agent",
   "version": "3.0.0",
-  "description": "AI Marketing Agent — SEO, GEO, trend scouting, competitor analysis, content gaps, article generation in 55 languages with AI illustrations and voice-over, social adaptations (X, LinkedIn, Facebook, Reddit, Threads, Instagram, YouTube Shorts), lead magnets, content ingestion (YouTube, web, PDF, audio), short-form AI avatar videos with subtitles, turbo mode, webhooks, and automated content autopilot.",
+  "description": "AI Marketing Agent — SEO, GEO, trend scouting, competitor analysis, content gaps, article generation in 55 languages with AI illustrations and voice-over, social adaptations (X, LinkedIn, Facebook, Reddit, Threads, Instagram, Instagram Reels, YouTube Shorts, Shopify), lead magnets, content ingestion (YouTube, web, PDF, audio), short-form AI avatar videos with subtitles, turbo mode, webhooks, and automated content autopilot.",
   "author": {
     "name": "Citedy",
     "email": "hello@citedy.com"
