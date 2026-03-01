@@ -1,5 +1,6 @@
 ---
-name: "AI Video Shorts"
+name: citedy-video-shorts
+title: "AI Video Shorts"
 description: >
   Generate branded AI avatar lip-sync video shorts for TikTok, Reels, and YouTube Shorts.
   Create 15-second talking-head videos with custom avatars, auto-generated scripts, and burned-in subtitles for $1.85.

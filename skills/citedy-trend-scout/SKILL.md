@@ -1,5 +1,6 @@
 ---
-name: "Trend & Intent Scout"
+name: citedy-trend-scout
+title: "Trend & Intent Scout"
 description: >
   Find what your audience is searching for right now — scout X/Twitter and Reddit
   for trending topics, discover and deep-analyze competitors, and find content gaps.

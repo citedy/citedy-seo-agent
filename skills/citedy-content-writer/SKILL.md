@@ -1,5 +1,6 @@
 ---
-name: "AI Content Writer"
+name: citedy-content-writer
+title: "AI Content Writer"
 description: >
   From topic to published blog post in one conversation — generate SEO- and
   GEO-optimized articles with AI illustrations and voice-over in 55 languages,

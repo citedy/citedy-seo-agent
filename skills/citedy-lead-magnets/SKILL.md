@@ -1,5 +1,6 @@
 ---
-name: "Lead Magnet Generator"
+name: citedy-lead-magnets
+title: "Lead Magnet Generator"
 description: >
   Generate AI-powered lead magnets — checklists, swipe files, and frameworks
   that convert visitors into subscribers. PDF generation with optional AI

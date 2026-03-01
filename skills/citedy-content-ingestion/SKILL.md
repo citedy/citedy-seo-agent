@@ -1,5 +1,6 @@
 ---
-name: "Content Ingestion"
+name: citedy-content-ingestion
+title: "Content Ingestion"
 description: >
   Turn any URL into structured content — YouTube videos (via Gemini Video API),
   web articles, PDFs, and audio files. Extract transcripts, summaries, and metadata

@@ -1,5 +1,6 @@
 ---
-name: "AI Marketing Agent — SEO, Leads & Social"
+name: citedy-seo-agent
+title: "AI Marketing Agent — SEO, Leads & Social"
 description: >
   Full-stack AI marketing toolkit — scout X/Twitter and Reddit for trending
   topics, discover and deep-analyze competitors, find content gaps, publish
