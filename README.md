@@ -96,6 +96,8 @@ This skill follows the open [Agent Skills](https://github.com/topics/agent-skill
 | OpenClaw / Agent Skills-compatible runtimes | Supported | Import `citedy-seo-agent/SKILL.md` as an Agent Skill                            |
 | TinyClaw                                    | Supported | Install `SKILL.md` into TinyClaw skills directory (`.agent/skills`) and restart |
 | AutoGPT Builder                             | Supported | Import workflow templates from `citedy-seo-agent/autogpt/agents/*.agent.json`   |
+| Cursor                                      | Supported | Install plugin from `cursor/` directory or Cursor Marketplace                   |
+| Windsurf                                    | Supported | Copy MCP config + rules from `windsurf/` directory                              |
 
 ## Package Contents
 
@@ -103,6 +105,8 @@ This skill follows the open [Agent Skills](https://github.com/topics/agent-skill
 - `TINYCLAW.md` — TinyClaw install and verification guide
 - `autogpt/` — AutoGPT package (actions, templates, validator, quickstart)
 - `skills/` — focused skills for specific use cases (video, ingestion, trends, lead magnets, writing)
+- `cursor/` — Cursor IDE plugin (manifest, MCP config, .mdc rules)
+- `windsurf/` — Windsurf IDE integration (MCP config, rules)
 
 ## Focused Skills
 

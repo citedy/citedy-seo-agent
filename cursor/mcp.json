@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "citedy": {
+      "url": "https://mcp.citedy.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${CITEDY_API_KEY}"
+      }
+    }
+  }
+}

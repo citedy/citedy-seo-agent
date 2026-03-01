@@ -1,0 +1,163 @@
+---
+description: "Step-by-step workflow for creating SEO content with Citedy: research, generate, enhance, distribute"
+alwaysApply: false
+---
+
+# Citedy Content Creation Workflow
+
+Follow this workflow when the user wants to create and distribute SEO content using Citedy.
+
+---
+
+## Step 1 — Scout: Discover What to Write About
+
+**Option A — Trend-based**
+```
+scout.x(query, limit)
+scout.reddit(query, subreddits, limit)
+```
+Use when the user wants to capitalize on current conversations and viral topics.
+
+**Option B — Competitor-based**
+```
+competitors.discover(domain)
+competitors.scout(competitorDomain)
+```
+Use when the user wants to outrank specific sites or understand the market landscape.
+
+Pick a keyword or topic from the results and carry it forward.
+
+---
+
+## Step 2 — Plan: Identify Gaps and Schedule
+
+```
+gaps.generate(domain, competitorDomains)
+schedule.gaps(domain)
+```
+
+- `gaps.generate` returns a ranked list of content opportunities the user's site is missing.
+- `schedule.gaps` shows which gaps are already on the calendar and which are open.
+
+Select the highest-priority gap or confirm the user's chosen topic.
+
+---
+
+## Step 3 — Generate: Create the Article
+
+```
+article.generate({
+  keyword,
+  language,       // default: "en", supports 55 languages
+  persona,        // optional: writing voice/style
+  illustrations,  // true = include AI-generated images
+  voiceover,      // true = include TTS audio
+  internalLinks,  // true = auto-link to existing content
+  sourceContent   // optional: pass ingested content as source
+})
+```
+
+**This call is async.** It returns a `jobId` immediately.
+
+Poll until ready:
+```
+article.status(jobId)  // poll every 5–10 seconds
+```
+
+When `status === "ready"`, the article includes the full HTML/Markdown body, meta title, meta description, slug, and optionally images and audio.
+
+---
+
+## Step 4 — Enhance: Illustrations and Voice-Over
+
+Illustrations and voice-over are included in `article.generate` options — no separate step needed when enabled.
+
+If the article was generated without them and the user wants to add them after:
+```
+article.addIllustrations(articleId)
+article.addVoiceover(articleId, { provider, language })
+```
+
+---
+
+## Step 5 — Adapt: Create Social Versions
+
+```
+adapt.generate({
+  articleId,
+  platforms: ["x", "linkedin", "facebook", "reddit", "instagram"]
+})
+```
+
+Each platform gets a version optimized for its format and character limits:
+- **X** — thread or single post, punchy hook
+- **LinkedIn** — professional tone, structured paragraphs
+- **Facebook** — conversational, engagement-focused
+- **Reddit** — value-first, no hard sell
+- **Instagram** — caption + hashtag suggestions
+
+---
+
+## Step 6 — Publish: Push to Connected Accounts
+
+```
+social.publish({
+  adaptationId,
+  platform,
+  accountId   // from agent.me connected accounts
+})
+```
+
+Check connected accounts first:
+```
+agent.me()  // returns connectedAccounts[]
+```
+
+If no accounts are connected, direct the user to connect them at https://www.citedy.com/dashboard.
+
+---
+
+## Step 7 — Video (Optional): AI Avatar Short
+
+Create a short-form video from the article for YouTube Shorts, TikTok, or Instagram Reels.
+
+```
+shorts.script(articleId, { duration: 60 })   // generate video script
+shorts.generate({ script, avatarId })         // produce video (async, poll shorts.status)
+shorts.merge({ videoId, subtitles: true })    // add subtitles and finalize
+```
+
+`shorts.generate` is async — poll `shorts.status(jobId)` until `status === "ready"`.
+
+---
+
+## Step 8 — Automate: Set Up Recurring Sessions
+
+```
+session.create({
+  domain,
+  frequency,    // "daily" | "weekly"
+  topics,       // optional seed topics
+  languages,    // optional list
+  autopublish   // true = publish without confirmation
+})
+```
+
+A session runs the full pipeline automatically on the configured schedule:
+scout → gaps → generate → adapt → publish.
+
+The user receives webhook events or email notifications when content is ready.
+
+---
+
+## Tips
+
+- **Content ingestion as source material**: Before generating an article, ingest reference URLs with `ingest.create(url)` and pass the result as `sourceContent` to `article.generate` for more accurate, grounded content.
+
+- **Lead magnets from articles**: After generating an article, run `leadmagnet.generate(articleId)` to create a downloadable checklist or framework based on the same content — doubles the value of each piece.
+
+- **Async polling**: All generation tools (`article.generate`, `shorts.generate`) are non-blocking. Always poll the corresponding status tool rather than waiting synchronously. Inform the user the job is running and provide updates.
+
+- **Credits**: Each operation consumes credits. Check the balance with `agent.me()` before starting large batch operations. Top up at https://www.citedy.com/dashboard/billing.
+
+- **Language**: Citedy supports 55 languages. Always confirm the target language with the user before generating, especially for multilingual sites.

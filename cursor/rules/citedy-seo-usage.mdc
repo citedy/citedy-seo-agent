@@ -1,0 +1,213 @@
+---
+description: "Use Citedy MCP tools for SEO content creation, trend scouting, competitor analysis, article generation, social media publishing, video shorts, content ingestion, and lead magnets"
+alwaysApply: false
+---
+
+# Citedy SEO Agent — Tool Usage Guide
+
+## MCP Endpoint
+
+```
+https://mcp.citedy.com/mcp
+```
+
+**Auth**: Bearer token via `CITEDY_API_KEY` environment variable.
+
+**Registration**: If the user does not have an API key, register via:
+```
+POST https://www.citedy.com/api/agent/register
+```
+
+---
+
+## When to Use Citedy Tools
+
+Use Citedy MCP tools whenever the user wants to:
+- Research trending topics or competitor content
+- Generate SEO-optimized blog articles
+- Create social media posts from existing content
+- Publish content to connected social accounts
+- Produce AI avatar video shorts
+- Ingest URLs or documents into structured content
+- Create lead magnets (checklists, swipe files, frameworks)
+- Manage a content calendar or automate publishing
+
+---
+
+## Tool Groups
+
+### Account & Status
+
+| Tool | When to use |
+|------|-------------|
+| `agent.me` | Check authenticated user info, credits balance, connected accounts |
+| `agent.status` | Get platform health, quota usage, active sessions |
+
+Always call `agent.me` first if the user asks about their account or available credits.
+
+---
+
+### Trend Scouting
+
+| Tool | When to use |
+|------|-------------|
+| `scout.x` | Find trending topics, viral posts, and keyword signals on X (Twitter) |
+| `scout.reddit` | Discover hot threads and rising discussions on Reddit |
+
+Use these when the user wants to know what to write about next, or to validate a topic idea against current trends.
+
+---
+
+### Competitor Analysis
+
+| Tool | When to use |
+|------|-------------|
+| `competitors.discover` | Find competitors for a given domain or niche |
+| `competitors.scout` | Analyze competitor content strategy, top posts, keywords, and gaps |
+
+Use before generating articles when the user wants to outrank specific domains or understand the competitive landscape.
+
+---
+
+### Content Gap Analysis
+
+| Tool | When to use |
+|------|-------------|
+| `gaps.generate` | Identify content topics that competitors rank for but the user's site does not |
+
+Run after `competitors.scout` to get a prioritized list of high-opportunity topics.
+
+---
+
+### Article Generation
+
+| Tool | When to use |
+|------|-------------|
+| `article.generate` | Generate a full SEO article from a keyword, topic, or brief |
+
+Key options:
+- `keyword` — target search term
+- `language` — one of 55 supported languages
+- `persona` — writing voice/style
+- `illustrations` — include AI-generated images
+- `voiceover` — include TTS audio
+- `internalLinks` — auto-link to existing content
+
+**Important**: `article.generate` is async. It returns a job ID immediately. Poll `article.status` until the article is ready.
+
+---
+
+### Social Media Adaptations
+
+| Tool | When to use |
+|------|-------------|
+| `adapt.generate` | Convert a blog article into platform-optimized social posts |
+
+Supported platforms: X, LinkedIn, Facebook, Reddit, Instagram, TikTok, YouTube, Shopify, Telegram.
+
+Pass the article ID or raw text plus a list of target platforms.
+
+---
+
+### Social Publishing
+
+| Tool | When to use |
+|------|-------------|
+| `social.publish` | Push a generated adaptation to a connected social account |
+
+Requires a connected account (user must authorize via Citedy dashboard). Check connected accounts with `agent.me`.
+
+---
+
+### AI Video Shorts
+
+| Tool | When to use |
+|------|-------------|
+| `shorts.script` | Generate a video script from an article or topic |
+| `shorts.generate` | Produce an AI avatar video from a script |
+| `shorts.avatar` | Select or customize the AI avatar |
+| `shorts.merge` | Merge video segments and add subtitles |
+
+Typical flow: `shorts.script` → `shorts.generate` → `shorts.merge`.
+
+`shorts.generate` is async — poll until the video URL is returned.
+
+---
+
+### Content Ingestion
+
+| Tool | When to use |
+|------|-------------|
+| `ingest.create` | Ingest a single URL (web page, YouTube video, PDF) into structured content |
+| `ingest.batch` | Ingest multiple URLs in one request |
+
+After ingestion, the content can be passed directly to `article.generate` as source material.
+
+---
+
+### Lead Magnets
+
+| Tool | When to use |
+|------|-------------|
+| `leadmagnet.generate` | Create a downloadable lead magnet (checklist, swipe file, or framework) from a topic or article |
+
+Returns a structured document ready for publishing or gating behind an email opt-in form.
+
+---
+
+### Products / Knowledge Base
+
+| Tool | When to use |
+|------|-------------|
+| `products.list` | List products in the user's knowledge base |
+| `products.get` | Retrieve a specific product's details |
+| `products.create` | Add a new product to the knowledge base |
+| `products.update` | Update product information |
+
+The knowledge base is used to ground article generation in accurate product descriptions and brand voice.
+
+---
+
+### Content Calendar
+
+| Tool | When to use |
+|------|-------------|
+| `schedule.gaps` | View content gaps mapped to the publishing calendar |
+| `schedule.list` | List scheduled content items |
+| `schedule.create` | Schedule an article or social post for future publishing |
+
+---
+
+### Autopilot Sessions
+
+| Tool | When to use |
+|------|-------------|
+| `session.create` | Start a fully automated content autopilot session |
+
+A session runs the full pipeline: scout → gaps → generate → adapt → publish, on a recurring schedule.
+
+---
+
+### Webhooks
+
+| Tool | When to use |
+|------|-------------|
+| `webhooks.list` | List registered webhook endpoints |
+| `webhooks.create` | Register a URL to receive event notifications |
+| `webhooks.delete` | Remove a webhook |
+
+Events include: `article.ready`, `short.ready`, `publish.success`, `session.complete`.
+
+---
+
+## Async Polling Pattern
+
+Many Citedy tools are async. The standard pattern is:
+
+```
+1. Call the tool (e.g. article.generate) — returns { jobId, status: "queued" }
+2. Poll the status tool (e.g. article.status) with the jobId every few seconds
+3. When status === "ready", retrieve the result
+```
+
+Let the user know the job has started and provide updates as they arrive.
