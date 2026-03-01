@@ -1,6 +1,6 @@
 # Citedy SEO Agent: Your AI-Powered Content Marketing Team
 
-> **citedy-seo-agent** is an Agent Skill that connects your AI agent to the Citedy platform, transforming it into a complete SEO content marketing team. From trend scouting and competitor analysis to generating high-quality, multilingual articles with AI-powered illustrations and voice-overs, short-form AI avatar videos with subtitles, ingesting YouTube videos, PDFs, and audio into structured content, to generating lead magnets — this skill automates your entire content workflow.
+> **citedy-seo-agent** is an Agent Skill that connects your AI agent to the Citedy platform, transforming it into a complete SEO content marketing team. From trend scouting and competitor analysis to generating high-quality, multilingual articles with AI-powered illustrations and voice-overs, creating short-form AI avatar videos with subtitles, ingesting YouTube videos, PDFs, and audio into structured content, generating lead magnets, and managing webhooks — this skill automates your entire content workflow.
 
 ## Effortless SEO Content Creation. At Scale.
 
@@ -8,19 +8,20 @@ The Citedy SEO Agent is designed for developers, marketers, and AI enthusiasts w
 
 ## Key Features
 
-| Feature                     | Description                                                                                                       |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **Auto-Publishing**         | Automatically publish to **X, LinkedIn, Facebook, Reddit, Instagram, and Shopify** — no manual posting, no extra cost. |
-| **Trend Scouting**          | Discover what's trending on X/Twitter and Reddit to create timely and relevant content.                                |
-| **Competitor Analysis**     | Deep-analyze competitor domains to identify content gaps and opportunities.                                             |
-| **Trend Scan**              | Scan X, Google, HackerNews, and Reddit for trending topics matching your niche — from 2 credits.                       |
-| **Article Generation**      | Generate SEO-optimized articles in 55 languages, from mini-articles to pillar posts. Ultra-cheap turbo mode from 2 cr. |
-| **AI-Powered Enhancements** | Add AI-generated illustrations and voice-over narration to your articles.                                              |
-| **Social Media Adaptation** | Adapt articles for X, LinkedIn, Facebook, Reddit, Threads, Instagram, Instagram Reels, and YouTube Shorts.             |
-| **Short-Form Video**        | Generate AI avatar videos with subtitles — script, avatar, video generation, and merge into finished shorts.           |
-| **Content Ingestion**       | Extract content from YouTube videos, web articles, PDFs, and audio files into structured summaries.                    |
-| **Lead Magnets**            | Generate checklists, swipe files, and frameworks for lead capture — 30-100 credits.                                    |
-| **Content Automation**      | Set up cron-based sessions to generate and publish articles on a recurring schedule.                                    |
+| Feature                     | Description                                                                                                                |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Auto-Publishing**         | Automatically publish to **X, LinkedIn, Shopify, Facebook, and YouTube** — no manual posting, no extra cost. This is free. |
+| **Trend Scouting**          | Discover what's trending on X/Twitter and Reddit to create timely and relevant content.                                    |
+| **Competitor Analysis**     | Deep-analyze competitor domains to identify content gaps and opportunities.                                                |
+| **Deep SEO Scan**           | Run fast/deep/ultra/ultra+ scans with AI-powered search analysis and actionable recommendations.                           |
+| **Article Generation**      | Generate SEO-optimized articles in 55 languages, from mini-articles to pillar posts.                                       |
+| **AI-Powered Enhancements** | Add AI-generated illustrations and voice-over narration to your articles.                                                  |
+| **Social Media Adaptation** | Adapt articles for X, LinkedIn, Facebook, Reddit, Threads, Instagram, Instagram Reels, YouTube Shorts, and Shopify.        |
+| **AI Avatar Videos**        | Generate short-form AI avatar videos (5s/10s/15s) with subtitles for TikTok, Reels, and Shorts.                            |
+| **Content Ingestion**       | Extract content from YouTube videos, web articles, PDFs, and audio files into structured summaries.                        |
+| **Lead Magnets**            | Generate checklists, swipe files, and frameworks for lead capture — from 30 credits.                                       |
+| **Webhooks**                | Get notified on article generation, scout results, lead magnets, billing events, and more (12 event types).                |
+| **Content Automation**      | Set up cron-based sessions to generate and publish articles on a recurring schedule.                                       |
 
 ## Who Is This For?
 
@@ -101,6 +102,21 @@ This skill follows the open [Agent Skills](https://github.com/topics/agent-skill
 - `SKILL.md` — canonical Agent Skill definition (OpenClaw/Agent Skills/TinyClaw)
 - `TINYCLAW.md` — TinyClaw install and verification guide
 - `autogpt/` — AutoGPT package (actions, templates, validator, quickstart)
+- `skills/` — focused skills for specific use cases (video, ingestion, trends, lead magnets, writing)
+
+## Focused Skills
+
+Looking for a specific capability? Each focused skill is a standalone entry point:
+
+| Skill | What It Does | Credits |
+|---|---|---|
+| [citedy-video-shorts](./skills/citedy-video-shorts/) | AI avatar video with subtitles for TikTok/Reels/Shorts | 64–194/video |
+| [citedy-content-ingestion](./skills/citedy-content-ingestion/) | Turn any URL into structured content (YouTube, PDF, audio) | 1–55/URL |
+| [citedy-trend-scout](./skills/citedy-trend-scout/) | Scout X/Reddit trends + content gaps + competitors | 20–70/scan |
+| [citedy-lead-magnets](./skills/citedy-lead-magnets/) | Generate checklists, swipe files, frameworks | 30–100/magnet |
+| [citedy-content-writer](./skills/citedy-content-writer/) | End-to-end blog autopilot with social distribution | 2–139/article |
+
+Each focused skill includes the same setup flow and works standalone. Install the full suite above for all capabilities.
 
 ## TinyClaw Install
 
@@ -161,19 +177,20 @@ The skill operates on Citedy's credit system. New accounts receive **100 free cr
 
 | Operation                                    | Cost                |
 | -------------------------------------------- | ------------------- |
-| Turbo article                                | 2 credits           |
-| Turbo+ article (with web search)             | 4 credits           |
-| Mini article (~500 words)                    | 15 credits          |
-| Standard article (~1000 words)               | 20 credits          |
-| Full article (~1500 words)                   | 33 credits          |
-| Pillar article (~2500 words)                 | 48 credits          |
+| Mini article (~500 words)                    | from 7 credits      |
+| Standard article (~1000 words)               | from 12 credits     |
+| Full article (~1500 words)                   | from 25 credits     |
+| Pillar article (~2500 words)                 | from 40 credits     |
+| Deep SEO scan                                | 2-8 credits         |
 | Social media adaptation                      | ~5 credits/platform |
-| Trend scan                                   | 2-8 credits         |
+| AI avatar video (5s/10s/15s)                 | 60-185 credits      |
+| AI script generation                         | 1 credit            |
+| AI avatar generation                         | 3 credits           |
 | Trend scouting (X/Reddit)                    | 30-70 credits       |
 | Competitor analysis                          | 20-50 credits       |
+| Content gap analysis                         | 40 credits          |
 | Content ingestion (YouTube, PDF, audio, web) | 1-55 credits        |
 | Lead magnet                                  | 30-100 credits      |
-| Short-form video (5-15s)                     | 60-185 credits      |
 
 ## Ready to Automate Your Content?
 

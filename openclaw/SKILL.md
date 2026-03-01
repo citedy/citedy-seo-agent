@@ -953,6 +953,21 @@ GET /api/agent/health
 
 - 0 credits. Public (no auth). Returns `{ status, checks: { redis, supabase }, timestamp }`.
 
+### Operational Status (Recommended for `/status`)
+
+```http
+GET /api/agent/status
+```
+
+- 0 credits. Auth required.
+- Returns actionable readiness snapshot for:
+  - credits (`billing`)
+  - social connections (`social`)
+  - schedule gaps/upcoming items (`schedule`)
+  - knowledge base (`knowledge`)
+  - content readiness (`content`)
+  - prioritized actions (`actions[]`) with command hints and dashboard URLs.
+
 ### List Articles
 
 ```http
@@ -999,6 +1014,7 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | --------------------------------- | ------ | ------------------------------------ |
 | `/api/agent/register`             | POST   | free (public)                        |
 | `/api/agent/health`               | GET    | free (public)                        |
+| `/api/agent/status`               | GET    | free                                 |
 | `/api/agent/me`                   | GET    | free                                 |
 | `/api/agent/rotate-key`           | POST   | free (1/hour)                        |
 | `/api/agent/settings`             | GET    | free                                 |

@@ -25,6 +25,13 @@
       "cost": "free (public)"
     },
     {
+      "id": "status",
+      "method": "GET",
+      "path": "/api/agent/status",
+      "description": "Operational readiness status (credits, socials, schedule, knowledge, content)",
+      "cost": "free"
+    },
+    {
       "id": "me",
       "method": "GET",
       "path": "/api/agent/me",
@@ -58,7 +65,7 @@
         "trustLevel": "show_preview",
         "scanSources": ["x", "google"],
         "targetTimezone": "America/New_York",
-        "publishSchedule": {"postsPerDay": 2, "slots": ["09:00", "17:00"]}
+        "publishSchedule": { "postsPerDay": 2, "slots": ["09:00", "17:00"] }
       }
     },
     {
@@ -241,7 +248,10 @@
       "description": "Generate competitor content gaps",
       "cost": "40 credits",
       "payload_example": {
-        "competitor_urls": ["https://competitor1.com", "https://competitor2.com"]
+        "competitor_urls": [
+          "https://competitor1.com",
+          "https://competitor2.com"
+        ]
       }
     },
     {
@@ -341,7 +351,10 @@
       "description": "Batch ingest up to 20 URLs",
       "cost": "1-55 credits per URL",
       "payload_example": {
-        "urls": ["https://example.com/article1", "https://example.com/article2"],
+        "urls": [
+          "https://example.com/article1",
+          "https://example.com/article2"
+        ],
         "callback_url": "https://your-server.com/webhook"
       }
     },
@@ -429,8 +442,11 @@
       "description": "Merge video segments with subtitles",
       "cost": "5 credits",
       "payload_example": {
-        "video_urls": ["https://download.citedy.com/...1.mp4", "https://download.citedy.com/...2.mp4"],
-        "phrases": [{"text": "First part"}, {"text": "Second part"}]
+        "video_urls": [
+          "https://download.citedy.com/...1.mp4",
+          "https://download.citedy.com/...2.mp4"
+        ],
+        "phrases": [{ "text": "First part" }, { "text": "Second part" }]
       }
     },
     {

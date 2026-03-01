@@ -566,10 +566,7 @@
         "default": "{\n  \"url\": \"https://youtube.com/watch?v=example\"\n}"
       }
     },
-    "required": [
-      "API Key",
-      "Request JSON"
-    ]
+    "required": ["API Key", "Request JSON"]
   },
   "output_schema": {
     "type": "object",

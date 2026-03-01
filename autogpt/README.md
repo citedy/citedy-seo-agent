@@ -83,8 +83,16 @@ All templates expose four outputs:
 node ./validate-templates.mjs
 ```
 
+Validator now checks:
+
+- graph integrity for every template
+- `manifest.json` <-> `agents/*.agent.json` consistency
+- `actions.json` template references
+- critical endpoints presence in `actions.json` (including `GET /api/agent/status`)
+
 ## Notes
 
 - Templates are direct API-call graphs, no compatibility wrappers.
 - Existing Citedy API behavior is not modified by this package.
+- Use `GET /api/agent/status` for actionable onboarding/readiness checks.
 - 1 credit = $0.01 USD.

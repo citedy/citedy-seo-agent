@@ -131,24 +131,24 @@ node ./validate-templates.mjs
 
 ## 7. Pricing Quick Reference
 
-| Operation | Credits |
-|---|---|
-| Turbo article | 2 |
-| Turbo+ (with search) | 4 |
-| Standard mini | 15 |
-| Standard standard | 20 |
-| Standard full | 33 |
-| Standard pillar | 48 |
-| Scan (fast/deep/ultra/ultra+) | 2/4/6/8 |
-| Social adaptation | ~5/platform |
-| Shorts script | 1 |
-| Shorts avatar | 3 |
-| Shorts video 5s/10s/15s | 60/130/185 |
-| Shorts merge | 5 |
-| Content ingestion | 1-55 |
-| Lead magnet (text/images) | 30/100 |
-| Scout X (fast/ultimate) | 35/70 |
-| Scout Reddit | 30 |
-| Competitor gaps | 40 |
+| Operation                     | Credits     |
+| ----------------------------- | ----------- |
+| Turbo article                 | 2           |
+| Turbo+ (with search)          | 4           |
+| Standard mini                 | 15          |
+| Standard standard             | 20          |
+| Standard full                 | 33          |
+| Standard pillar               | 48          |
+| Scan (fast/deep/ultra/ultra+) | 2/4/6/8     |
+| Social adaptation             | ~5/platform |
+| Shorts script                 | 1           |
+| Shorts avatar                 | 3           |
+| Shorts video 5s/10s/15s       | 60/130/185  |
+| Shorts merge                  | 5           |
+| Content ingestion             | 1-55        |
+| Lead magnet (text/images)     | 30/100      |
+| Scout X (fast/ultimate)       | 35/70       |
+| Scout Reddit                  | 30          |
+| Competitor gaps               | 40          |
 
 1 credit = $0.01 USD

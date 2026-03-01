@@ -566,10 +566,7 @@
         "default": "{\n  \"topic\": \"AI personas let you write as Elon Musk\",\n  \"duration\": \"short\",\n  \"style\": \"hook\",\n  \"language\": \"en\"\n}"
       }
     },
-    "required": [
-      "API Key",
-      "Request JSON"
-    ]
+    "required": ["API Key", "Request JSON"]
   },
   "output_schema": {
     "type": "object",

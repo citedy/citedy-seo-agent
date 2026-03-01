@@ -566,10 +566,7 @@
         "default": "{\n  \"topic\": \"10-Step SEO Audit Checklist\",\n  \"type\": \"checklist\",\n  \"language\": \"en\",\n  \"generate_images\": false\n}"
       }
     },
-    "required": [
-      "API Key",
-      "Request JSON"
-    ]
+    "required": ["API Key", "Request JSON"]
   },
   "output_schema": {
     "type": "object",

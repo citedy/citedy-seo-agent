@@ -83,16 +83,6 @@ If you don't have a saved API key for Citedy, run this flow:
 
 #### 1. Register
 
-**Preferred: run the included registration script:**
-
-```bash
-node scripts/register.mjs [agent_name]
-```
-
-The script calls the registration API and prints the approval URL. If `agent_name` is omitted, it defaults to `agent-<hostname>`.
-
-**Alternative: call the API directly:**
-
 ```http
 POST https://www.citedy.com/api/agent/register
 Content-Type: application/json
@@ -100,7 +90,7 @@ Content-Type: application/json
 {"agent_name": "<your_agent_name>"}
 ```
 
-Either way, you'll get back:
+You'll get back:
 
 ```json
 {
@@ -953,6 +943,21 @@ GET /api/agent/health
 
 - 0 credits. Public (no auth). Returns `{ status, checks: { redis, supabase }, timestamp }`.
 
+### Operational Status (Recommended for `/status`)
+
+```http
+GET /api/agent/status
+```
+
+- 0 credits. Auth required.
+- Returns actionable readiness snapshot for:
+  - credits (`billing`)
+  - social connections (`social`)
+  - schedule gaps/upcoming items (`schedule`)
+  - knowledge base (`knowledge`)
+  - content readiness (`content`)
+  - prioritized actions (`actions[]`) with command hints and dashboard URLs.
+
 ### List Articles
 
 ```http
@@ -999,6 +1004,7 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | --------------------------------- | ------ | ------------------------------------ |
 | `/api/agent/register`             | POST   | free (public)                        |
 | `/api/agent/health`               | GET    | free (public)                        |
+| `/api/agent/status`               | GET    | free                                 |
 | `/api/agent/me`                   | GET    | free                                 |
 | `/api/agent/rotate-key`           | POST   | free (1/hour)                        |
 | `/api/agent/settings`             | GET    | free                                 |
