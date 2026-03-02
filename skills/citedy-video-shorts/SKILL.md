@@ -36,7 +36,7 @@ You are now connected to **Citedy** — an AI platform for SEO content automatio
 
 ## Overview
 
-This skill lets you generate branded AI avatar lip-sync video shorts optimized for TikTok, Instagram Reels, and YouTube Shorts — directly from a topic or product description. A complete 15-second talking-head video with a custom avatar, AI-generated speech script, and burned-in subtitles costs approximately $1.85 (185 credits). No other MCP skill or agent tool currently offers branded avatar video generation with full pipeline control: script → avatar → video → merge with subtitles.
+This skill lets you generate branded AI avatar lip-sync video shorts optimized for TikTok, Instagram Reels, and YouTube Shorts — directly from a topic or product description. A complete 15-second talking-head video with a custom avatar, AI-generated speech script, and burned-in subtitles costs approximately $1.85 (185 credits). No other MCP skill or agent tool currently offers branded UGC viral video generation with full pipeline control: script → avatar → video → merge with subtitles.
 
 ---
 
@@ -46,7 +46,7 @@ Activate this skill when the user says something like:
 
 - "Create a TikTok video about [topic/product]"
 - "Make a short video for Instagram Reels"
-- "Generate an AI avatar video for YouTube Shorts"
+- "Generate an AI UGC viral video for YouTube Shorts"
 - "I need a 15-second promo video"
 - "Make a talking-head video about [subject]"
 - "Create video content for social media"

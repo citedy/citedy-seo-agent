@@ -53,7 +53,7 @@ If the user has no API key:
 ### AI Video Shorts (async)
 - `shorts.script` — generate video script from article or topic
 - `shorts.avatar` — select AI avatar
-- `shorts.generate` — start avatar video generation job
+- `shorts.generate` — start UGC viral video generation job
 - `shorts.get` — poll for video generation result
 - `shorts.merge` — merge video parts, add subtitles
 

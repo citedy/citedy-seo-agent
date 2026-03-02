@@ -419,7 +419,7 @@
       "id": "shorts_video",
       "method": "POST",
       "path": "/api/agent/shorts",
-      "description": "Generate AI avatar video segment (async)",
+      "description": "Generate AI UGC viral video segment (async)",
       "cost": "60-185 credits (by duration)",
       "payload_example": {
         "prompt": "Close-up portrait 9:16, woman in coffee shop...",
@@ -558,7 +558,7 @@
     {
       "id": "shorts_video",
       "file": "./agents/citedy-shorts-video.agent.json",
-      "description": "Generate AI avatar video segment (60-185 credits)"
+      "description": "Generate AI UGC viral video segment (60-185 credits)"
     },
     {
       "id": "shorts_merge",

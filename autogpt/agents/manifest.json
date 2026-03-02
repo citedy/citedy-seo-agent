@@ -101,7 +101,7 @@
       "id": "citedy-shorts-script",
       "file": "citedy-shorts-script.agent.json",
       "name": "Citedy Shorts Script",
-      "description": "Generate speech script for short-form AI avatar video.",
+      "description": "Generate speech script for short-form AI UGC viral video.",
       "endpoint": "https://www.citedy.com/api/agent/shorts/script",
       "method": "POST"
     },
@@ -117,7 +117,7 @@
       "id": "citedy-shorts-video",
       "file": "citedy-shorts-video.agent.json",
       "name": "Citedy Shorts Video",
-      "description": "Generate AI avatar video segment (60-185 credits).",
+      "description": "Generate AI UGC viral video segment (60-185 credits).",
       "endpoint": "https://www.citedy.com/api/agent/shorts",
       "method": "POST"
     },

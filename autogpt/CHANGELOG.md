@@ -13,7 +13,7 @@
   - `citedy-lead-magnet` — PDF lead magnet generation (30-100 credits)
   - `citedy-shorts-script` — speech script for shorts (1 credit)
   - `citedy-shorts-avatar` — AI avatar image (3 credits)
-  - `citedy-shorts-video` — AI avatar video segment (60-185 credits)
+  - `citedy-shorts-video` — AI UGC viral video segment (60-185 credits)
   - `citedy-shorts-merge` — merge segments with subtitles (5 credits)
   - `citedy-webhook-register` — register webhook endpoint
   - `citedy-product-upload` — upload product knowledge (1 credit)

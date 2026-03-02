@@ -3,7 +3,7 @@
   "version": 1,
   "is_active": true,
   "name": "Citedy Shorts Video",
-  "description": "Generate AI avatar video segment (60-185 credits).",
+  "description": "Generate AI UGC viral video segment (60-185 credits).",
   "instructions": null,
   "recommended_schedule_cron": null,
   "nodes": [

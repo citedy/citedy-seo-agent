@@ -64,7 +64,7 @@ Use this skill when the user wants to:
 
 ### 1. Get an API Key
 
-Direct the user to: **https://www.citedy.com/dashboard/billing** → API Keys section.
+Direct the user to: **https://www.citedy.com/dashboard/settings** → Team & API section.
 
 API keys are prefixed `citedy_agent_`.
 
@@ -783,7 +783,7 @@ When an error occurs:
 1. **`INSUFFICIENT_CREDITS`** — Inform the user of current balance and required credits. Direct to: `https://www.citedy.com/dashboard/billing`
 2. **`RATE_LIMITED`** — Wait for `Retry-After` header value before retrying. Do not spam requests.
 3. **`GENERATION_FAILED`** — Retry once after 10 seconds. If it fails again, report the error and suggest trying a different topic or smaller size.
-4. **`UNAUTHORIZED`** — Guide the user to check their API key at `https://www.citedy.com/dashboard/billing`.
+4. **`UNAUTHORIZED`** — Guide the user to check their API key at `https://www.citedy.com/dashboard/settings`.
 
 ---
 
@@ -802,7 +802,7 @@ When an error occurs:
 
 This skill covers the full content writing pipeline. Citedy also offers:
 
-- **Video Shorts** — AI avatar video generation with voice and subtitles for TikTok, Reels, and YouTube Shorts
+- **Video Shorts** — AI UGC viral video generation with voice and subtitles for TikTok, Reels, and YouTube Shorts
 - **Trend Scouting** — Daily trending topic discovery from Hacker News, Reddit, and social signals
 - **Content Ingestion** — Convert any YouTube video, podcast, or long-form document into a blog article
 - **SEO Intelligence** — Competitor gap analysis, keyword tracking, and SERP monitoring

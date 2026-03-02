@@ -9,7 +9,7 @@ description: >
   Threads, Instagram, Instagram Reels, YouTube Shorts, and Shopify, generate lead magnets (checklists, swipe files,
   frameworks), ingest any URL (YouTube videos, web articles, PDFs, audio files) into structured
   content, ultra-cheap turbo articles from 2 credits, generate short-form
-  AI avatar videos with subtitles, and run fully automated content autopilot.
+  AI UGC viral videos with subtitles, and run fully automated content autopilot.
   Powered by Citedy.
 version: "3.0.0"
 author: Citedy
@@ -66,7 +66,7 @@ Use this skill when the user asks to:
 - Set up automated content sessions (cron-based article generation)
 - Generate lead magnets (checklists, swipe files, frameworks) for lead capture
 - Ingest any URL (YouTube video, web article) into structured content with summary and metadata
-- Generate short-form AI avatar videos with subtitles (script, avatar, video, merge)
+- Generate short-form AI UGC viral videos with subtitles (script, avatar, video, merge)
 - Register webhook endpoints to receive real-time event notifications (article published, ingestion complete, etc.)
 - List or delete webhook endpoints, view webhook delivery history
 - List published articles or check agent balance, status, and rate limits
@@ -665,7 +665,7 @@ PATCH /api/agent/lead-magnets/{id}
 
 ### Short-Form Video (Shorts)
 
-Generate AI avatar videos with subtitles — from script to finished video.
+Generate AI UGC viral videos with subtitles — from script to finished video.
 
 **Recommended flow:**
 

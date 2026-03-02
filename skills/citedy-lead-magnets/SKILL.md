@@ -54,7 +54,7 @@ Use this skill when:
 To use this skill, you need a Citedy API key.
 
 **Register:**
-1. Go to [https://www.citedy.com/dashboard/billing](https://www.citedy.com/dashboard/billing)
+1. Go to [https://www.citedy.com/dashboard/settings](https://www.citedy.com/dashboard/settings)
 2. Generate an API key (prefixed `citedy_agent_`)
 3. Set `CITEDY_API_KEY` in your environment
 

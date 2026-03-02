@@ -25,7 +25,7 @@ npx openskills install Citedy/citedy-lead-magnets
 
 ## Quick Start
 
-1. **Get an API key** at [citedy.com/dashboard/billing](https://www.citedy.com/dashboard/billing)
+1. **Get an API key** at [citedy.com/dashboard/settings](https://www.citedy.com/dashboard/settings)
 
 2. **Generate lead magnet** (async, poll every 5s):
    ```

@@ -3,14 +3,25 @@
   "name": "citedy-seo-agent",
   "displayName": "Citedy — AI SEO Content Autopilot",
   "version": "1.0.0",
-  "description": "Connect Cursor to Citedy's AI SEO platform via MCP. Scout trends on X/Reddit, analyze competitors, generate SEO articles in 55 languages with AI illustrations and voice-over, create social adaptations for 9 platforms, generate AI avatar videos with subtitles, ingest any URL into structured content, create lead magnets, and run fully automated content autopilot.",
+  "description": "Connect Cursor to Citedy's AI SEO platform via MCP. Scout trends on X/Reddit, analyze competitors, generate SEO articles in 55 languages with AI illustrations and voice-over, create social adaptations for 9 platforms, generate AI UGC viral videos with subtitles, ingest any URL into structured content, create lead magnets, and run fully automated content autopilot.",
   "author": { "name": "Citedy", "email": "hello@citedy.com" },
   "publisher": "citedy",
   "homepage": "https://www.citedy.com",
   "repository": "https://github.com/Citedy/citedy-seo-agent",
   "license": "MIT",
   "logo": "assets/logo.svg",
-  "keywords": ["seo", "content-marketing", "mcp", "ai", "blog", "social-media", "video", "lead-magnets", "trend-scouting", "competitor-analysis"],
+  "keywords": [
+    "seo",
+    "content-marketing",
+    "mcp",
+    "ai",
+    "blog",
+    "social-media",
+    "video",
+    "lead-magnets",
+    "trend-scouting",
+    "competitor-analysis"
+  ],
   "category": "developer-tools",
   "tags": ["seo", "content-automation", "marketing", "ai-agent"]
 }
