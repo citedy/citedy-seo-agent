@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.citedy/citedy-seo-agent",
+  "title": "Citedy SEO Agent",
+  "description": "Full-stack AI marketing toolkit — scout X/Twitter and Reddit for trends, analyze competitors & content gaps, publish SEO/GEO-optimized articles with AI images & voice-overs in 55 languages, create social media adaptations for 9 platforms, generate lead magnets, ingest any URL into structured content, and run fully automated content autopilot.",
+  "version": "2.2.0",
+  "websiteUrl": "https://www.citedy.com/tools/mcp",
+  "repository": {
+    "url": "https://github.com/Citedy/citedy-seo-agent",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.citedy.com/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer token with your Citedy API key (prefixed citedy_agent_). Get yours at https://www.citedy.com/dashboard/settings",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
