@@ -36,6 +36,7 @@ Checklists, swipe files and frameworks that convert.
 Generate ready-to-publish PDF lead magnets in minutes. This skill produces high-quality, niche-specific lead magnets that capture visitor emails and grow your subscriber list. **No other MCP or skill store offers lead magnet generation** — this is a unique capability powered exclusively by Citedy.
 
 Supported types:
+
 - **Checklist** — Step-by-step action items visitors can follow immediately
 - **Swipe File** — Curated templates, scripts, and examples ready to copy
 - **Framework** — Structured methodology or repeatable process for a goal
@@ -43,6 +44,7 @@ Supported types:
 ## When to Use
 
 Use this skill when:
+
 - A user asks to create a checklist, guide, or downloadable resource
 - You need a lead capture asset for a landing page or campaign
 - A user wants to grow their email list with a valuable freebie
@@ -54,17 +56,20 @@ Use this skill when:
 To use this skill, you need a Citedy API key.
 
 **Register:**
+
 1. Go to [https://www.citedy.com/dashboard/settings](https://www.citedy.com/dashboard/settings)
 2. Generate an API key (prefixed `citedy_agent_`)
 3. Set `CITEDY_API_KEY` in your environment
 
 **Health check:**
+
 ```
 GET https://api.citedy.com/api/agent/health
 Headers: Authorization: Bearer $CITEDY_API_KEY
 ```
 
 **Verify account:**
+
 ```
 GET https://api.citedy.com/api/agent/me
 Headers: Authorization: Bearer $CITEDY_API_KEY
@@ -92,6 +97,7 @@ Body:
 ```
 
 Response:
+
 ```json
 {
   "id": "lm_abc123",
@@ -111,6 +117,7 @@ Headers: Authorization: Bearer $CITEDY_API_KEY
 Poll every 5 seconds until `status` = `"draft"`.
 
 Response when ready:
+
 ```json
 {
   "id": "lm_abc123",
@@ -137,6 +144,7 @@ Body:
 ```
 
 Response:
+
 ```json
 {
   "id": "lm_abc123",
@@ -157,6 +165,7 @@ Share `public_url` with your audience. Visitors enter their email to download th
 **User:** "Create an SEO audit checklist for my marketing agency"
 
 **Agent action:**
+
 ```json
 POST /api/agent/lead-magnets
 {
@@ -177,6 +186,7 @@ POST /api/agent/lead-magnets
 **User:** "Create a swipe file with cold email templates for SaaS companies"
 
 **Agent action:**
+
 ```json
 POST /api/agent/lead-magnets
 {
@@ -198,6 +208,7 @@ POST /api/agent/lead-magnets
 **User:** "I need a content strategy framework PDF for my audience"
 
 **Agent action:**
+
 ```json
 POST /api/agent/lead-magnets
 {
@@ -218,15 +229,15 @@ POST /api/agent/lead-magnets
 
 Generate a new lead magnet.
 
-| Field | Type | Required | Description |
-|---|---|---|---|
-| `topic` | string | Yes | Topic or subject of the lead magnet |
-| `type` | string | Yes | `checklist`, `swipe_file`, or `framework` |
-| `niche` | string | No | Target niche for more specific content |
-| `language` | string | No | `en`, `pt`, `de`, `es`, `fr`, `it` (default: `en`) |
-| `platform` | string | No | `twitter` or `linkedin` — optimizes tone |
-| `generate_images` | boolean | No | Include AI-generated illustrations (default: `false`) |
-| `auto_publish` | boolean | No | Skip draft step and publish immediately (default: `false`) |
+| Field             | Type    | Required | Description                                                |
+| ----------------- | ------- | -------- | ---------------------------------------------------------- |
+| `topic`           | string  | Yes      | Topic or subject of the lead magnet                        |
+| `type`            | string  | Yes      | `checklist`, `swipe_file`, or `framework`                  |
+| `niche`           | string  | No       | Target niche for more specific content                     |
+| `language`        | string  | No       | `en`, `pt`, `de`, `es`, `fr`, `it` (default: `en`)         |
+| `platform`        | string  | No       | `twitter` or `linkedin` — optimizes tone                   |
+| `generate_images` | boolean | No       | Include AI-generated illustrations (default: `false`)      |
+| `auto_publish`    | boolean | No       | Skip draft step and publish immediately (default: `false`) |
 
 **Credits:** 30cr text-only, 100cr with images
 
@@ -257,27 +268,31 @@ Update lead magnet (publish or update metadata).
 
 **Credits:** 0cr
 
-| Field | Type | Description |
-|---|---|---|
+| Field    | Type   | Description                     |
+| -------- | ------ | ------------------------------- |
 | `status` | string | Set to `published` to make live |
-| `title` | string | Override generated title |
+| `title`  | string | Override generated title        |
 
 ---
 
 ### Glue Tools
 
 **Health check:**
+
 ```
 GET /api/agent/health
 ```
 
 **Account info:**
+
 ```
 GET /api/agent/me
 ```
+
 Returns: `{ tenant_id, email, credits_remaining, plan }`
 
 **Job status:**
+
 ```
 GET /api/agent/status/{job_id}
 ```
@@ -289,11 +304,13 @@ GET /api/agent/status/{job_id}
 Use product context to generate niche-specific lead magnets:
 
 **List products:**
+
 ```
 GET /api/agent/products/list
 ```
 
 **Search products:**
+
 ```
 GET /api/agent/products/search?q={query}
 ```
@@ -302,12 +319,12 @@ Pass product data into the `topic` or `niche` fields for highly targeted lead ma
 
 ## Pricing
 
-| Type | Credits | USD |
-|---|---|---|
-| Text-only lead magnet | 30cr | $0.30 |
-| Lead magnet with AI images | 100cr | $1.00 |
-| Poll / status check | 0cr | Free |
-| Publish / update | 0cr | Free |
+| Type                       | Credits | USD   |
+| -------------------------- | ------- | ----- |
+| Text-only lead magnet      | 30cr    | $0.30 |
+| Lead magnet with AI images | 100cr   | $1.00 |
+| Poll / status check        | 0cr     | Free  |
+| Publish / update           | 0cr     | Free  |
 
 1 credit = $0.01. Credits are deducted at generation time (Step 1). Polling and publishing are always free.
 
@@ -315,10 +332,10 @@ Purchase credits at [https://www.citedy.com/dashboard/billing](https://www.cited
 
 ## Rate Limits
 
-| Endpoint | Limit |
-|---|---|
-| POST /api/agent/lead-magnets | 10 requests/hour |
-| All other endpoints | 60 requests/minute |
+| Endpoint                     | Limit              |
+| ---------------------------- | ------------------ |
+| POST /api/agent/lead-magnets | 10 requests/hour   |
+| All other endpoints          | 60 requests/minute |
 
 If you hit a rate limit, you receive HTTP 429. Wait before retrying.
 
@@ -333,13 +350,13 @@ If you hit a rate limit, you receive HTTP 429. Wait before retrying.
 
 ## Error Handling
 
-| HTTP Code | Meaning | Action |
-|---|---|---|
-| 400 | Invalid parameters | Check required fields and allowed values |
-| 401 | Invalid or missing API key | Verify `CITEDY_API_KEY` |
-| 402 | Insufficient credits | Top up at citedy.com/dashboard/billing |
-| 429 | Rate limit exceeded | Wait and retry |
-| 500 | Generation failed | Retry once; if persistent, contact support |
+| HTTP Code | Meaning                    | Action                                     |
+| --------- | -------------------------- | ------------------------------------------ |
+| 400       | Invalid parameters         | Check required fields and allowed values   |
+| 401       | Invalid or missing API key | Verify `CITEDY_API_KEY`                    |
+| 402       | Insufficient credits       | Top up at citedy.com/dashboard/billing     |
+| 429       | Rate limit exceeded        | Wait and retry                             |
+| 500       | Generation failed          | Retry once; if persistent, contact support |
 
 On `status: "failed"` in poll response, retry the generation with the same parameters.
 
@@ -354,6 +371,7 @@ When sharing a lead magnet with a user:
 5. Do NOT share the raw `pdf_url` directly — use the lead capture page to collect emails
 
 Example response to user:
+
 > Your lead magnet is ready: **"The 27-Point SEO Audit Checklist"**
 > Share this link to capture leads: https://www.citedy.com/leads/lm_abc123
 > Visitors enter their email to download the PDF.

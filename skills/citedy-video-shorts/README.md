@@ -9,16 +9,19 @@ Turn any topic or product description into a professional 5–15 second talking-
 ## Install
 
 ### Claude Code
+
 ```
 /plugin → citedy/claude-plugins → install citedy-video-shorts
 ```
 
 ### OpenAI Codex CLI
+
 ```bash
 git clone https://github.com/Citedy/citedy-seo-agent.git ~/.agents/skills/citedy-video-shorts
 ```
 
 ### Universal (openskills)
+
 ```bash
 npx openskills install Citedy/citedy-video-shorts
 ```
@@ -26,24 +29,28 @@ npx openskills install Citedy/citedy-video-shorts
 ## Quick Start
 
 1. **Register** your agent and get an API key:
+
    ```
    POST https://www.citedy.com/api/agent/register
    { "email": "you@example.com", "name": "My Agent" }
    ```
 
 2. **Generate script** (1 credit):
+
    ```
    POST https://www.citedy.com/api/agent/shorts/script
    { "topic": "Why you need daily skincare", "duration": "short", "style": "hook" }
    ```
 
 3. **Generate avatar** (3 credits):
+
    ```
    POST https://www.citedy.com/api/agent/shorts/avatar
    { "gender": "female", "type": "professional", "location": "office" }
    ```
 
 4. **Generate video** (60–185 credits, async — poll every 8s):
+
    ```
    POST https://www.citedy.com/api/agent/shorts
    { "prompt": "...", "avatar_url": "...", "duration": 10, "speech_text": "..." }
@@ -57,16 +64,16 @@ npx openskills install Citedy/citedy-video-shorts
 
 ## Pricing
 
-| Step | Duration | Credits | USD |
-|---|---|---|---|
-| Script generation | any | 1 credits | $0.01 |
-| Avatar generation | — | 3 credits | $0.03 |
-| Video generation | 5s | 60 credits | $0.60 |
-| Video generation | 10s | 130 credits | $1.30 |
-| Video generation | 15s | 185 credits | $1.85 |
-| Merge + subtitles | — | 5 credits | $0.05 |
-| **Full 10s video** | **10s** | **139 credits** | **$1.39** |
-| **Full 15s video** | **15s** | **194 credits** | **$1.94** |
+| Step               | Duration | Credits         | USD       |
+| ------------------ | -------- | --------------- | --------- |
+| Script generation  | any      | 1 credits       | $0.01     |
+| Avatar generation  | —        | 3 credits       | $0.03     |
+| Video generation   | 5s       | 60 credits      | $0.60     |
+| Video generation   | 10s      | 130 credits     | $1.30     |
+| Video generation   | 15s      | 185 credits     | $1.85     |
+| Merge + subtitles  | —        | 5 credits       | $0.05     |
+| **Full 10s video** | **10s**  | **139 credits** | **$1.39** |
+| **Full 15s video** | **15s**  | **194 credits** | **$1.94** |
 
 1 credit = $0.01 USD
 

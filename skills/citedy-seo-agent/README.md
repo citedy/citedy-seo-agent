@@ -9,11 +9,13 @@ The Citedy SEO Agent is the complete content marketing suite in a single skill. 
 ## Install
 
 ### Claude Code
+
 ```
 /plugin → citedy/claude-plugins → install citedy-seo-agent
 ```
 
 ### OpenAI Codex CLI
+
 ```bash
 # User-global (available in all projects)
 git clone https://github.com/Citedy/citedy-seo-agent.git ~/.agents/skills/citedy-seo-agent
@@ -23,6 +25,7 @@ git clone https://github.com/Citedy/citedy-seo-agent.git .agents/skills/citedy-s
 ```
 
 ### Universal (openskills)
+
 ```bash
 npx openskills install Citedy/citedy-seo-agent
 ```
@@ -30,19 +33,23 @@ npx openskills install Citedy/citedy-seo-agent
 ## Quick Start
 
 1. **Register** your agent (one-time setup):
+
    ```
    POST https://www.citedy.com/api/agent/register
    { "email": "you@example.com", "name": "My Agent" }
    ```
+
    Open the approval link in your email, then save the returned `api_key` as `CITEDY_API_KEY`.
 
 2. **Verify connection**:
+
    ```
    GET https://www.citedy.com/api/agent/health
    Authorization: Bearer $CITEDY_API_KEY
    ```
 
 3. **Scout trending topics** on X:
+
    ```
    POST https://www.citedy.com/api/agent/scout/x
    { "query": "your niche", "mode": "fast" }
@@ -56,27 +63,27 @@ npx openskills install Citedy/citedy-seo-agent
 
 ## Full Capabilities
 
-| Feature | Credits |
-|---|---|
-| Scout X — fast / ultimate | 35 / 70 credits |
-| Scout Reddit | 30 credits |
-| Content gap analysis | 40 credits |
-| Competitor discovery | 20 credits |
-| Competitor deep-scan | 25–50 credits |
-| Turbo article | 2–4 credits |
-| Mini article (~500w) | 15 credits |
-| Standard article (~1,000w) | 20 credits |
-| Full article (~2,000w) | 33 credits |
-| Pillar article (~4,000w) | 48 credits |
-| +Web intelligence | +8 credits |
-| +AI illustrations | +9–36 credits |
-| +Voice-over audio | +10–55 credits |
-| Social adaptation | ~5 credits/platform |
-| AI UGC viral video (5s/10s/15s) | 64–194 credits |
-| Content ingestion (web/PDF/audio) | 1–30 credits |
-| Content ingestion (YouTube) | 5–55 credits |
-| Lead magnet (text-only) | 30 credits |
-| Lead magnet (with images) | 100 credits |
+| Feature                           | Credits             |
+| --------------------------------- | ------------------- |
+| Scout X — fast / ultimate         | 35 / 70 credits     |
+| Scout Reddit                      | 30 credits          |
+| Content gap analysis              | 40 credits          |
+| Competitor discovery              | 20 credits          |
+| Competitor deep-scan              | 25–50 credits       |
+| Turbo article                     | 2–4 credits         |
+| Mini article (~500w)              | 15 credits          |
+| Standard article (~1,000w)        | 20 credits          |
+| Full article (~2,000w)            | 33 credits          |
+| Pillar article (~4,000w)          | 48 credits          |
+| +Web intelligence                 | +8 credits          |
+| +AI illustrations                 | +9–36 credits       |
+| +Voice-over audio                 | +10–55 credits      |
+| Social adaptation                 | ~5 credits/platform |
+| AI UGC viral video (5s/10s/15s)   | 64–194 credits      |
+| Content ingestion (web/PDF/audio) | 1–30 credits        |
+| Content ingestion (YouTube)       | 5–55 credits        |
+| Lead magnet (text-only)           | 30 credits          |
+| Lead magnet (with images)         | 100 credits         |
 
 1 credit = $0.01 USD. New accounts get **100 free credits** — no credit card required.
 
@@ -86,13 +93,13 @@ Top up at [citedy.com/dashboard/billing](https://www.citedy.com/dashboard/billin
 
 Looking for a specific capability? Each focused skill is a standalone entry point:
 
-| Skill | What It Does |
-|---|---|
-| [citedy-video-shorts](../citedy-video-shorts/) | AI UGC viral video with subtitles for TikTok/Reels/Shorts |
+| Skill                                                    | What It Does                                               |
+| -------------------------------------------------------- | ---------------------------------------------------------- |
+| [citedy-video-shorts](../citedy-video-shorts/)           | AI UGC viral video with subtitles for TikTok/Reels/Shorts  |
 | [citedy-content-ingestion](../citedy-content-ingestion/) | Turn any URL into structured content (YouTube, PDF, audio) |
-| [citedy-trend-scout](../citedy-trend-scout/) | Scout X/Reddit trends + content gaps + competitors |
-| [citedy-lead-magnets](../citedy-lead-magnets/) | Generate checklists, swipe files, frameworks |
-| [citedy-content-writer](../citedy-content-writer/) | End-to-end blog autopilot with social distribution |
+| [citedy-trend-scout](../citedy-trend-scout/)             | Scout X/Reddit trends + content gaps + competitors         |
+| [citedy-lead-magnets](../citedy-lead-magnets/)           | Generate checklists, swipe files, frameworks               |
+| [citedy-content-writer](../citedy-content-writer/)       | End-to-end blog autopilot with social distribution         |
 
 ## Compatible Platforms
 

@@ -9,16 +9,19 @@ Combines real-time social signals from X/Twitter and Reddit with SEO intelligenc
 ## Install
 
 ### Claude Code
+
 ```
 /plugin → citedy/claude-plugins → install citedy-trend-scout
 ```
 
 ### OpenAI Codex CLI
+
 ```bash
 git clone https://github.com/Citedy/citedy-seo-agent.git ~/.agents/skills/citedy-trend-scout
 ```
 
 ### Universal (openskills)
+
 ```bash
 npx openskills install Citedy/citedy-trend-scout
 ```
@@ -26,18 +29,21 @@ npx openskills install Citedy/citedy-trend-scout
 ## Quick Start
 
 1. **Register** and get an API key:
+
    ```
    POST https://www.citedy.com/api/agent/register
    { "name": "My Scout", "blog_url": "https://yourblog.com" }
    ```
 
 2. **Scout X/Twitter** for trending topics (async, poll every 5s):
+
    ```
    POST https://www.citedy.com/api/agent/scout/x
    { "query": "AI content automation", "mode": "fast", "limit": 20 }
    ```
 
 3. **Scout Reddit** for audience intent (async, poll every 5s):
+
    ```
    POST https://www.citedy.com/api/agent/scout/reddit
    { "query": "AI writing tools", "subreddits": ["SEO", "marketing"] }
@@ -51,17 +57,17 @@ npx openskills install Citedy/citedy-trend-scout
 
 ## Pricing
 
-| Action | Credits |
-|---|---|
-| Scout X — fast | 35 credits |
-| Scout X — ultimate | 70 credits |
-| Scout Reddit | 30 credits |
-| Content gaps generate | 40 credits |
-| Retrieve gaps (cached) | 0 credits |
-| Discover competitors | 20 credits |
-| Scout competitor — fast | 25 credits |
+| Action                      | Credits    |
+| --------------------------- | ---------- |
+| Scout X — fast              | 35 credits |
+| Scout X — ultimate          | 70 credits |
+| Scout Reddit                | 30 credits |
+| Content gaps generate       | 40 credits |
+| Retrieve gaps (cached)      | 0 credits  |
+| Discover competitors        | 20 credits |
+| Scout competitor — fast     | 25 credits |
 | Scout competitor — ultimate | 50 credits |
-| Polling / health / me | 0 credits |
+| Polling / health / me       | 0 credits  |
 
 1 credit = $0.01 USD. Failed runs are refunded automatically.
 

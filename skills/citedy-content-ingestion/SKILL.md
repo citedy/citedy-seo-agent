@@ -41,6 +41,7 @@ security_notes: |
 Turn any URL into structured content your agent can use. Pass a link — the skill extracts the full text, transcript, metadata, and summary — and returns it as clean structured data ready for your LLM pipeline.
 
 Supported content types:
+
 - **YouTube videos** — full transcription via Gemini Video API (not just captions)
 - **Web articles** — clean article text with metadata
 - **PDF documents** — text extraction from public PDF URLs
@@ -55,6 +56,7 @@ Use this skill as a standalone input node for any LLM pipeline. Feed the output 
 ## When to Use
 
 Use this skill when the user:
+
 - Asks to extract, transcribe, or summarize a URL
 - Shares a YouTube video and wants the content analyzed or repurposed
 - Shares a PDF link and wants the text extracted
@@ -70,6 +72,7 @@ Use this skill when the user:
 To authenticate, register your agent and obtain an API key:
 
 1. **Register your agent:**
+
    ```
    POST https://www.citedy.com/api/agent/register
    Content-Type: application/json
@@ -93,6 +96,7 @@ All subsequent requests use `Authorization: Bearer $CITEDY_API_KEY`.
 ### Single URL Ingestion
 
 **Step 1 — Submit URL:**
+
 ```
 POST /api/agent/ingest
 Authorization: Bearer $CITEDY_API_KEY
@@ -104,6 +108,7 @@ Content-Type: application/json
 ```
 
 Returns `202 Accepted` with:
+
 ```json
 {
   "id": "job_abc123",
@@ -115,6 +120,7 @@ Returns `202 Accepted` with:
 If the URL was already ingested (cache hit), returns `200 OK` with `"cached": true` — costs 1 credit.
 
 **Step 2 — Poll for completion:**
+
 ```
 GET /api/agent/ingest/{id}
 ```
@@ -122,6 +128,7 @@ GET /api/agent/ingest/{id}
 Returns current status: `processing`, `completed`, or `failed`. Poll every 5–15 seconds. No credit cost.
 
 **Step 3 — Retrieve content:**
+
 ```
 GET /api/agent/ingest/{id}/content
 ```
@@ -234,6 +241,7 @@ Returns 5 job IDs. Poll each individually or wait for all to complete.
 Submit a single URL for ingestion.
 
 **Request:**
+
 ```json
 {
   "url": "string (required) — any supported URL"
@@ -241,6 +249,7 @@ Submit a single URL for ingestion.
 ```
 
 **Response 202 (new job):**
+
 ```json
 {
   "id": "job_abc123",
@@ -252,6 +261,7 @@ Submit a single URL for ingestion.
 ```
 
 **Response 200 (cache hit):**
+
 ```json
 {
   "id": "job_abc123",
@@ -268,6 +278,7 @@ Submit a single URL for ingestion.
 Poll job status. No credit cost.
 
 **Response:**
+
 ```json
 {
   "id": "job_abc123",
@@ -289,6 +300,7 @@ Status values: `queued` | `processing` | `completed` | `failed`
 Retrieve full extracted content. No credit cost.
 
 **Response:**
+
 ```json
 {
   "id": "job_abc123",
@@ -314,6 +326,7 @@ Retrieve full extracted content. No credit cost.
 Submit up to 20 URLs at once.
 
 **Request:**
+
 ```json
 {
   "urls": ["string", "..."],
@@ -322,6 +335,7 @@ Submit up to 20 URLs at once.
 ```
 
 **Response 202:**
+
 ```json
 {
   "jobs": [
@@ -339,11 +353,13 @@ Submit up to 20 URLs at once.
 List ingestion jobs.
 
 **Query params:**
+
 - `status` — filter by `queued | processing | completed | failed`
 - `limit` — max results (default 20, max 100)
 - `offset` — pagination offset
 
 **Response:**
+
 ```json
 {
   "jobs": [...],
@@ -373,19 +389,19 @@ Return API status, current rate limit usage, and service health. 0 credits.
 
 ## Pricing
 
-| Content Type | Duration / Size | Credits |
-|---|---|---|
-| `web_article` | any | 1 credits |
-| `pdf_document` | any | 2 credits |
-| `youtube_video` | < 10 min | 5 credits |
-| `youtube_video` | 10–30 min | 15 credits |
-| `youtube_video` | 30–60 min | 30 credits |
-| `youtube_video` | 60–120 min | 55 credits |
-| `audio_file` | < 10 min | 3 credits |
-| `audio_file` | 10–30 min | 8 credits |
-| `audio_file` | 30–60 min | 15 credits |
-| `audio_file` | 60+ min | 30 credits |
-| Cache hit (any type) | — | 1 credits |
+| Content Type         | Duration / Size | Credits    |
+| -------------------- | --------------- | ---------- |
+| `web_article`        | any             | 1 credits  |
+| `pdf_document`       | any             | 2 credits  |
+| `youtube_video`      | < 10 min        | 5 credits  |
+| `youtube_video`      | 10–30 min       | 15 credits |
+| `youtube_video`      | 30–60 min       | 30 credits |
+| `youtube_video`      | 60–120 min      | 55 credits |
+| `audio_file`         | < 10 min        | 3 credits  |
+| `audio_file`         | 10–30 min       | 8 credits  |
+| `audio_file`         | 30–60 min       | 15 credits |
+| `audio_file`         | 60+ min         | 30 credits |
+| Cache hit (any type) | —               | 1 credits  |
 
 Credits are charged on `completed` status only. Failed jobs are not charged.
 
@@ -403,13 +419,14 @@ Credits are charged on `completed` status only. Failed jobs are not charged.
 
 ## Rate Limits
 
-| Endpoint | Limit |
-|---|---|
-| POST /api/agent/ingest | 30 requests/hour per tenant |
-| POST /api/agent/ingest/batch | 5 requests/hour per tenant |
-| All other endpoints | 60 requests/minute per tenant |
+| Endpoint                     | Limit                         |
+| ---------------------------- | ----------------------------- |
+| POST /api/agent/ingest       | 30 requests/hour per tenant   |
+| POST /api/agent/ingest/batch | 5 requests/hour per tenant    |
+| All other endpoints          | 60 requests/minute per tenant |
 
 Rate limit headers are included in all responses:
+
 - `X-RateLimit-Limit`
 - `X-RateLimit-Remaining`
 - `X-RateLimit-Reset`
@@ -418,17 +435,17 @@ Rate limit headers are included in all responses:
 
 ## Error Handling
 
-| Error Code | HTTP Status | Meaning |
-|---|---|---|
-| `INVALID_URL` | 400 | URL is malformed or unsupported |
-| `UNSUPPORTED_CONTENT_TYPE` | 400 | Content type not supported |
-| `DURATION_EXCEEDED` | 400 | YouTube video longer than 120 min |
-| `SIZE_EXCEEDED` | 400 | Audio file larger than 50 MB |
-| `INSUFFICIENT_CREDITS` | 402 | Not enough credits to process |
-| `RATE_LIMIT_EXCEEDED` | 429 | Too many requests |
-| `JOB_NOT_FOUND` | 404 | Job ID does not exist |
-| `PROCESSING_FAILED` | 500 | Ingestion failed on server side |
-| `PRIVATE_CONTENT` | 403 | Content is behind login or paywall |
+| Error Code                 | HTTP Status | Meaning                            |
+| -------------------------- | ----------- | ---------------------------------- |
+| `INVALID_URL`              | 400         | URL is malformed or unsupported    |
+| `UNSUPPORTED_CONTENT_TYPE` | 400         | Content type not supported         |
+| `DURATION_EXCEEDED`        | 400         | YouTube video longer than 120 min  |
+| `SIZE_EXCEEDED`            | 400         | Audio file larger than 50 MB       |
+| `INSUFFICIENT_CREDITS`     | 402         | Not enough credits to process      |
+| `RATE_LIMIT_EXCEEDED`      | 429         | Too many requests                  |
+| `JOB_NOT_FOUND`            | 404         | Job ID does not exist              |
+| `PROCESSING_FAILED`        | 500         | Ingestion failed on server side    |
+| `PRIVATE_CONTENT`          | 403         | Content is behind login or paywall |
 
 On `PROCESSING_FAILED`, retry after 60 seconds. If it fails twice, try a different URL or contact support.
 

@@ -9,16 +9,19 @@ Submit a URL and get back clean structured content: full transcript, summary, me
 ## Install
 
 ### Claude Code
+
 ```
 /plugin → citedy/claude-plugins → install citedy-content-ingestion
 ```
 
 ### OpenAI Codex CLI
+
 ```bash
 git clone https://github.com/Citedy/citedy-seo-agent.git ~/.agents/skills/citedy-content-ingestion
 ```
 
 ### Universal (openskills)
+
 ```bash
 npx openskills install Citedy/citedy-content-ingestion
 ```
@@ -26,20 +29,24 @@ npx openskills install Citedy/citedy-content-ingestion
 ## Quick Start
 
 1. **Register** and get an API key:
+
    ```
    POST https://www.citedy.com/api/agent/register
    { "agent_name": "My Agent", "contact_email": "you@example.com" }
    ```
 
 2. **Submit a URL** for ingestion:
+
    ```
    POST https://www.citedy.com/api/agent/ingest
    Authorization: Bearer $CITEDY_API_KEY
    { "url": "https://www.youtube.com/watch?v=example" }
    ```
+
    Returns `{ "id": "job_abc123", "status": "processing" }`
 
 3. **Poll for completion** (every 5–15s, free):
+
    ```
    GET https://www.citedy.com/api/agent/ingest/job_abc123
    ```
@@ -52,19 +59,19 @@ npx openskills install Citedy/citedy-content-ingestion
 
 ## Pricing
 
-| Content Type | Duration / Size | Credits |
-|---|---|---|
-| Web article | any | 1 credits |
-| PDF document | any | 2 credits |
-| YouTube video | < 10 min | 5 credits |
-| YouTube video | 10–30 min | 15 credits |
-| YouTube video | 30–60 min | 30 credits |
-| YouTube video | 60–120 min | 55 credits |
-| Audio file | < 10 min | 3 credits |
-| Audio file | 10–30 min | 8 credits |
-| Audio file | 30–60 min | 15 credits |
-| Audio file | 60+ min | 30 credits |
-| Cache hit (any type) | — | 1 credits |
+| Content Type         | Duration / Size | Credits    |
+| -------------------- | --------------- | ---------- |
+| Web article          | any             | 1 credits  |
+| PDF document         | any             | 2 credits  |
+| YouTube video        | < 10 min        | 5 credits  |
+| YouTube video        | 10–30 min       | 15 credits |
+| YouTube video        | 30–60 min       | 30 credits |
+| YouTube video        | 60–120 min      | 55 credits |
+| Audio file           | < 10 min        | 3 credits  |
+| Audio file           | 10–30 min       | 8 credits  |
+| Audio file           | 30–60 min       | 15 credits |
+| Audio file           | 60+ min         | 30 credits |
+| Cache hit (any type) | —               | 1 credits  |
 
 1 credit = $0.01 USD. Failed jobs are not charged.
 

@@ -83,6 +83,7 @@ Content-Type: application/json
 **Headers:** `Authorization: Bearer <CITEDY_API_KEY>`
 
 **Response:**
+
 ```json
 {
   "agent_id": "ag_xxxx",
@@ -162,9 +163,9 @@ Content-Type: application/json
 
 For quick content at low cost. Two sub-modes:
 
-| Mode | Credits | Description |
-|------|---------|-------------|
-| `turbo` | 2 credits | Fast generation, no web search |
+| Mode     | Credits   | Description                        |
+| -------- | --------- | ---------------------------------- |
+| `turbo`  | 2 credits | Fast generation, no web search     |
 | `turbo+` | 4 credits | Fast generation + web intelligence |
 
 ```
@@ -251,6 +252,7 @@ Content-Type: application/json
 Ground articles with real product data. The AI references this during generation.
 
 **Add a product:**
+
 ```
 POST https://www.citedy.com/api/agent/products
 Authorization: Bearer <CITEDY_API_KEY>
@@ -265,12 +267,14 @@ Content-Type: application/json
 ```
 
 **List products:**
+
 ```
 GET https://www.citedy.com/api/agent/products
 Authorization: Bearer <CITEDY_API_KEY>
 ```
 
 **Search products:**
+
 ```
 POST https://www.citedy.com/api/agent/products/search
 Authorization: Bearer <CITEDY_API_KEY>
@@ -282,6 +286,7 @@ Content-Type: application/json
 ```
 
 **Delete a product:**
+
 ```
 DELETE https://www.citedy.com/api/agent/products/<product_id>
 Authorization: Bearer <CITEDY_API_KEY>
@@ -332,6 +337,7 @@ Content-Type: application/json
 **User:** "Write an article based on this post: https://competitor.com/best-crm-tools"
 
 **Agent flow:**
+
 1. Call `POST /api/agent/autopilot` with `source_urls: ["https://competitor.com/best-crm-tools"]`, `size: "standard"`, `language: "en"`
 2. Poll status or wait for webhook `article.completed`
 3. Return article title, URL, and word count to user
@@ -344,6 +350,7 @@ Content-Type: application/json
 **User:** "Set up daily articles about fintech in English and Spanish"
 
 **Agent flow:**
+
 1. Call `POST /api/agent/session` with `categories: ["fintech", "payments", "banking"]`, `languages: ["en", "es"]`, `interval_minutes: 1440`, `article_size: "standard"`
 2. Confirm session ID and next scheduled run
 3. Optionally register webhook to notify user on each article completion
@@ -355,6 +362,7 @@ Content-Type: application/json
 **User:** "Quickly write 5 short articles about remote work tips"
 
 **Agent flow:**
+
 1. For each topic, call `POST /api/agent/autopilot` with `mode: "turbo"`, `size: "mini"`
 2. Run calls sequentially or note rate limits
 3. Return list of generated article titles and links
@@ -366,6 +374,7 @@ Content-Type: application/json
 **User:** "Take my latest article and make posts for LinkedIn, Reddit, and X"
 
 **Agent flow:**
+
 1. Call `GET /api/agent/articles` to find the latest article ID
 2. Call `POST /api/agent/adapt` with `platforms: ["linkedin", "reddit", "x_thread"]`, `include_ref_link: true`
 3. Return each adaptation with preview text
@@ -379,20 +388,21 @@ Content-Type: application/json
 
 Generate a full blog article.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `topic` | string | one of topic/source_urls | Article topic or title |
-| `source_urls` | string[] | one of topic/source_urls | URLs to base the article on |
-| `language` | string | no | Language code, default `en`. 55 languages supported |
-| `size` | string | no | `mini`, `standard`, `full`, `pillar`. Default `standard` |
-| `mode` | string | no | `standard`, `turbo`. Default `standard` |
-| `enable_search` | boolean | no | Enable web intelligence. Default `false` |
-| `persona` | string | no | Writing persona slug (see Personas section) |
-| `illustrations` | boolean | no | Generate AI illustrations. Default `false` |
-| `audio` | boolean | no | Generate voice-over audio. Default `false` |
-| `disable_competition` | boolean | no | Skip competitor analysis. Default `false` |
+| Parameter             | Type     | Required                 | Description                                              |
+| --------------------- | -------- | ------------------------ | -------------------------------------------------------- |
+| `topic`               | string   | one of topic/source_urls | Article topic or title                                   |
+| `source_urls`         | string[] | one of topic/source_urls | URLs to base the article on                              |
+| `language`            | string   | no                       | Language code, default `en`. 55 languages supported      |
+| `size`                | string   | no                       | `mini`, `standard`, `full`, `pillar`. Default `standard` |
+| `mode`                | string   | no                       | `standard`, `turbo`. Default `standard`                  |
+| `enable_search`       | boolean  | no                       | Enable web intelligence. Default `false`                 |
+| `persona`             | string   | no                       | Writing persona slug (see Personas section)              |
+| `illustrations`       | boolean  | no                       | Generate AI illustrations. Default `false`               |
+| `audio`               | boolean  | no                       | Generate voice-over audio. Default `false`               |
+| `disable_competition` | boolean  | no                       | Skip competitor analysis. Default `false`                |
 
 **Response:**
+
 ```json
 {
   "article_id": "art_xxxx",
@@ -408,11 +418,11 @@ Generate a full blog article.
 
 List generated articles.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `status` | string | Filter: `draft`, `published`, `processing` |
-| `limit` | integer | Max results, default 20 |
-| `offset` | integer | Pagination offset |
+| Parameter | Type    | Description                                |
+| --------- | ------- | ------------------------------------------ |
+| `status`  | string  | Filter: `draft`, `published`, `processing` |
+| `limit`   | integer | Max results, default 20                    |
+| `offset`  | integer | Pagination offset                          |
 
 ---
 
@@ -420,11 +430,11 @@ List generated articles.
 
 Create social media adaptations from an article.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `article_id` | string | yes | Source article ID |
-| `platforms` | string[] | yes | 1–3 platforms per request |
-| `include_ref_link` | boolean | no | Append article backlink. Default `true` |
+| Parameter          | Type     | Required | Description                             |
+| ------------------ | -------- | -------- | --------------------------------------- |
+| `article_id`       | string   | yes      | Source article ID                       |
+| `platforms`        | string[] | yes      | 1–3 platforms per request               |
+| `include_ref_link` | boolean  | no       | Append article backlink. Default `true` |
 
 **Platforms:** `x_article`, `x_thread`, `linkedin`, `facebook`, `reddit`, `threads`, `instagram`, `instagram_reels`, `youtube_shorts`
 
@@ -434,13 +444,13 @@ Create social media adaptations from an article.
 
 Publish or schedule an adaptation.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `adaptationId` | string | yes | Adaptation ID from `/adapt` |
-| `action` | string | yes | `now`, `schedule`, `cancel` |
-| `platform` | string | yes | Target platform |
-| `accountId` | string | yes | Connected social account ID |
-| `scheduledAt` | string | no | ISO 8601 datetime for scheduled action |
+| Parameter      | Type   | Required | Description                            |
+| -------------- | ------ | -------- | -------------------------------------- |
+| `adaptationId` | string | yes      | Adaptation ID from `/adapt`            |
+| `action`       | string | yes      | `now`, `schedule`, `cancel`            |
+| `platform`     | string | yes      | Target platform                        |
+| `accountId`    | string | yes      | Connected social account ID            |
+| `scheduledAt`  | string | no       | ISO 8601 datetime for scheduled action |
 
 ---
 
@@ -448,14 +458,14 @@ Publish or schedule an adaptation.
 
 Create an automated content session.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `categories` | string[] | yes | Topic categories for generation |
-| `problems` | string[] | no | Specific problems or pain points to cover |
-| `languages` | string[] | no | Language codes. Default `["en"]` |
-| `interval_minutes` | integer | no | Generation interval. Default `1440` (daily) |
-| `article_size` | string | no | `mini`, `standard`, `full`, `pillar` |
-| `disable_competition` | boolean | no | Skip competitor analysis. Default `false` |
+| Parameter             | Type     | Required | Description                                 |
+| --------------------- | -------- | -------- | ------------------------------------------- |
+| `categories`          | string[] | yes      | Topic categories for generation             |
+| `problems`            | string[] | no       | Specific problems or pain points to cover   |
+| `languages`           | string[] | no       | Language codes. Default `["en"]`            |
+| `interval_minutes`    | integer  | no       | Generation interval. Default `1440` (daily) |
+| `article_size`        | string   | no       | `mini`, `standard`, `full`, `pillar`        |
+| `disable_competition` | boolean  | no       | Skip competitor analysis. Default `false`   |
 
 ---
 
@@ -463,13 +473,13 @@ Create an automated content session.
 
 Create and publish a micro-post.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `topic` | string | yes | Post topic |
-| `platforms` | string[] | yes | Target platforms |
-| `tone` | string | no | `professional`, `casual`, `humorous`, `authoritative` |
-| `contentType` | string | no | `tip`, `insight`, `question`, `announcement`, `story` |
-| `scheduledAt` | string | no | ISO 8601 datetime. Omit for immediate |
+| Parameter     | Type     | Required | Description                                           |
+| ------------- | -------- | -------- | ----------------------------------------------------- |
+| `topic`       | string   | yes      | Post topic                                            |
+| `platforms`   | string[] | yes      | Target platforms                                      |
+| `tone`        | string   | no       | `professional`, `casual`, `humorous`, `authoritative` |
+| `contentType` | string   | no       | `tip`, `insight`, `question`, `announcement`, `story` |
+| `scheduledAt` | string   | no       | ISO 8601 datetime. Omit for immediate                 |
 
 ---
 
@@ -493,12 +503,12 @@ Get current agent/blog settings.
 
 Update agent/blog settings.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `default_language` | string | Default article language |
-| `default_size` | string | Default article size |
-| `auto_publish` | boolean | Auto-publish generated articles |
-| `default_persona` | string | Default persona slug |
+| Parameter          | Type    | Description                     |
+| ------------------ | ------- | ------------------------------- |
+| `default_language` | string  | Default article language        |
+| `default_size`     | string  | Default article size            |
+| `auto_publish`     | boolean | Auto-publish generated articles |
+| `default_persona`  | string  | Default persona slug            |
 
 ---
 
@@ -506,12 +516,12 @@ Update agent/blog settings.
 
 Add a product to knowledge base.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `name` | string | yes | Product name |
-| `description` | string | yes | Product description |
-| `url` | string | no | Product landing page |
-| `features` | string[] | no | Key features list |
+| Parameter     | Type     | Required | Description          |
+| ------------- | -------- | -------- | -------------------- |
+| `name`        | string   | yes      | Product name         |
+| `description` | string   | yes      | Product description  |
+| `url`         | string   | no       | Product landing page |
+| `features`    | string[] | no       | Key features list    |
 
 ---
 
@@ -525,9 +535,9 @@ List all products in knowledge base.
 
 Semantic search over knowledge base.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `query` | string | yes | Search query |
+| Parameter | Type   | Required | Description  |
+| --------- | ------ | -------- | ------------ |
+| `query`   | string | yes      | Search query |
 
 ---
 
@@ -559,11 +569,11 @@ Get AI-suggested topics to fill schedule gaps based on existing content and SEO 
 
 Register a webhook endpoint for event notifications.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `url` | string | yes | HTTPS endpoint URL |
-| `events` | string[] | yes | Event types to subscribe to |
-| `secret` | string | no | HMAC signing secret |
+| Parameter | Type     | Required | Description                 |
+| --------- | -------- | -------- | --------------------------- |
+| `url`     | string   | yes      | HTTPS endpoint URL          |
+| `events`  | string[] | yes      | Event types to subscribe to |
+| `secret`  | string   | no       | HMAC signing secret         |
 
 ---
 
@@ -602,6 +612,7 @@ Get current agent profile, blog info, and credit balance.
 Poll article generation status.
 
 **Response:**
+
 ```json
 {
   "article_id": "art_xxxx",
@@ -619,27 +630,27 @@ All costs in credits. **1 credit = $0.01 USD.**
 
 ### Article Generation
 
-| Size | Standard Mode | Description |
-|------|--------------|-------------|
-| `mini` | 15 credits | ~500 words, quick post |
-| `standard` | 20 credits | ~1,000 words, full article |
-| `full` | 33 credits | ~2,000 words, in-depth piece |
-| `pillar` | 48 credits | ~4,000 words, pillar content |
+| Size       | Standard Mode | Description                  |
+| ---------- | ------------- | ---------------------------- |
+| `mini`     | 15 credits    | ~500 words, quick post       |
+| `standard` | 20 credits    | ~1,000 words, full article   |
+| `full`     | 33 credits    | ~2,000 words, in-depth piece |
+| `pillar`   | 48 credits    | ~4,000 words, pillar content |
 
 ### Turbo Mode
 
-| Mode | Cost | Notes |
-|------|------|-------|
-| `turbo` | 2 credits | Fast, no web search |
+| Mode     | Cost      | Notes                   |
+| -------- | --------- | ----------------------- |
+| `turbo`  | 2 credits | Fast, no web search     |
 | `turbo+` | 4 credits | Fast + web intelligence |
 
 ### Extensions
 
-| Extension | Cost |
-|-----------|------|
-| +Intelligence (web search) | +8 credits |
-| +Illustrations (per article) | +9–36 credits depending on count |
-| +Audio voice-over | +10–55 credits depending on length & language |
+| Extension                    | Cost                                          |
+| ---------------------------- | --------------------------------------------- |
+| +Intelligence (web search)   | +8 credits                                    |
+| +Illustrations (per article) | +9–36 credits depending on count              |
+| +Audio voice-over            | +10–55 credits depending on length & language |
 
 ### Social Adaptations
 
@@ -656,47 +667,52 @@ Products storage is free. Semantic search costs minimal credits per query.
 25 writing personas available. Pass the `slug` to `/api/agent/autopilot`.
 
 ### Writers & Journalists
-| Slug | Name |
-|------|------|
+
+| Slug                     | Name                   |
+| ------------------------ | ---------------------- |
 | `investigative-reporter` | Investigative Reporter |
-| `science-communicator` | Science Communicator |
-| `business-journalist` | Business Journalist |
-| `travel-writer` | Travel Writer |
-| `food-critic` | Food Critic |
+| `science-communicator`   | Science Communicator   |
+| `business-journalist`    | Business Journalist    |
+| `travel-writer`          | Travel Writer          |
+| `food-critic`            | Food Critic            |
 
 ### Tech Leaders & Experts
-| Slug | Name |
-|------|------|
-| `saas-founder` | SaaS Founder |
-| `cto-engineer` | CTO / Senior Engineer |
-| `data-scientist` | Data Scientist |
-| `cybersecurity-expert` | Cybersecurity Expert |
-| `product-manager` | Product Manager |
+
+| Slug                   | Name                  |
+| ---------------------- | --------------------- |
+| `saas-founder`         | SaaS Founder          |
+| `cto-engineer`         | CTO / Senior Engineer |
+| `data-scientist`       | Data Scientist        |
+| `cybersecurity-expert` | Cybersecurity Expert  |
+| `product-manager`      | Product Manager       |
 
 ### Business & Finance
-| Slug | Name |
-|------|------|
-| `startup-advisor` | Startup Advisor |
+
+| Slug                   | Name                 |
+| ---------------------- | -------------------- |
+| `startup-advisor`      | Startup Advisor      |
 | `marketing-strategist` | Marketing Strategist |
-| `venture-capitalist` | Venture Capitalist |
-| `hr-consultant` | HR Consultant |
-| `financial-analyst` | Financial Analyst |
+| `venture-capitalist`   | Venture Capitalist   |
+| `hr-consultant`        | HR Consultant        |
+| `financial-analyst`    | Financial Analyst    |
 
 ### Entertainment & Lifestyle
-| Slug | Name |
-|------|------|
-| `comedian-writer` | Comedian Writer |
-| `lifestyle-blogger` | Lifestyle Blogger |
-| `fitness-coach` | Fitness Coach |
-| `parenting-expert` | Parenting Expert |
+
+| Slug                 | Name               |
+| -------------------- | ------------------ |
+| `comedian-writer`    | Comedian Writer    |
+| `lifestyle-blogger`  | Lifestyle Blogger  |
+| `fitness-coach`      | Fitness Coach      |
+| `parenting-expert`   | Parenting Expert   |
 | `pop-culture-critic` | Pop Culture Critic |
 
 ### Creators & Educators
-| Slug | Name |
-|------|------|
-| `youtube-educator` | YouTube Educator |
-| `newsletter-writer` | Newsletter Writer |
-| `academic-researcher` | Academic Researcher |
+
+| Slug                   | Name                 |
+| ---------------------- | -------------------- |
+| `youtube-educator`     | YouTube Educator     |
+| `newsletter-writer`    | Newsletter Writer    |
+| `academic-researcher`  | Academic Researcher  |
 | `motivational-speaker` | Motivational Speaker |
 | `creative-storyteller` | Creative Storyteller |
 
@@ -706,32 +722,32 @@ Products storage is free. Semantic search costs minimal credits per query.
 
 Subscribe to these events when registering a webhook:
 
-| Event | Triggered When |
-|-------|---------------|
-| `article.started` | Article generation begins |
-| `article.completed` | Article fully generated and ready |
-| `article.failed` | Article generation failed |
-| `article.published` | Article published to blog |
-| `adaptation.completed` | Social adaptation ready |
-| `adaptation.published` | Social post published |
-| `session.started` | Autopilot session triggered |
-| `session.article_generated` | Session produced an article |
-| `session.completed` | Session cycle finished |
-| `session.failed` | Session encountered an error |
-| `credits.low` | Credit balance below threshold |
-| `credits.exhausted` | Credits depleted, operations paused |
+| Event                       | Triggered When                      |
+| --------------------------- | ----------------------------------- |
+| `article.started`           | Article generation begins           |
+| `article.completed`         | Article fully generated and ready   |
+| `article.failed`            | Article generation failed           |
+| `article.published`         | Article published to blog           |
+| `adaptation.completed`      | Social adaptation ready             |
+| `adaptation.published`      | Social post published               |
+| `session.started`           | Autopilot session triggered         |
+| `session.article_generated` | Session produced an article         |
+| `session.completed`         | Session cycle finished              |
+| `session.failed`            | Session encountered an error        |
+| `credits.low`               | Credit balance below threshold      |
+| `credits.exhausted`         | Credits depleted, operations paused |
 
 ---
 
 ## Rate Limits
 
-| Endpoint | Limit |
-|----------|-------|
-| `/api/agent/autopilot` | 10 requests/minute |
-| `/api/agent/adapt` | 20 requests/minute |
-| `/api/agent/post` | 30 requests/minute |
-| `/api/agent/products` | 60 requests/minute |
-| All other endpoints | 120 requests/minute |
+| Endpoint               | Limit               |
+| ---------------------- | ------------------- |
+| `/api/agent/autopilot` | 10 requests/minute  |
+| `/api/agent/adapt`     | 20 requests/minute  |
+| `/api/agent/post`      | 30 requests/minute  |
+| `/api/agent/products`  | 60 requests/minute  |
+| All other endpoints    | 120 requests/minute |
 
 Rate limit headers are included in all responses: `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`.
 
@@ -766,15 +782,15 @@ All errors follow a consistent structure:
 
 ### Common Error Codes
 
-| Code | HTTP Status | Description |
-|------|-------------|-------------|
-| `UNAUTHORIZED` | 401 | Invalid or missing API key |
-| `INSUFFICIENT_CREDITS` | 402 | Not enough credits |
-| `RATE_LIMITED` | 429 | Too many requests |
-| `ARTICLE_NOT_FOUND` | 404 | Article ID does not exist |
-| `INVALID_PLATFORM` | 400 | Unknown platform slug |
-| `SESSION_CONFLICT` | 409 | Active session already exists |
-| `GENERATION_FAILED` | 500 | AI generation error — retry safe |
+| Code                   | HTTP Status | Description                      |
+| ---------------------- | ----------- | -------------------------------- |
+| `UNAUTHORIZED`         | 401         | Invalid or missing API key       |
+| `INSUFFICIENT_CREDITS` | 402         | Not enough credits               |
+| `RATE_LIMITED`         | 429         | Too many requests                |
+| `ARTICLE_NOT_FOUND`    | 404         | Article ID does not exist        |
+| `INVALID_PLATFORM`     | 400         | Unknown platform slug            |
+| `SESSION_CONFLICT`     | 409         | Active session already exists    |
+| `GENERATION_FAILED`    | 500         | AI generation error — retry safe |
 
 ### Agent Response Guidelines
 

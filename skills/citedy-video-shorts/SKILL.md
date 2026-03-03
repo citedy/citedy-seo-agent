@@ -81,6 +81,7 @@ Activate this skill when the user says something like:
 The video shorts pipeline has 4 steps. Always follow this order.
 
 ### Step 1 — Generate Script
+
 `POST https://www.citedy.com/api/agent/shorts/script` — **1 credit**
 
 Generate the speech text that the AI avatar will say.
@@ -97,6 +98,7 @@ Generate the speech text that the AI avatar will say.
 Returns: `{ "script": "...", "word_count": 42, "estimated_seconds": 10 }`
 
 ### Step 2 — Select or Generate Avatar
+
 `POST https://www.citedy.com/api/agent/shorts/avatar` — **3 credits**
 
 Generate a branded AI avatar image for use in the video.
@@ -114,6 +116,7 @@ Generate a branded AI avatar image for use in the video.
 Returns: `{ "avatar_url": "https://download.citedy.com/avatars/..." }`
 
 ### Step 3 — Generate Video Segment
+
 `POST https://www.citedy.com/api/agent/shorts` — **60–185 credits**, async
 
 Submit the video generation job. Poll for completion.
@@ -132,6 +135,7 @@ Submit the video generation job. Poll for completion.
 Returns: `{ "id": "<job-id>", "status": "processing" }`
 
 **Poll** until `status === "completed"`:
+
 ```
 GET https://www.citedy.com/api/agent/shorts/{id}
 ```
@@ -139,6 +143,7 @@ GET https://www.citedy.com/api/agent/shorts/{id}
 Returns when done: `{ "status": "completed", "video_url": "https://download.citedy.com/shorts/..." }`
 
 ### Step 4 — Merge Segments and Add Subtitles
+
 `POST https://www.citedy.com/api/agent/shorts/merge` — **5 credits**
 
 Combine one or more video segments and burn in subtitles.
@@ -166,7 +171,9 @@ Returns: `{ "final_video_url": "https://download.citedy.com/shorts/final_..." }`
 **User:** Make a 10-second TikTok video promoting my skincare serum
 
 **Agent response:**
+
 > I'll create a 10-second TikTok video for your skincare serum. Here's the plan and cost:
+>
 > - Script generation: 1 credits ($0.01)
 > - Avatar generation: 3 credits ($0.03)
 > - Video generation (10s): 130 credits ($1.30)
@@ -175,10 +182,10 @@ Returns: `{ "final_video_url": "https://download.citedy.com/shorts/final_..." }`
 >
 > Shall I proceed?
 
-*(after approval)*
+_(after approval)_
 
 > Generating script... done.
-> Script: *"Tired of dull skin? Our new Vitamin C Serum delivers visible glow in just 7 days. Click the link to try it risk-free today."*
+> Script: _"Tired of dull skin? Our new Vitamin C Serum delivers visible glow in just 7 days. Click the link to try it risk-free today."_
 >
 > Generating avatar... done.
 > Generating video (this takes ~60–90 seconds)... polling...
@@ -193,11 +200,12 @@ Returns: `{ "final_video_url": "https://download.citedy.com/shorts/final_..." }`
 **User:** Create a YouTube Shorts video explaining what SEO is, for beginners
 
 **Agent response:**
+
 > I'll create a 15-second educational YouTube Short about SEO basics. Estimated cost: 197 credits ($1.97). Proceed?
 
-*(after approval)*
+_(after approval)_
 
-> Script: *"SEO stands for Search Engine Optimization. It's how you get your website to show up when people Google something. Better SEO means more visitors — and more customers — for free."*
+> Script: _"SEO stands for Search Engine Optimization. It's how you get your website to show up when people Google something. Better SEO means more visitors — and more customers — for free."_
 >
 > Video generated and subtitled: https://download.citedy.com/shorts/final_def456.mp4
 
@@ -208,6 +216,7 @@ Returns: `{ "final_video_url": "https://download.citedy.com/shorts/final_..." }`
 **User:** I need a 5-second hook video for my Instagram Reels
 
 **Agent response:**
+
 > A 5-second hook video will cost 69 credits ($0.69). Ready to go?
 
 ---
@@ -219,19 +228,21 @@ All endpoints require `Authorization: Bearer <CITEDY_API_KEY>`.
 ---
 
 ### POST /api/agent/shorts/script
+
 Generate a speech script for the avatar.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `topic` | string | yes | What the video is about |
-| `duration` | `"short"` \| `"long"` | no | `short` ≈ 5–10s, `long` ≈ 15s (default: `short`) |
-| `style` | `"hook"` \| `"educational"` \| `"cta"` | no | Tone of the script (default: `hook`) |
-| `language` | string | no | ISO 639-1 language code (default: `"en"`) |
-| `product_id` | string | no | Citedy product ID to include product context |
+| Parameter    | Type                                   | Required | Description                                      |
+| ------------ | -------------------------------------- | -------- | ------------------------------------------------ |
+| `topic`      | string                                 | yes      | What the video is about                          |
+| `duration`   | `"short"` \| `"long"`                  | no       | `short` ≈ 5–10s, `long` ≈ 15s (default: `short`) |
+| `style`      | `"hook"` \| `"educational"` \| `"cta"` | no       | Tone of the script (default: `hook`)             |
+| `language`   | string                                 | no       | ISO 639-1 language code (default: `"en"`)        |
+| `product_id` | string                                 | no       | Citedy product ID to include product context     |
 
 **Cost:** 1 credit
 
 **Response:**
+
 ```json
 {
   "script": "...",
@@ -243,19 +254,21 @@ Generate a speech script for the avatar.
 ---
 
 ### POST /api/agent/shorts/avatar
+
 Generate an AI avatar image.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `gender` | `"male"` \| `"female"` \| `"neutral"` | no | Avatar gender |
-| `origin` | string | no | Ethnicity/nationality (e.g., `"american"`, `"european"`, `"asian"`) |
-| `age_range` | string | no | Age group (e.g., `"18-25"`, `"25-35"`, `"35-50"`) |
-| `type` | `"professional"` \| `"casual"` \| `"influencer"` | no | Avatar style |
-| `location` | string | no | Background setting (e.g., `"office"`, `"studio"`, `"outdoors"`) |
+| Parameter   | Type                                             | Required | Description                                                         |
+| ----------- | ------------------------------------------------ | -------- | ------------------------------------------------------------------- |
+| `gender`    | `"male"` \| `"female"` \| `"neutral"`            | no       | Avatar gender                                                       |
+| `origin`    | string                                           | no       | Ethnicity/nationality (e.g., `"american"`, `"european"`, `"asian"`) |
+| `age_range` | string                                           | no       | Age group (e.g., `"18-25"`, `"25-35"`, `"35-50"`)                   |
+| `type`      | `"professional"` \| `"casual"` \| `"influencer"` | no       | Avatar style                                                        |
+| `location`  | string                                           | no       | Background setting (e.g., `"office"`, `"studio"`, `"outdoors"`)     |
 
 **Cost:** 3 credits
 
 **Response:**
+
 ```json
 {
   "avatar_url": "https://download.citedy.com/avatars/..."
@@ -265,25 +278,28 @@ Generate an AI avatar image.
 ---
 
 ### POST /api/agent/shorts
+
 Submit a video generation job. **Asynchronous** — poll for completion.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `prompt` | string | yes | 5-layer scene description (see Prompt Best Practices) |
-| `avatar_url` | string | yes | URL from `/api/agent/shorts/avatar` or custom URL |
-| `duration` | `5` \| `10` \| `15` | no | Segment length in seconds (default: `10`) |
-| `resolution` | `"480p"` \| `"720p"` \| `"1080p"` | no | Video resolution (default: `"480p"`) |
-| `aspect_ratio` | `"9:16"` \| `"16:9"` \| `"1:1"` | no | Aspect ratio (default: `"9:16"`) |
-| `speech_text` | string | yes | Exact text the avatar speaks. Must match script output. |
+| Parameter      | Type                              | Required | Description                                             |
+| -------------- | --------------------------------- | -------- | ------------------------------------------------------- |
+| `prompt`       | string                            | yes      | 5-layer scene description (see Prompt Best Practices)   |
+| `avatar_url`   | string                            | yes      | URL from `/api/agent/shorts/avatar` or custom URL       |
+| `duration`     | `5` \| `10` \| `15`               | no       | Segment length in seconds (default: `10`)               |
+| `resolution`   | `"480p"` \| `"720p"` \| `"1080p"` | no       | Video resolution (default: `"480p"`)                    |
+| `aspect_ratio` | `"9:16"` \| `"16:9"` \| `"1:1"`   | no       | Aspect ratio (default: `"9:16"`)                        |
+| `speech_text`  | string                            | yes      | Exact text the avatar speaks. Must match script output. |
 
 **Cost:** 60 credits (5s) / 130 credits (10s) / 185 credits (15s)
 
 **Response (immediate):**
+
 ```json
 { "id": "<job-id>", "status": "processing" }
 ```
 
 **Response (completed, from polling):**
+
 ```json
 {
   "id": "<job-id>",
@@ -295,15 +311,17 @@ Submit a video generation job. **Asynchronous** — poll for completion.
 ---
 
 ### GET /api/agent/shorts/{id}
+
 Poll video generation status.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | path | Job ID from POST /api/agent/shorts |
+| Parameter | Type | Description                        |
+| --------- | ---- | ---------------------------------- |
+| `id`      | path | Job ID from POST /api/agent/shorts |
 
 **Cost:** 0 credits
 
 **Response:**
+
 ```json
 {
   "id": "...",
@@ -317,25 +335,27 @@ Poll every 5–10 seconds. Typical generation time: 60–120 seconds.
 ---
 
 ### POST /api/agent/shorts/merge
+
 Merge video segments and burn in subtitles.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `video_urls` | string[] | yes | Array of video URLs to merge in order |
-| `phrases` | string[] | yes | Subtitle text per segment |
-| `config` | object | no | Subtitle config (see below) |
+| Parameter    | Type     | Required | Description                           |
+| ------------ | -------- | -------- | ------------------------------------- |
+| `video_urls` | string[] | yes      | Array of video URLs to merge in order |
+| `phrases`    | string[] | yes      | Subtitle text per segment             |
+| `config`     | object   | no       | Subtitle config (see below)           |
 
 **config object:**
 
-| Field | Type | Default | Description |
-|-------|------|---------|-------------|
-| `font_size` | number | `48` | Subtitle font size in px |
-| `font_color` | string | `"white"` | CSS color string |
-| `position` | `"bottom"` \| `"center"` \| `"top"` | `"bottom"` | Subtitle placement |
+| Field        | Type                                | Default    | Description              |
+| ------------ | ----------------------------------- | ---------- | ------------------------ |
+| `font_size`  | number                              | `48`       | Subtitle font size in px |
+| `font_color` | string                              | `"white"`  | CSS color string         |
+| `position`   | `"bottom"` \| `"center"` \| `"top"` | `"bottom"` | Subtitle placement       |
 
 **Cost:** 5 credits
 
 **Response:**
+
 ```json
 {
   "final_video_url": "https://download.citedy.com/shorts/final_..."
@@ -348,13 +368,13 @@ Merge video segments and burn in subtitles.
 
 These endpoints are free and useful for setup and diagnostics.
 
-| Endpoint | Method | Cost | Description |
-|----------|--------|------|-------------|
-| `/api/agent/health` | GET | 0 credits | Check API availability |
-| `/api/agent/me` | GET | 0 credits | Current user info: balance, referral code |
-| `/api/agent/status` | GET | 0 credits | System status and active jobs |
-| `/api/agent/products` | GET | 0 credits | List user's registered products |
-| `/api/agent/products/search` | POST | 0 credits | Search products by keyword for script context |
+| Endpoint                     | Method | Cost      | Description                                   |
+| ---------------------------- | ------ | --------- | --------------------------------------------- |
+| `/api/agent/health`          | GET    | 0 credits | Check API availability                        |
+| `/api/agent/me`              | GET    | 0 credits | Current user info: balance, referral code     |
+| `/api/agent/status`          | GET    | 0 credits | System status and active jobs                 |
+| `/api/agent/products`        | GET    | 0 credits | List user's registered products               |
+| `/api/agent/products/search` | POST   | 0 credits | Search products by keyword for script context |
 
 Use `GET /api/agent/me` to check the user's credit balance before starting a generation job.
 
@@ -362,16 +382,16 @@ Use `GET /api/agent/me` to check the user's credit balance before starting a gen
 
 ## Pricing Table
 
-| Step | Duration | Cost (credits) | Cost (USD) |
-|------|----------|----------------|------------|
-| Script generation | any | 1 credits | $0.01 |
-| Avatar generation | — | 3 credits | $0.03 |
-| Video generation | 5s | 60 credits | $0.60 |
-| Video generation | 10s | 130 credits | $1.30 |
-| Video generation | 15s | 185 credits | $1.85 |
-| Merge + subtitles | — | 5 credits | $0.05 |
-| **Full 10s video** | **10s** | **139 credits** | **$1.39** |
-| **Full 15s video** | **15s** | **194 credits** | **$1.94** |
+| Step               | Duration | Cost (credits)  | Cost (USD) |
+| ------------------ | -------- | --------------- | ---------- |
+| Script generation  | any      | 1 credits       | $0.01      |
+| Avatar generation  | —        | 3 credits       | $0.03      |
+| Video generation   | 5s       | 60 credits      | $0.60      |
+| Video generation   | 10s      | 130 credits     | $1.30      |
+| Video generation   | 15s      | 185 credits     | $1.85      |
+| Merge + subtitles  | —        | 5 credits       | $0.05      |
+| **Full 10s video** | **10s**  | **139 credits** | **$1.39**  |
+| **Full 15s video** | **15s**  | **194 credits** | **$1.94**  |
 
 > 1 credit = $0.01 USD
 
@@ -388,12 +408,14 @@ Use the 5-layer formula for the `prompt` field. Each layer is one sentence.
 5. **Audio**: Music and sound design. Always specify. `"Audio: no background music, clear voice only."`
 
 **Speech text rules:**
+
 - Put the exact speech in `speech_text`, NOT in `prompt`
 - `speech_text` must match the script output verbatim
 - Keep speech under 150 words for a 15s segment
 - Do NOT blend description and speech in the same field
 
 **Full example prompt:**
+
 ```
 Professional man in a tech startup office with a city view behind him.
 Camera: medium close-up, steady, slight bokeh on background.
@@ -417,10 +439,10 @@ Audio: no background music.
 
 ## Rate Limits
 
-| Category | Limit |
-|----------|-------|
-| General API | 60 requests / minute |
-| Video generation | 1 concurrent job |
+| Category         | Limit                |
+| ---------------- | -------------------- |
+| General API      | 60 requests / minute |
+| Video generation | 1 concurrent job     |
 
 If you receive a `429` error, wait for the current job to complete before submitting a new one.
 
@@ -428,14 +450,14 @@ If you receive a `429` error, wait for the current job to complete before submit
 
 ## Error Handling
 
-| Code | Meaning | Action |
-|------|---------|--------|
-| `401` | Invalid or missing API key | Check `CITEDY_API_KEY` is set correctly |
-| `402` | Insufficient credits | Inform user to top up at citedy.com/dashboard/billing |
-| `403` | Account not approved or feature not available | Direct user to complete email verification |
-| `409` | Concurrent job already running | Poll existing job first, then retry |
-| `429` | Rate limit exceeded | Wait 60 seconds and retry |
-| `500` | Server error during generation | Retry once after 30 seconds; if persists, note as failed |
+| Code  | Meaning                                       | Action                                                   |
+| ----- | --------------------------------------------- | -------------------------------------------------------- |
+| `401` | Invalid or missing API key                    | Check `CITEDY_API_KEY` is set correctly                  |
+| `402` | Insufficient credits                          | Inform user to top up at citedy.com/dashboard/billing    |
+| `403` | Account not approved or feature not available | Direct user to complete email verification               |
+| `409` | Concurrent job already running                | Poll existing job first, then retry                      |
+| `429` | Rate limit exceeded                           | Wait 60 seconds and retry                                |
+| `500` | Server error during generation                | Retry once after 30 seconds; if persists, note as failed |
 
 ---
 
@@ -454,6 +476,7 @@ If you receive a `429` error, wait for the current job to complete before submit
 This skill covers video shorts only. For the full content suite — blog articles, social media adaptations, competitor SEO analysis, lead magnets, and keyword tracking — use the complete **`citedy-seo-agent`** skill.
 
 The full agent includes everything in this skill plus:
+
 - Automated blog publishing with Autopilot
 - LinkedIn, X, Reddit, and Instagram social adaptations
 - AI visibility scanning (Google AI Overviews, ChatGPT, Gemini)

@@ -9,16 +9,19 @@ Produces ready-to-publish PDF lead magnets in minutes. Choose from three types: 
 ## Install
 
 ### Claude Code
+
 ```
 /plugin → citedy/claude-plugins → install citedy-lead-magnets
 ```
 
 ### OpenAI Codex CLI
+
 ```bash
 git clone https://github.com/Citedy/citedy-seo-agent.git ~/.agents/skills/citedy-lead-magnets
 ```
 
 ### Universal (openskills)
+
 ```bash
 npx openskills install Citedy/citedy-lead-magnets
 ```
@@ -28,6 +31,7 @@ npx openskills install Citedy/citedy-lead-magnets
 1. **Get an API key** at [citedy.com/dashboard/settings](https://www.citedy.com/dashboard/settings)
 
 2. **Generate lead magnet** (async, poll every 5s):
+
    ```
    POST https://www.citedy.com/api/agent/lead-magnets
    Authorization: Bearer $CITEDY_API_KEY
@@ -40,9 +44,11 @@ npx openskills install Citedy/citedy-lead-magnets
    ```
 
 3. **Poll until ready** (`status: "draft"`):
+
    ```
    GET https://www.citedy.com/api/agent/lead-magnets/{id}
    ```
+
    Returns `pdf_url` and `preview_url`.
 
 4. **Publish** to get a lead capture page:
@@ -54,11 +60,11 @@ npx openskills install Citedy/citedy-lead-magnets
 
 ## Pricing
 
-| Type | Credits | USD |
-|---|---|---|
-| Text-only lead magnet | 30 credits | $0.30 |
+| Type                              | Credits     | USD   |
+| --------------------------------- | ----------- | ----- |
+| Text-only lead magnet             | 30 credits  | $0.30 |
 | Lead magnet with AI illustrations | 100 credits | $1.00 |
-| Poll / publish / update | 0 credits | Free |
+| Poll / publish / update           | 0 credits   | Free  |
 
 1 credit = $0.01 USD
 
