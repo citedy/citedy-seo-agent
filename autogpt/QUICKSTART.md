@@ -1,4 +1,4 @@
-# AutoGPT Quickstart (Citedy v3.0.0)
+# AutoGPT Quickstart (Citedy v3.1.0)
 
 ## 1. Pick Template
 

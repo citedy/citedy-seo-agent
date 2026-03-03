@@ -23,7 +23,7 @@ Search for **Citedy** in the Cursor Extensions marketplace and install directly.
 Set your Citedy API key as an environment variable before starting Cursor:
 
 ```bash
-export CITEDY_API_KEY=your_api_key_here
+export CITEDY_AGENT_API_KEY=your_api_key_here
 ```
 
 Or add it to your shell profile (`~/.zshrc`, `~/.bashrc`) for persistence.
@@ -49,10 +49,10 @@ https://mcp.citedy.com/mcp
 ```bash
 curl -X POST https://www.citedy.com/api/agent/register \
   -H "Content-Type: application/json" \
-  -d '{ "email": "you@example.com", "name": "My Cursor Agent" }'
+  -d '{ "agent_name": "my_cursor_agent" }'
 ```
 
-The response includes your API key and initial credit balance.
+The response includes `approval_url`. Open it in browser to approve and get your API key.
 
 ---
 

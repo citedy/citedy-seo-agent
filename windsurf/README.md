@@ -14,7 +14,7 @@ Add the Citedy MCP server to your Windsurf MCP config file at `~/.codeium/windsu
     "citedy": {
       "serverUrl": "https://mcp.citedy.com/mcp",
       "headers": {
-        "Authorization": "Bearer ${env:CITEDY_API_KEY}"
+        "Authorization": "Bearer ${env:CITEDY_AGENT_API_KEY}"
       }
     }
   }
@@ -36,11 +36,11 @@ This tells Cascade when and how to use Citedy MCP tools automatically.
 
 ### Step 3: Set the API Key
 
-Set the `CITEDY_API_KEY` environment variable in your shell profile or system environment:
+Set the `CITEDY_AGENT_API_KEY` environment variable in your shell profile or system environment:
 
 ```bash
 # ~/.zshrc or ~/.bashrc
-export CITEDY_API_KEY="your_api_key_here"
+export CITEDY_AGENT_API_KEY="your_api_key_here"
 ```
 
 Then restart Windsurf for the variable to take effect.
@@ -52,10 +52,10 @@ Register at **https://www.citedy.com** or call the registration endpoint directl
 ```bash
 curl -X POST https://www.citedy.com/api/agent/register \
   -H "Content-Type: application/json" \
-  -d '{"agentName": "My Windsurf Agent", "email": "you@example.com"}'
+  -d '{"agent_name": "my_windsurf_agent"}'
 ```
 
-The response includes an `approvalUrl`. Open it to approve the agent and retrieve your API key.
+The response includes `approval_url`. Open it to approve the agent and retrieve your API key.
 
 ## What You Can Do
 

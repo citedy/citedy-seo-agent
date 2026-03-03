@@ -11,11 +11,15 @@ alwaysApply: false
 https://mcp.citedy.com/mcp
 ```
 
-**Auth**: Bearer token via `CITEDY_API_KEY` environment variable.
+**Auth**: Bearer token via `CITEDY_AGENT_API_KEY` environment variable.
 
 **Registration**: If the user does not have an API key, register via:
 ```
 POST https://www.citedy.com/api/agent/register
+```
+with payload:
+```json
+{ "agent_name": "my_agent" }
 ```
 
 ---
@@ -93,7 +97,7 @@ Key options:
 - `voiceover` — include TTS audio
 - `internalLinks` — auto-link to existing content
 
-**Important**: `article.generate` is async. It returns a job ID immediately. Poll `article.status` until the article is ready.
+`article.generate` returns generated content in one call. Use `article.list` to fetch recent generations.
 
 ---
 
@@ -103,7 +107,7 @@ Key options:
 |------|-------------|
 | `adapt.generate` | Convert a blog article into platform-optimized social posts |
 
-Supported platforms: X, LinkedIn, Facebook, Reddit, Instagram, TikTok, YouTube, Shopify, Telegram.
+Supported platforms: X, LinkedIn, Facebook, Reddit, Threads, Instagram, Instagram Reels, YouTube Shorts.
 
 Pass the article ID or raw text plus a list of target platforms.
 
@@ -130,7 +134,7 @@ Requires a connected account (user must authorize via Citedy dashboard). Check c
 
 Typical flow: `shorts.script` → `shorts.generate` → `shorts.merge`.
 
-`shorts.generate` is async — poll until the video URL is returned.
+`shorts.generate` is async — poll with `shorts.get` until the video URL is returned.
 
 ---
 
@@ -140,6 +144,8 @@ Typical flow: `shorts.script` → `shorts.generate` → `shorts.merge`.
 |------|-------------|
 | `ingest.create` | Ingest a single URL (web page, YouTube video, PDF) into structured content |
 | `ingest.batch` | Ingest multiple URLs in one request |
+| `ingest.get` | Poll ingestion status for async jobs |
+| `ingest.content.get` | Retrieve extracted content payload by ingestion ID |
 
 After ingestion, the content can be passed directly to `article.generate` as source material.
 
@@ -159,10 +165,10 @@ Returns a structured document ready for publishing or gating behind an email opt
 
 | Tool | When to use |
 |------|-------------|
-| `products.list` | List products in the user's knowledge base |
-| `products.get` | Retrieve a specific product's details |
 | `products.create` | Add a new product to the knowledge base |
-| `products.update` | Update product information |
+| `products.list` | List products in the user's knowledge base |
+| `products.search` | Semantic search in product knowledge |
+| `products.delete` | Remove a product document by ID |
 
 The knowledge base is used to ground article generation in accurate product descriptions and brand voice.
 
@@ -174,7 +180,7 @@ The knowledge base is used to ground article generation in accurate product desc
 |------|-------------|
 | `schedule.gaps` | View content gaps mapped to the publishing calendar |
 | `schedule.list` | List scheduled content items |
-| `schedule.create` | Schedule an article or social post for future publishing |
+| `session.create` | Create recurring content automation cadence |
 
 ---
 
@@ -192,8 +198,9 @@ A session runs the full pipeline: scout → gaps → generate → adapt → publ
 
 | Tool | When to use |
 |------|-------------|
+| `webhooks.register` | Register a URL to receive event notifications |
 | `webhooks.list` | List registered webhook endpoints |
-| `webhooks.create` | Register a URL to receive event notifications |
+| `webhooks.deliveries` | Inspect webhook delivery history |
 | `webhooks.delete` | Remove a webhook |
 
 Events include: `article.ready`, `short.ready`, `publish.success`, `session.complete`.
@@ -205,9 +212,9 @@ Events include: `article.ready`, `short.ready`, `publish.success`, `session.comp
 Many Citedy tools are async. The standard pattern is:
 
 ```
-1. Call the tool (e.g. article.generate) — returns { jobId, status: "queued" }
-2. Poll the status tool (e.g. article.status) with the jobId every few seconds
-3. When status === "ready", retrieve the result
+1. Call async tool (e.g. `scout.x`, `ingest.create`, `shorts.generate`)
+2. Poll companion tool (`scout.x.result`, `ingest.get`, `shorts.get`) every few seconds
+3. Stop polling when response status is terminal and return result/errors to user
 ```
 
 Let the user know the job has started and provide updates as they arrive.

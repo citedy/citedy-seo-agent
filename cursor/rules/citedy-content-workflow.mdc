@@ -57,14 +57,7 @@ article.generate({
 })
 ```
 
-**This call is async.** It returns a `jobId` immediately.
-
-Poll until ready:
-```
-article.status(jobId)  // poll every 5–10 seconds
-```
-
-When `status === "ready"`, the article includes the full HTML/Markdown body, meta title, meta description, slug, and optionally images and audio.
+`article.generate` returns generated article payload directly. For history or follow-up retrieval, use `article.list`.
 
 ---
 
@@ -72,11 +65,7 @@ When `status === "ready"`, the article includes the full HTML/Markdown body, met
 
 Illustrations and voice-over are included in `article.generate` options — no separate step needed when enabled.
 
-If the article was generated without them and the user wants to add them after:
-```
-article.addIllustrations(articleId)
-article.addVoiceover(articleId, { provider, language })
-```
+If missing media, regenerate via `article.generate` with `illustrations: true` and/or `audio: true`.
 
 ---
 
@@ -123,11 +112,11 @@ Create a short-form video from the article for YouTube Shorts, TikTok, or Instag
 
 ```
 shorts.script(articleId, { duration: 60 })   // generate video script
-shorts.generate({ script, avatarId })         // produce video (async, poll shorts.status)
+shorts.generate({ script, avatarId })         // produce video (async, poll shorts.get)
 shorts.merge({ videoId, subtitles: true })    // add subtitles and finalize
 ```
 
-`shorts.generate` is async — poll `shorts.status(jobId)` until `status === "ready"`.
+`shorts.generate` is async — poll `shorts.get(id)` until a terminal status.
 
 ---
 
@@ -135,11 +124,10 @@ shorts.merge({ videoId, subtitles: true })    // add subtitles and finalize
 
 ```
 session.create({
-  domain,
-  frequency,    // "daily" | "weekly"
-  topics,       // optional seed topics
+  categories,   // required, 1-5 content categories
   languages,    // optional list
-  autopublish   // true = publish without confirmation
+  interval_minutes,
+  article_size
 })
 ```
 
@@ -156,7 +144,7 @@ The user receives webhook events or email notifications when content is ready.
 
 - **Lead magnets from articles**: After generating an article, run `leadmagnet.generate(articleId)` to create a downloadable checklist or framework based on the same content — doubles the value of each piece.
 
-- **Async polling**: All generation tools (`article.generate`, `shorts.generate`) are non-blocking. Always poll the corresponding status tool rather than waiting synchronously. Inform the user the job is running and provide updates.
+- **Async polling**: Poll async tools (`shorts.generate`, `ingest.create`, `ingest.batch`, `scout.x`, `scout.reddit`) via their companion status tools instead of waiting synchronously.
 
 - **Credits**: Each operation consumes credits. Check the balance with `agent.me()` before starting large batch operations. Top up at https://www.citedy.com/dashboard/billing.
 

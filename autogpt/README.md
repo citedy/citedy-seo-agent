@@ -1,6 +1,6 @@
 # Citedy SEO Agent for AutoGPT
 
-v3.0.0 — Full API coverage with 19 importable templates.
+v3.1.0 — Full API coverage with 19 importable templates.
 
 ## What You Get
 

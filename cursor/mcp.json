@@ -3,7 +3,7 @@
     "citedy": {
       "url": "https://mcp.citedy.com/mcp",
       "headers": {
-        "Authorization": "Bearer ${CITEDY_API_KEY}"
+        "Authorization": "Bearer ${CITEDY_AGENT_API_KEY}"
       }
     }
   }

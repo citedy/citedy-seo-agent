@@ -11,14 +11,14 @@ Citedy is an AI platform for SEO content automation: trend scouting, competitor 
 
 - **URL**: `https://mcp.citedy.com/mcp`
 - **Protocol**: Streamable HTTP (MCP)
-- **Auth**: Bearer token via `CITEDY_API_KEY` environment variable
-- **Header**: `Authorization: Bearer ${env:CITEDY_API_KEY}`
+- **Auth**: Bearer token via `CITEDY_AGENT_API_KEY` environment variable
+- **Header**: `Authorization: Bearer ${env:CITEDY_AGENT_API_KEY}`
 
 ## Registration
 
 If the user has no API key:
-1. Call `POST https://www.citedy.com/api/agent/register` with `{ "agentName": "...", "email": "..." }`
-2. Open the returned `approvalUrl` for the user
+1. Call `POST https://www.citedy.com/api/agent/register` with `{ "agent_name": "..." }`
+2. Open the returned `approval_url` for the user
 3. After approval, retrieve the API key from the response or dashboard
 
 ## Tool Reference
@@ -41,7 +41,7 @@ If the user has no API key:
 - `gaps.list` — list discovered content gaps
 
 ### Article Generation
-- `article.generate` — generate SEO article (async, 55 languages supported)
+- `article.generate` — generate SEO article (55 languages supported)
 - `article.list` — list generated articles
 
 ### Social Adaptations
@@ -61,7 +61,7 @@ If the user has no API key:
 - `ingest.create` — ingest single URL (YouTube, PDF, audio, web page)
 - `ingest.batch` — ingest multiple URLs
 - `ingest.get` — poll for ingestion status
-- `content.get` — retrieve ingested content
+- `ingest.content.get` — retrieve ingested content
 
 ### Lead Magnets
 - `leadmagnet.generate` — generate lead magnet (checklist, swipe file, framework)
@@ -96,14 +96,14 @@ If the user has no API key:
 
 1. **Scout** — `scout.x` or `scout.reddit` → poll `.result` until complete
 2. **Find gaps** — `gaps.generate` → `gaps.list`
-3. **Generate article** — `article.generate` → poll until complete → `article.list`
+3. **Generate article** — `article.generate` → optionally verify via `article.list`
 4. **Adapt for social** — `adapt.generate` with target platforms
 5. **Publish** — `social.publish` or schedule
 6. **Optionally create video** — `shorts.script` → `shorts.avatar` → `shorts.generate` → poll `shorts.get` → `shorts.merge`
 
 ## Async Polling Pattern
 
-Tools marked async return a `jobId`. Poll the corresponding `.get` or `.result` tool with that `jobId` every 3-5 seconds until `status` is `complete` or `failed`. Tools: `scout.*`, `ingest.*`, `shorts.*`, `leadmagnet.*`, `gaps.generate`, `article.generate`.
+Tools marked async return a `jobId`. Poll the corresponding `.get` or `.result` tool with that `jobId` every 3-5 seconds until `status` is `complete` or `failed`. Tools: `scout.*`, `ingest.*`, `shorts.*`, `leadmagnet.*`, `gaps.generate`.
 
 ## Credit Costs
 
