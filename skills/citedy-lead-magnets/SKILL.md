@@ -314,12 +314,12 @@ Pass product data into the `topic` or `niche` fields for highly targeted lead ma
 
 ## Pricing
 
-| Type                       | Credits | USD   |
-| -------------------------- | ------- | ----- |
-| Text-only lead magnet      | 30 credits    | $0.30 |
-| Lead magnet with AI images | 100 credits   | $1.00 |
-| Poll / status check        | 0 credits     | Free  |
-| Publish / update           | 0 credits     | Free  |
+| Type                       | Credits     | USD   |
+| -------------------------- | ----------- | ----- |
+| Text-only lead magnet      | 30 credits  | $0.30 |
+| Lead magnet with AI images | 100 credits | $1.00 |
+| Poll / status check        | 0 credits   | Free  |
+| Publish / update           | 0 credits   | Free  |
 
 1 credit = $0.01. Credits are deducted at generation time (Step 1). Polling and publishing are always free.
 

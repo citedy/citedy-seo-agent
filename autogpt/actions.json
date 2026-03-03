@@ -211,7 +211,7 @@
     {
       "id": "scout_x_status",
       "method": "GET",
-      "path": "/api/agent/scout/x/{run_id}",
+      "path": "/api/agent/scout/x/{runId}",
       "description": "Poll X scout run status",
       "cost": "free"
     },
@@ -230,7 +230,7 @@
     {
       "id": "scout_reddit_status",
       "method": "GET",
-      "path": "/api/agent/scout/reddit/{run_id}",
+      "path": "/api/agent/scout/reddit/{runId}",
       "description": "Poll Reddit scout run status",
       "cost": "free"
     },

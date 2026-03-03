@@ -317,9 +317,9 @@ Content-Type: application/json
 
 ```
 1. POST /api/agent/scout/x   { "query": "AI tools 2025", "mode": "fast" }
-2. Poll GET /api/agent/scout/x/{run_id} until status = "completed"
+2. Poll GET /api/agent/scout/x/{runId} until status = "completed"
 3. POST /api/agent/scout/reddit  { "query": "AI tools", "subreddits": ["MachineLearning", "artificial"] }
-4. Poll GET /api/agent/scout/reddit/{run_id}
+4. Poll GET /api/agent/scout/reddit/{runId}
 5. Summarize top 5 opportunities with content angles
 ```
 
@@ -370,17 +370,17 @@ Estimated cost: 35 + 30 = **65 credits** (gaps free if cached)
 
 Start an async X/Twitter trend scout run.
 
-| Parameter | Type                 | Required | Description                                                                   |
-| --------- | -------------------- | -------- | ----------------------------------------------------------------------------- |
-| `query`   | string               | yes      | Topic or keyword to scout                                                     |
+| Parameter | Type                 | Required | Description                                                                               |
+| --------- | -------------------- | -------- | ----------------------------------------------------------------------------------------- |
+| `query`   | string               | yes      | Topic or keyword to scout                                                                 |
 | `mode`    | `fast` \| `ultimate` | no       | `fast` = top posts (35 credits), `ultimate` = deep analysis (70 credits). Default: `fast` |
-| `limit`   | number               | no       | Max results to return (default: 20, max: 50)                                  |
+| `limit`   | number               | no       | Max results to return (default: 20, max: 50)                                              |
 
 **Response:** `{ run_id, status: "processing", estimated_seconds }`
 
 ---
 
-#### `GET /api/agent/scout/x/{run_id}`
+#### `GET /api/agent/scout/x/{runId}`
 
 Poll X scout run status and results.
 
@@ -408,7 +408,7 @@ Credits: **30 per run**
 
 ---
 
-#### `GET /api/agent/scout/reddit/{run_id}`
+#### `GET /api/agent/scout/reddit/{runId}`
 
 Poll Reddit scout run status and results.
 
@@ -456,9 +456,9 @@ Credits: **20 per call**
 
 Deep-analyze a competitor's content strategy.
 
-| Parameter | Type                 | Required | Description                                                                  |
-| --------- | -------------------- | -------- | ---------------------------------------------------------------------------- |
-| `domain`  | string               | yes      | Competitor domain (e.g. `jasper.ai`)                                         |
+| Parameter | Type                 | Required | Description                                                                              |
+| --------- | -------------------- | -------- | ---------------------------------------------------------------------------------------- |
+| `domain`  | string               | yes      | Competitor domain (e.g. `jasper.ai`)                                                     |
 | `mode`    | `fast` \| `ultimate` | no       | `fast` = summary (25 credits), `ultimate` = full deep-dive (50 credits). Default: `fast` |
 
 **Response:** `{ domain, content_strategy, top_performing_content, weaknesses, credits_used }`

@@ -253,7 +253,7 @@ Reply to user:
 ## Limitations
 
 - The agent cannot perform off-page SEO tasks such as backlink building, link outreach, or Google Business Profile management.
-- Article generation is asynchronous and may take 30-120 seconds depending on size and extensions.
+- Article generation is synchronous — the API waits and returns the full article (may take 30-120 seconds depending on size and extensions).
 - Only one active autopilot session is allowed per tenant at a time.
 - Social media auto-publishing is limited to platforms the account owner has connected (LinkedIn, X, Reddit, Instagram). Other platforms return adaptation text only.
 - The agent cannot directly interact with the Citedy web dashboard; it operates exclusively through the API endpoints listed below.
@@ -274,7 +274,7 @@ POST /api/agent/scout/x
 ```
 
 - `fast` = 35 credits, `ultimate` = 70 credits
-- **Async** — returns `{ run_id, status: "processing", credits_used }`. Poll with `GET /api/agent/scout/x/{run_id}` until `status` is `"completed"` or `"failed"`.
+- **Async** — returns `{ run_id, status: "processing", credits_used }`. Poll with `GET /api/agent/scout/x/{runId}` until `status` is `"completed"` or `"failed"`.
 - Rate: 10/hour (combined X + Reddit)
 
 ### Scout Reddit
@@ -285,7 +285,7 @@ POST /api/agent/scout/reddit
 ```
 
 - 30 credits (fast mode only)
-- **Async** — returns `{ run_id, status: "processing", credits_used }`. Poll with `GET /api/agent/scout/reddit/{run_id}`.
+- **Async** — returns `{ run_id, status: "processing", credits_used }`. Poll with `GET /api/agent/scout/reddit/{runId}`.
 - Rate: 10/hour (combined X + Reddit)
 
 ### Get Content Gaps
@@ -927,7 +927,7 @@ GET /api/agent/schedule/gaps?days=7&timezone=America/New_York
 GET /api/agent/schedule/suggest
 ```
 
-- 0 credits. Region-based recommendations or custom slots from settings.
+- 0 credits. Region-based recommendations or custom slots from settings. **REST only — not an MCP tool.**
 
 ### Image Style
 
@@ -1031,7 +1031,7 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | `/api/agent/session`              | POST   | free (articles billed on generation) |
 | `/api/agent/schedule`             | GET    | free                                 |
 | `/api/agent/schedule/gaps`        | GET    | free                                 |
-| `/api/agent/schedule/suggest`     | GET    | free                                 |
+| `/api/agent/schedule/suggest`     | GET    | free (REST only, not MCP tool)       |
 | `/api/agent/scout/x`              | POST   | 35-70 credits                        |
 | `/api/agent/scout/x/{runId}`      | GET    | free (poll)                          |
 | `/api/agent/scout/reddit`         | POST   | 30 credits                           |
@@ -1210,7 +1210,7 @@ On `429`, read `retry_after` from the body and `X-RateLimit-Reset` header.
 
 - Reply in the user's language (match the language they write in).
 - Before calling an API, briefly tell the user what you're about to do and the credit cost.
-- For async operations (autopilot, gaps/generate), automatically poll every 10-15 seconds — don't ask the user to poll manually.
+- For async operations (scout, ingest, shorts, leadmagnet, brand.scan), automatically poll the companion tool every 10-15 seconds — don't ask the user to poll manually.
 - Show results as a readable summary, not raw JSON. Use bullet points, tables, or numbered lists.
 - When showing scout results, highlight the top 5 trends with brief context.
 - When an article is generated, show: title, word count, URL, credits spent.

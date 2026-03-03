@@ -37,7 +37,7 @@ If the user has no API key:
 - `competitors.scout` — analyze competitor content strategy
 
 ### Content Gaps
-- `gaps.generate` — generate content gap opportunities (async)
+- `gaps.generate` — generate content gap opportunities (sync)
 - `gaps.list` — list discovered content gaps
 
 ### Article Generation
@@ -103,7 +103,7 @@ If the user has no API key:
 
 ## Async Polling Pattern
 
-Tools marked async return a `jobId`. Poll the corresponding `.get` or `.result` tool with that `jobId` every 3-5 seconds until `status` is `complete` or `failed`. Tools: `scout.*`, `ingest.*`, `shorts.*`, `leadmagnet.*`, `gaps.generate`.
+Tools marked async return a `jobId`. Poll the corresponding `.get` or `.result` tool with that `jobId` every 3-5 seconds until `status` is `complete` or `failed`. Tools: `scout.*`, `ingest.*`, `shorts.*`, `leadmagnet.*`.
 
 ## Credit Costs
 

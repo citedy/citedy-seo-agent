@@ -303,6 +303,7 @@ GET https://www.citedy.com/api/agent/schedule
 GET https://www.citedy.com/api/agent/schedule/gaps
 GET https://www.citedy.com/api/agent/schedule/suggest
 ```
+Note: `schedule/suggest` is a REST-only endpoint — not available as an MCP tool.
 
 All require `Authorization: Bearer <CITEDY_API_KEY>`.
 
@@ -559,7 +560,7 @@ Find gaps in the content calendar where no articles are scheduled.
 
 ---
 
-### GET /api/agent/schedule/suggest
+### GET /api/agent/schedule/suggest (REST only, not MCP tool)
 
 Get AI-suggested topics to fill schedule gaps based on existing content and SEO opportunities.
 

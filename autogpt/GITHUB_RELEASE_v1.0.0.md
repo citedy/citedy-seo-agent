@@ -51,4 +51,4 @@ tinyclaw restart
 ## Notes
 
 - This release is additive and does not modify Citedy API contracts.
-- For async endpoints (`autopilot`, `gaps/generate`), use status polling endpoints from `actions.json`.
+- For async endpoints (`scout`, `ingest`, `shorts`, `leadmagnet`, `brand.scan`), use status polling endpoints from `actions.json`.
