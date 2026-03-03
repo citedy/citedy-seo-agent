@@ -784,7 +784,7 @@ POST /api/agent/scan
 ```
 
 - `query` — search query (max 500 chars)
-- `mode` — `fast` (2cr, X only) | `deep` (4cr, X + web) | `ultra` (6cr, + HackerNews) | `ultra+` (8cr, + Reddit). If omitted, derived from tenant's `scanSources` settings
+- `mode` — `fast` (2 credits, X only) | `deep` (4 credits, X + web) | `ultra` (6 credits, + HackerNews) | `ultra+` (8 credits, + Reddit). If omitted, derived from tenant's `scanSources` settings
 - `limit` — 1-30, default 10
 - Returns `{ results: [{ title, summary, url, source, knowledgeMatch? }], mode, cost, warnings? }`
 - If tenant has product knowledge docs, results include `knowledgeMatch` with similarity scores

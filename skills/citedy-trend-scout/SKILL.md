@@ -373,7 +373,7 @@ Start an async X/Twitter trend scout run.
 | Parameter | Type                 | Required | Description                                                                   |
 | --------- | -------------------- | -------- | ----------------------------------------------------------------------------- |
 | `query`   | string               | yes      | Topic or keyword to scout                                                     |
-| `mode`    | `fast` \| `ultimate` | no       | `fast` = top posts (35cr), `ultimate` = deep analysis (70cr). Default: `fast` |
+| `mode`    | `fast` \| `ultimate` | no       | `fast` = top posts (35 credits), `ultimate` = deep analysis (70 credits). Default: `fast` |
 | `limit`   | number               | no       | Max results to return (default: 20, max: 50)                                  |
 
 **Response:** `{ run_id, status: "processing", estimated_seconds }`
@@ -459,7 +459,7 @@ Deep-analyze a competitor's content strategy.
 | Parameter | Type                 | Required | Description                                                                  |
 | --------- | -------------------- | -------- | ---------------------------------------------------------------------------- |
 | `domain`  | string               | yes      | Competitor domain (e.g. `jasper.ai`)                                         |
-| `mode`    | `fast` \| `ultimate` | no       | `fast` = summary (25cr), `ultimate` = full deep-dive (50cr). Default: `fast` |
+| `mode`    | `fast` \| `ultimate` | no       | `fast` = summary (25 credits), `ultimate` = full deep-dive (50 credits). Default: `fast` |
 
 **Response:** `{ domain, content_strategy, top_performing_content, weaknesses, credits_used }`
 

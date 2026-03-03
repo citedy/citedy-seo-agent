@@ -64,14 +64,14 @@ To use this skill, you need a Citedy API key.
 **Health check:**
 
 ```
-GET https://api.citedy.com/api/agent/health
+GET https://www.citedy.com/api/agent/health
 Headers: Authorization: Bearer $CITEDY_API_KEY
 ```
 
 **Verify account:**
 
 ```
-GET https://api.citedy.com/api/agent/me
+GET https://www.citedy.com/api/agent/me
 Headers: Authorization: Bearer $CITEDY_API_KEY
 ```
 
@@ -80,7 +80,7 @@ Headers: Authorization: Bearer $CITEDY_API_KEY
 ### Step 1: Generate Lead Magnet
 
 ```
-POST https://api.citedy.com/api/agent/lead-magnets
+POST https://www.citedy.com/api/agent/lead-magnets
 Headers:
   Authorization: Bearer $CITEDY_API_KEY
   Content-Type: application/json
@@ -110,7 +110,7 @@ Response:
 ### Step 2: Poll Until Ready
 
 ```
-GET https://api.citedy.com/api/agent/lead-magnets/{id}
+GET https://www.citedy.com/api/agent/lead-magnets/{id}
 Headers: Authorization: Bearer $CITEDY_API_KEY
 ```
 
@@ -132,7 +132,7 @@ Response when ready:
 ### Step 3: Publish
 
 ```
-PATCH https://api.citedy.com/api/agent/lead-magnets/{id}
+PATCH https://www.citedy.com/api/agent/lead-magnets/{id}
 Headers:
   Authorization: Bearer $CITEDY_API_KEY
   Content-Type: application/json
@@ -239,7 +239,7 @@ Generate a new lead magnet.
 | `generate_images` | boolean | No       | Include AI-generated illustrations (default: `false`)      |
 | `auto_publish`    | boolean | No       | Skip draft step and publish immediately (default: `false`) |
 
-**Credits:** 30cr text-only, 100cr with images
+**Credits:** 30 credits text-only, 100 credits with images
 
 ---
 
@@ -247,7 +247,7 @@ Generate a new lead magnet.
 
 Poll for generation status.
 
-**Credits:** 0cr
+**Credits:** 0 credits (free)
 
 Response fields:
 | Field | Description |
@@ -266,7 +266,7 @@ Response fields:
 
 Update lead magnet (publish or update metadata).
 
-**Credits:** 0cr
+**Credits:** 0 credits (free)
 
 | Field    | Type   | Description                     |
 | -------- | ------ | ------------------------------- |
@@ -291,14 +291,6 @@ GET /api/agent/me
 
 Returns: `{ tenant_id, email, credits_remaining, plan }`
 
-**Job status:**
-
-```
-GET /api/agent/status/{job_id}
-```
-
----
-
 ### Product-Aware Generation
 
 Use product context to generate niche-specific lead magnets:
@@ -306,13 +298,16 @@ Use product context to generate niche-specific lead magnets:
 **List products:**
 
 ```
-GET /api/agent/products/list
+GET /api/agent/products
 ```
 
 **Search products:**
 
 ```
-GET /api/agent/products/search?q={query}
+POST /api/agent/products/search
+Content-Type: application/json
+
+{ "query": "your search term" }
 ```
 
 Pass product data into the `topic` or `niche` fields for highly targeted lead magnets aligned with your offerings.
@@ -321,10 +316,10 @@ Pass product data into the `topic` or `niche` fields for highly targeted lead ma
 
 | Type                       | Credits | USD   |
 | -------------------------- | ------- | ----- |
-| Text-only lead magnet      | 30cr    | $0.30 |
-| Lead magnet with AI images | 100cr   | $1.00 |
-| Poll / status check        | 0cr     | Free  |
-| Publish / update           | 0cr     | Free  |
+| Text-only lead magnet      | 30 credits    | $0.30 |
+| Lead magnet with AI images | 100 credits   | $1.00 |
+| Poll / status check        | 0 credits     | Free  |
+| Publish / update           | 0 credits     | Free  |
 
 1 credit = $0.01. Credits are deducted at generation time (Step 1). Polling and publishing are always free.
 

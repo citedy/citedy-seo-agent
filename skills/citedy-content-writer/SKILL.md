@@ -607,18 +607,16 @@ Get current agent profile, blog info, and credit balance.
 
 ---
 
-### GET /api/agent/status/:article_id
+### GET /api/agent/health
 
-Poll article generation status.
+Check API health and readiness.
 
 **Response:**
 
 ```json
 {
-  "article_id": "art_xxxx",
-  "status": "processing|completed|failed",
-  "progress": 75,
-  "article_url": "https://blog.example.com/article-slug"
+  "status": "ok",
+  "version": "3.0.0"
 }
 ```
 
@@ -806,7 +804,7 @@ When an error occurs:
 ## Response Guidelines for the Agent
 
 - Always show the user the article title and URL after successful generation
-- When generation is async (status `processing`), poll `/api/agent/status/:article_id` every 10 seconds up to 5 minutes
+- Article generation is synchronous — the response includes the full article. No polling needed
 - Present credit costs before starting expensive operations (full/pillar articles, audio)
 - After generating an article, proactively offer social adaptations
 - After social adaptations, offer to publish or schedule

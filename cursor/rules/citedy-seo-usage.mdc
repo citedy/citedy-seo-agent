@@ -213,7 +213,7 @@ Many Citedy tools are async. The standard pattern is:
 
 ```
 1. Call async tool (e.g. `scout.x`, `ingest.create`, `shorts.generate`)
-2. Poll companion tool (`scout.x.result`, `ingest.get`, `shorts.get`) every few seconds
+2. Poll companion tool (`scout.x/{run_id}`, `ingest.get`, `shorts.get`) every few seconds
 3. Stop polling when response status is terminal and return result/errors to user
 ```
 
