@@ -30,10 +30,10 @@
 
 ### Shorts Pipeline
 
-12. `citedy-shorts-script.agent.json` — speech script (1 cr)
-13. `citedy-shorts-avatar.agent.json` — AI avatar image (3 cr)
-14. `citedy-shorts-video.agent.json` — video segment (60-185 cr)
-15. `citedy-shorts-merge.agent.json` — merge + subtitles (5 cr)
+12. `citedy-shorts-script.agent.json` — speech script (1 credits)
+13. `citedy-shorts-avatar.agent.json` — AI avatar image (3 credits)
+14. `citedy-shorts-video.agent.json` — video segment (60-185 credits)
+15. `citedy-shorts-merge.agent.json` — merge + subtitles (5 credits)
 
 ### Automation & Integration
 

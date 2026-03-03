@@ -13,16 +13,16 @@
 
 ### Trend Discovery
 
-- `agents/citedy-scan.agent.json` — fast multi-source scan (2-8 cr)
+- `agents/citedy-scan.agent.json` — fast multi-source scan (2-8 credits)
 - `agents/citedy-trend-to-publish.agent.json` — X/Twitter deep scout
 - `agents/citedy-reddit-to-publish.agent.json` — Reddit scout
 
 ### Shorts Pipeline (full video in 4 steps)
 
-1. `agents/citedy-shorts-script.agent.json` — script (1 cr)
-2. `agents/citedy-shorts-avatar.agent.json` — avatar (3 cr)
-3. `agents/citedy-shorts-video.agent.json` — video (60-185 cr)
-4. `agents/citedy-shorts-merge.agent.json` — merge + subtitles (5 cr)
+1. `agents/citedy-shorts-script.agent.json` — script (1 credits)
+2. `agents/citedy-shorts-avatar.agent.json` — avatar (3 credits)
+3. `agents/citedy-shorts-video.agent.json` — video (60-185 credits)
+4. `agents/citedy-shorts-merge.agent.json` — merge + subtitles (5 credits)
 
 ### Content Ingestion
 

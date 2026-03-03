@@ -30,16 +30,16 @@ v3.0.0 — Full API coverage with 19 importable templates.
 
 ### Article Generation
 
-- `citedy-topic-to-publish.agent.json` — Standard article from topic (15-48 cr)
+- `citedy-topic-to-publish.agent.json` — Standard article from topic (15-48 credits)
 - `citedy-url-to-publish.agent.json` — Standard article from source URLs
-- `citedy-turbo-article.agent.json` — Ultra-cheap turbo article (2-4 cr)
+- `citedy-turbo-article.agent.json` — Ultra-cheap turbo article (2-4 credits)
 
 ### Trend Discovery
 
-- `citedy-trend-to-publish.agent.json` — Scout X/Twitter trends (35-70 cr)
-- `citedy-reddit-to-publish.agent.json` — Scout Reddit trends (30 cr)
+- `citedy-trend-to-publish.agent.json` — Scout X/Twitter trends (35-70 credits)
+- `citedy-reddit-to-publish.agent.json` — Scout Reddit trends (30 credits)
 - `citedy-scout-to-publish.agent.json` — Extended scout preset
-- `citedy-scan.agent.json` — Fast multi-source trend scan (2-8 cr)
+- `citedy-scan.agent.json` — Fast multi-source trend scan (2-8 credits)
 
 ### Social & Publishing
 
@@ -48,25 +48,25 @@ v3.0.0 — Full API coverage with 19 importable templates.
 
 ### Content Ingestion
 
-- `citedy-ingest.agent.json` — Ingest URL (YouTube, article, PDF, audio) (1-55 cr)
+- `citedy-ingest.agent.json` — Ingest URL (YouTube, article, PDF, audio) (1-55 credits)
 
 ### Lead Magnets
 
-- `citedy-lead-magnet.agent.json` — Generate PDF lead magnet (30-100 cr)
+- `citedy-lead-magnet.agent.json` — Generate PDF lead magnet (30-100 credits)
 
 ### Short-Form Video (Shorts Pipeline)
 
-- `citedy-shorts-script.agent.json` — Generate speech script (1 cr)
-- `citedy-shorts-avatar.agent.json` — Generate AI avatar image (3 cr)
-- `citedy-shorts-video.agent.json` — Generate video segment (60-185 cr)
-- `citedy-shorts-merge.agent.json` — Merge segments + subtitles (5 cr)
+- `citedy-shorts-script.agent.json` — Generate speech script (1 credits)
+- `citedy-shorts-avatar.agent.json` — Generate AI avatar image (3 credits)
+- `citedy-shorts-video.agent.json` — Generate video segment (60-185 credits)
+- `citedy-shorts-merge.agent.json` — Merge segments + subtitles (5 credits)
 
 ### Automation & Integration
 
 - `citedy-session-manager.agent.json` — Recurring content session
-- `citedy-gap-to-publish.agent.json` — Competitor content gaps (40 cr)
+- `citedy-gap-to-publish.agent.json` — Competitor content gaps (40 credits)
 - `citedy-webhook-register.agent.json` — Register webhook endpoint
-- `citedy-product-upload.agent.json` — Upload product knowledge (1 cr)
+- `citedy-product-upload.agent.json` — Upload product knowledge (1 credits)
 
 ## Output Channels
 

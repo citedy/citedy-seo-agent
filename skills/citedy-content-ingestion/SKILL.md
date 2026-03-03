@@ -375,17 +375,17 @@ Return API status, current rate limit usage, and service health. 0 credits.
 
 | Content Type | Duration / Size | Credits |
 |---|---|---|
-| `web_article` | any | 1 cr |
-| `pdf_document` | any | 2 cr |
-| `youtube_video` | < 10 min | 5 cr |
-| `youtube_video` | 10–30 min | 15 cr |
-| `youtube_video` | 30–60 min | 30 cr |
-| `youtube_video` | 60–120 min | 55 cr |
-| `audio_file` | < 10 min | 3 cr |
-| `audio_file` | 10–30 min | 8 cr |
-| `audio_file` | 30–60 min | 15 cr |
-| `audio_file` | 60+ min | 30 cr |
-| Cache hit (any type) | — | 1 cr |
+| `web_article` | any | 1 credits |
+| `pdf_document` | any | 2 credits |
+| `youtube_video` | < 10 min | 5 credits |
+| `youtube_video` | 10–30 min | 15 credits |
+| `youtube_video` | 30–60 min | 30 credits |
+| `youtube_video` | 60–120 min | 55 credits |
+| `audio_file` | < 10 min | 3 credits |
+| `audio_file` | 10–30 min | 8 credits |
+| `audio_file` | 30–60 min | 15 credits |
+| `audio_file` | 60+ min | 30 credits |
+| Cache hit (any type) | — | 1 credits |
 
 Credits are charged on `completed` status only. Failed jobs are not charged.
 

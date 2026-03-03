@@ -57,21 +57,21 @@ npx openskills install Citedy/citedy-content-writer
 
 | Size | Credits | Description |
 |---|---|---|
-| Turbo | 2 cr | Fast, no web search |
-| Turbo+ | 4 cr | Fast + web intelligence |
-| Mini | 15 cr | ~500 words |
-| Standard | 20 cr | ~1,000 words |
-| Full | 33 cr | ~2,000 words |
-| Pillar | 48 cr | ~4,000 words |
+| Turbo | 2 credits | Fast, no web search |
+| Turbo+ | 4 credits | Fast + web intelligence |
+| Mini | 15 credits | ~500 words |
+| Standard | 20 credits | ~1,000 words |
+| Full | 33 credits | ~2,000 words |
+| Pillar | 48 credits | ~4,000 words |
 
 ### Extensions
 
 | Extension | Credits |
 |---|---|
-| +Web intelligence | +8 cr |
-| +AI illustrations | +9–36 cr |
-| +Voice-over audio | +10–55 cr |
-| Social adaptation | ~5 cr/platform |
+| +Web intelligence | +8 credits |
+| +AI illustrations | +9–36 credits |
+| +Voice-over audio | +10–55 credits |
+| Social adaptation | ~5 credits/platform |
 
 1 credit = $0.01 USD
 

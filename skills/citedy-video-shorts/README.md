@@ -59,14 +59,14 @@ npx openskills install Citedy/citedy-video-shorts
 
 | Step | Duration | Credits | USD |
 |---|---|---|---|
-| Script generation | any | 1 cr | $0.01 |
-| Avatar generation | — | 3 cr | $0.03 |
-| Video generation | 5s | 60 cr | $0.60 |
-| Video generation | 10s | 130 cr | $1.30 |
-| Video generation | 15s | 185 cr | $1.85 |
-| Merge + subtitles | — | 5 cr | $0.05 |
-| **Full 10s video** | **10s** | **139 cr** | **$1.39** |
-| **Full 15s video** | **15s** | **194 cr** | **$1.94** |
+| Script generation | any | 1 credits | $0.01 |
+| Avatar generation | — | 3 credits | $0.03 |
+| Video generation | 5s | 60 credits | $0.60 |
+| Video generation | 10s | 130 credits | $1.30 |
+| Video generation | 15s | 185 credits | $1.85 |
+| Merge + subtitles | — | 5 credits | $0.05 |
+| **Full 10s video** | **10s** | **139 credits** | **$1.39** |
+| **Full 15s video** | **15s** | **194 credits** | **$1.94** |
 
 1 credit = $0.01 USD
 

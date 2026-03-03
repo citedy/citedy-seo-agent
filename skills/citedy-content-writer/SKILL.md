@@ -164,8 +164,8 @@ For quick content at low cost. Two sub-modes:
 
 | Mode | Credits | Description |
 |------|---------|-------------|
-| `turbo` | 2 cr | Fast generation, no web search |
-| `turbo+` | 4 cr | Fast generation + web intelligence |
+| `turbo` | 2 credits | Fast generation, no web search |
+| `turbo+` | 4 credits | Fast generation + web intelligence |
 
 ```
 POST https://www.citedy.com/api/agent/autopilot
@@ -621,29 +621,29 @@ All costs in credits. **1 credit = $0.01 USD.**
 
 | Size | Standard Mode | Description |
 |------|--------------|-------------|
-| `mini` | 15 cr | ~500 words, quick post |
-| `standard` | 20 cr | ~1,000 words, full article |
-| `full` | 33 cr | ~2,000 words, in-depth piece |
-| `pillar` | 48 cr | ~4,000 words, pillar content |
+| `mini` | 15 credits | ~500 words, quick post |
+| `standard` | 20 credits | ~1,000 words, full article |
+| `full` | 33 credits | ~2,000 words, in-depth piece |
+| `pillar` | 48 credits | ~4,000 words, pillar content |
 
 ### Turbo Mode
 
 | Mode | Cost | Notes |
 |------|------|-------|
-| `turbo` | 2 cr | Fast, no web search |
-| `turbo+` | 4 cr | Fast + web intelligence |
+| `turbo` | 2 credits | Fast, no web search |
+| `turbo+` | 4 credits | Fast + web intelligence |
 
 ### Extensions
 
 | Extension | Cost |
 |-----------|------|
-| +Intelligence (web search) | +8 cr |
-| +Illustrations (per article) | +9–36 cr depending on count |
-| +Audio voice-over | +10–55 cr depending on length & language |
+| +Intelligence (web search) | +8 credits |
+| +Illustrations (per article) | +9–36 credits depending on count |
+| +Audio voice-over | +10–55 credits depending on length & language |
 
 ### Social Adaptations
 
-~5 cr per platform per article.
+~5 credits per platform per article.
 
 ### Knowledge Base
 

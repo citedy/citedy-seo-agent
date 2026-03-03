@@ -53,15 +53,15 @@ npx openskills install Citedy/citedy-trend-scout
 
 | Action | Credits |
 |---|---|
-| Scout X — fast | 35 cr |
-| Scout X — ultimate | 70 cr |
-| Scout Reddit | 30 cr |
-| Content gaps generate | 40 cr |
-| Retrieve gaps (cached) | 0 cr |
-| Discover competitors | 20 cr |
-| Scout competitor — fast | 25 cr |
-| Scout competitor — ultimate | 50 cr |
-| Polling / health / me | 0 cr |
+| Scout X — fast | 35 credits |
+| Scout X — ultimate | 70 credits |
+| Scout Reddit | 30 credits |
+| Content gaps generate | 40 credits |
+| Retrieve gaps (cached) | 0 credits |
+| Discover competitors | 20 credits |
+| Scout competitor — fast | 25 credits |
+| Scout competitor — ultimate | 50 credits |
+| Polling / health / me | 0 credits |
 
 1 credit = $0.01 USD. Failed runs are refunded automatically.
 

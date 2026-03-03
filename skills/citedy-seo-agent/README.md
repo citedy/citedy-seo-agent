@@ -58,25 +58,25 @@ npx openskills install Citedy/citedy-seo-agent
 
 | Feature | Credits |
 |---|---|
-| Scout X — fast / ultimate | 35 / 70 cr |
-| Scout Reddit | 30 cr |
-| Content gap analysis | 40 cr |
-| Competitor discovery | 20 cr |
-| Competitor deep-scan | 25–50 cr |
-| Turbo article | 2–4 cr |
-| Mini article (~500w) | 15 cr |
-| Standard article (~1,000w) | 20 cr |
-| Full article (~2,000w) | 33 cr |
-| Pillar article (~4,000w) | 48 cr |
-| +Web intelligence | +8 cr |
-| +AI illustrations | +9–36 cr |
-| +Voice-over audio | +10–55 cr |
-| Social adaptation | ~5 cr/platform |
-| AI UGC viral video (5s/10s/15s) | 64–194 cr |
-| Content ingestion (web/PDF/audio) | 1–30 cr |
-| Content ingestion (YouTube) | 5–55 cr |
-| Lead magnet (text-only) | 30 cr |
-| Lead magnet (with images) | 100 cr |
+| Scout X — fast / ultimate | 35 / 70 credits |
+| Scout Reddit | 30 credits |
+| Content gap analysis | 40 credits |
+| Competitor discovery | 20 credits |
+| Competitor deep-scan | 25–50 credits |
+| Turbo article | 2–4 credits |
+| Mini article (~500w) | 15 credits |
+| Standard article (~1,000w) | 20 credits |
+| Full article (~2,000w) | 33 credits |
+| Pillar article (~4,000w) | 48 credits |
+| +Web intelligence | +8 credits |
+| +AI illustrations | +9–36 credits |
+| +Voice-over audio | +10–55 credits |
+| Social adaptation | ~5 credits/platform |
+| AI UGC viral video (5s/10s/15s) | 64–194 credits |
+| Content ingestion (web/PDF/audio) | 1–30 credits |
+| Content ingestion (YouTube) | 5–55 credits |
+| Lead magnet (text-only) | 30 credits |
+| Lead magnet (with images) | 100 credits |
 
 1 credit = $0.01 USD. New accounts get **100 free credits** — no credit card required.
 

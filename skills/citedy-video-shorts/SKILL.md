@@ -167,10 +167,10 @@ Returns: `{ "final_video_url": "https://download.citedy.com/shorts/final_..." }`
 
 **Agent response:**
 > I'll create a 10-second TikTok video for your skincare serum. Here's the plan and cost:
-> - Script generation: 1 cr ($0.01)
-> - Avatar generation: 3 cr ($0.03)
-> - Video generation (10s): 130 cr ($1.30)
-> - Merge + subtitles: 5 cr ($0.05)
+> - Script generation: 1 credits ($0.01)
+> - Avatar generation: 3 credits ($0.03)
+> - Video generation (10s): 130 credits ($1.30)
+> - Merge + subtitles: 5 credits ($0.05)
 > - **Total: 139 credits ($1.39)**
 >
 > Shall I proceed?
@@ -276,7 +276,7 @@ Submit a video generation job. **Asynchronous** — poll for completion.
 | `aspect_ratio` | `"9:16"` \| `"16:9"` \| `"1:1"` | no | Aspect ratio (default: `"9:16"`) |
 | `speech_text` | string | yes | Exact text the avatar speaks. Must match script output. |
 
-**Cost:** 60 cr (5s) / 130 cr (10s) / 185 cr (15s)
+**Cost:** 60 credits (5s) / 130 credits (10s) / 185 credits (15s)
 
 **Response (immediate):**
 ```json
@@ -350,11 +350,11 @@ These endpoints are free and useful for setup and diagnostics.
 
 | Endpoint | Method | Cost | Description |
 |----------|--------|------|-------------|
-| `/api/agent/health` | GET | 0 cr | Check API availability |
-| `/api/agent/me` | GET | 0 cr | Current user info: balance, referral code |
-| `/api/agent/status` | GET | 0 cr | System status and active jobs |
-| `/api/agent/products` | GET | 0 cr | List user's registered products |
-| `/api/agent/products/search` | POST | 0 cr | Search products by keyword for script context |
+| `/api/agent/health` | GET | 0 credits | Check API availability |
+| `/api/agent/me` | GET | 0 credits | Current user info: balance, referral code |
+| `/api/agent/status` | GET | 0 credits | System status and active jobs |
+| `/api/agent/products` | GET | 0 credits | List user's registered products |
+| `/api/agent/products/search` | POST | 0 credits | Search products by keyword for script context |
 
 Use `GET /api/agent/me` to check the user's credit balance before starting a generation job.
 
@@ -364,14 +364,14 @@ Use `GET /api/agent/me` to check the user's credit balance before starting a gen
 
 | Step | Duration | Cost (credits) | Cost (USD) |
 |------|----------|----------------|------------|
-| Script generation | any | 1 cr | $0.01 |
-| Avatar generation | — | 3 cr | $0.03 |
-| Video generation | 5s | 60 cr | $0.60 |
-| Video generation | 10s | 130 cr | $1.30 |
-| Video generation | 15s | 185 cr | $1.85 |
-| Merge + subtitles | — | 5 cr | $0.05 |
-| **Full 10s video** | **10s** | **139 cr** | **$1.39** |
-| **Full 15s video** | **15s** | **194 cr** | **$1.94** |
+| Script generation | any | 1 credits | $0.01 |
+| Avatar generation | — | 3 credits | $0.03 |
+| Video generation | 5s | 60 credits | $0.60 |
+| Video generation | 10s | 130 credits | $1.30 |
+| Video generation | 15s | 185 credits | $1.85 |
+| Merge + subtitles | — | 5 credits | $0.05 |
+| **Full 10s video** | **10s** | **139 credits** | **$1.39** |
+| **Full 15s video** | **15s** | **194 credits** | **$1.94** |
 
 > 1 credit = $0.01 USD
 

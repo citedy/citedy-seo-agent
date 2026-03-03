@@ -56,9 +56,9 @@ npx openskills install Citedy/citedy-lead-magnets
 
 | Type | Credits | USD |
 |---|---|---|
-| Text-only lead magnet | 30 cr | $0.30 |
-| Lead magnet with AI illustrations | 100 cr | $1.00 |
-| Poll / publish / update | 0 cr | Free |
+| Text-only lead magnet | 30 credits | $0.30 |
+| Lead magnet with AI illustrations | 100 credits | $1.00 |
+| Poll / publish / update | 0 credits | Free |
 
 1 credit = $0.01 USD
 

@@ -54,17 +54,17 @@ npx openskills install Citedy/citedy-content-ingestion
 
 | Content Type | Duration / Size | Credits |
 |---|---|---|
-| Web article | any | 1 cr |
-| PDF document | any | 2 cr |
-| YouTube video | < 10 min | 5 cr |
-| YouTube video | 10–30 min | 15 cr |
-| YouTube video | 30–60 min | 30 cr |
-| YouTube video | 60–120 min | 55 cr |
-| Audio file | < 10 min | 3 cr |
-| Audio file | 10–30 min | 8 cr |
-| Audio file | 30–60 min | 15 cr |
-| Audio file | 60+ min | 30 cr |
-| Cache hit (any type) | — | 1 cr |
+| Web article | any | 1 credits |
+| PDF document | any | 2 credits |
+| YouTube video | < 10 min | 5 credits |
+| YouTube video | 10–30 min | 15 credits |
+| YouTube video | 30–60 min | 30 credits |
+| YouTube video | 60–120 min | 55 credits |
+| Audio file | < 10 min | 3 credits |
+| Audio file | 10–30 min | 8 credits |
+| Audio file | 30–60 min | 15 credits |
+| Audio file | 60+ min | 30 credits |
+| Cache hit (any type) | — | 1 credits |
 
 1 credit = $0.01 USD. Failed jobs are not charged.
 
