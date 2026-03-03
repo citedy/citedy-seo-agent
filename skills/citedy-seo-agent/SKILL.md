@@ -1,6 +1,6 @@
 ---
 name: citedy-seo-agent
-title: "AI Marketing Agent — SEO, Leads & Social"
+title: "SEO Content Autopilot by Citedy"
 description: >
   Full-stack AI marketing toolkit — scout X/Twitter and Reddit for trending
   topics, discover and deep-analyze competitors, find content gaps, publish
