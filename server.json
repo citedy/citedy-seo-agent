@@ -1,8 +1,8 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
-  "name": "io.github.citedy/citedy-seo-agent",
+  "name": "io.github.nttylock/citedy-seo-agent",
   "title": "Citedy SEO Agent",
-  "description": "Full-stack AI marketing toolkit — scout X/Twitter and Reddit for trends, analyze competitors & content gaps, publish SEO/GEO-optimized articles with AI images & voice-overs in 55 languages, create social media adaptations for 9 platforms, generate lead magnets, ingest any URL into structured content, and run fully automated content autopilot.",
+  "description": "AI marketing: SEO articles, trend scouting, competitor analysis, social media, lead magnets",
   "version": "2.2.0",
   "websiteUrl": "https://www.citedy.com/tools/mcp",
   "repository": {
