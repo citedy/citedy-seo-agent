@@ -1,0 +1,25 @@
+{
+  "name": "citedy-seo-agent",
+  "version": "3.1.0",
+  "description": "AI marketing MCP server: SEO articles, trend scouting, competitor analysis, social media, lead magnets",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Citedy/citedy-seo-agent"
+  },
+  "keywords": [
+    "mcp",
+    "seo",
+    "content-marketing",
+    "ai-agent",
+    "citedy"
+  ]
+}
