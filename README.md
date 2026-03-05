@@ -1,5 +1,9 @@
 # Citedy SEO Agent: Your AI-Powered Content Marketing Team
 
+<a href="https://glama.ai/mcp/servers/@Citedy/citedy-seo-agent">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@Citedy/citedy-seo-agent/badge" />
+</a>
+
 > **citedy-seo-agent** is an Agent Skill that connects your AI agent to the Citedy platform, transforming it into a complete SEO content marketing team. From trend scouting and competitor analysis to generating high-quality, multilingual articles with AI-powered illustrations and voice-overs, creating short-form AI UGC viral videos with subtitles, ingesting YouTube videos, PDFs, and audio into structured content, generating lead magnets, and managing webhooks — this skill automates your entire content workflow.
 
 ## Effortless SEO Content Creation. At Scale.
