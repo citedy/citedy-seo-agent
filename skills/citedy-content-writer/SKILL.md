@@ -303,6 +303,7 @@ GET https://www.citedy.com/api/agent/schedule
 GET https://www.citedy.com/api/agent/schedule/gaps
 GET https://www.citedy.com/api/agent/schedule/suggest
 ```
+
 Note: `schedule/suggest` is a REST-only endpoint — not available as an MCP tool.
 
 All require `Authorization: Bearer <CITEDY_API_KEY>`.
