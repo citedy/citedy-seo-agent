@@ -11,7 +11,7 @@ description: >
   content, ultra-cheap turbo articles from 2 credits, generate short-form
   AI UGC viral videos with subtitles, and run fully automated content autopilot.
   Powered by Citedy.
-version: "3.1.0"
+version: "3.2.0"
 author: Citedy
 tags:
   - seo
@@ -354,7 +354,8 @@ POST /api/agent/autopilot
   "persona": "musk",
   "illustrations": true,
   "audio": true,
-  "disable_competition": false
+  "disable_competition": false,
+  "auto_publish": true
 }
 ```
 
@@ -372,10 +373,13 @@ POST /api/agent/autopilot
 - `illustrations` (bool, default false) — AI-generated images injected into article (disabled in turbo mode)
 - `audio` (bool, default false) — AI voice-over narration (disabled in turbo mode)
 - `disable_competition` (bool, default false) — skip SEO competition analysis, saves 8 credits
+- `auto_publish` (bool, optional) — publish article immediately after generation. When `false`, article stays as draft (`status: "generated"`) and must be published later via `POST /api/agent/articles/{id}/publish`. Default uses tenant setting (configurable in dashboard → Agent Settings). If no tenant setting, defaults to `true`.
 
 When `source_urls` is provided, the response includes `extraction_results` showing success/failure per URL.
 
-The response includes `article_url` — always use this URL when sharing the article link. Do NOT construct URLs manually. Articles are auto-published and the URL works immediately.
+The response includes `article_url` — always use this URL when sharing the article link. Do NOT construct URLs manually.
+
+When `auto_publish` is `true` (default), articles are auto-published and the URL works immediately. When `false`, the article is saved as a draft — the response returns `status: "generated"` instead of `"published"`. Use `POST /api/agent/articles/{id}/publish` to publish it later.
 
 `/api/agent/me` also returns `blog_url` — the tenant's blog root URL.
 
@@ -976,6 +980,44 @@ GET /api/agent/articles?limit=50&offset=0&status=published
 ```
 
 - 0 credits. Returns `{ articles: [...], total_articles }`.
+- Filter by `status`: `published`, `generated` (draft). Omit to get all.
+
+### Publish Article
+
+```http
+POST /api/agent/articles/{id}/publish
+```
+
+- 0 credits. Publishes a draft article (`status: "generated"` → `"published"`).
+- Returns `{ article_id, status: "publishing", message }`.
+- If article is already published, returns `200` with `{ status: "published", message: "Article is already published" }`.
+- Only works on articles with `status: "generated"`. Other statuses return `409 Conflict`.
+- Fires `article.published` webhook event.
+
+### Unpublish Article
+
+```http
+PATCH /api/agent/articles/{id}
+Content-Type: application/json
+
+{ "action": "unpublish" }
+```
+
+- 0 credits. Unpublishes a published article (`status: "published"` → `"generated"`).
+- Returns `{ article_id, status: "generated", message }`.
+- Only works on articles with `status: "published"`. Other statuses return `409 Conflict`.
+- Fires `article.unpublished` webhook event.
+
+### Delete Article
+
+```http
+DELETE /api/agent/articles/{id}
+```
+
+- 0 credits. Permanently deletes an article and its associated storage files (images, audio).
+- Returns `{ article_id, message: "Article deleted" }`.
+- This action is irreversible. Credits are NOT refunded.
+- Fires `article.deleted` webhook event.
 
 ### Check Status / Heartbeat
 
@@ -1023,6 +1065,9 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | `/api/agent/image-style`          | PUT    | free                                 |
 | `/api/agent/personas`             | GET    | free                                 |
 | `/api/agent/articles`             | GET    | free                                 |
+| `/api/agent/articles/{id}/publish`| POST   | free                                 |
+| `/api/agent/articles/{id}`        | PATCH  | free (unpublish)                     |
+| `/api/agent/articles/{id}`        | DELETE | free                                 |
 | `/api/agent/scan`                 | POST   | 2-8 credits (by mode)                |
 | `/api/agent/post`                 | POST   | 2 credits                            |
 | `/api/agent/autopilot`            | POST   | 2-139 credits                        |
@@ -1083,7 +1128,7 @@ POST /api/agent/webhooks
 
 - 0 credits
 - `url` — must be `https://` in production
-- `event_types` — omit to receive all 12 event types (wildcard)
+- `event_types` — omit to receive all 15 event types (wildcard)
 - `description` — optional label
 - Max 10 endpoints per agent
 - Returns `id`, `url`, `secret`, `event_types`, `created_at`
@@ -1118,7 +1163,10 @@ GET /api/agent/webhooks/deliveries?status=delivered&limit=20&offset=0
 
 | Event                         | Triggered when                       |
 | ----------------------------- | ------------------------------------ |
-| `article.generated`           | Article successfully published       |
+| `article.generated`           | Article generation completed         |
+| `article.published`           | Article published (auto or manual)   |
+| `article.unpublished`         | Article unpublished (→ draft)        |
+| `article.deleted`             | Article permanently deleted          |
 | `article.failed`              | Article generation failed            |
 | `ingestion.completed`         | Content ingestion job finished       |
 | `ingestion.failed`            | Content ingestion job failed         |
