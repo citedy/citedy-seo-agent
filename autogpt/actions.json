@@ -1,5 +1,5 @@
 {
-  "version": "3.1.0",
+  "version": "3.2.0",
   "base_url": "https://www.citedy.com",
   "auth": {
     "type": "bearer",
@@ -145,8 +145,33 @@
         "persona": null,
         "illustrations": false,
         "audio": false,
-        "disable_competition": false
+        "disable_competition": false,
+        "auto_publish": true
       }
+    },
+    {
+      "id": "article_publish",
+      "method": "POST",
+      "path": "/api/agent/articles/{id}/publish",
+      "description": "Publish a draft article (status: generated → published)",
+      "cost": "free"
+    },
+    {
+      "id": "article_unpublish",
+      "method": "PATCH",
+      "path": "/api/agent/articles/{id}",
+      "description": "Unpublish a published article (→ draft)",
+      "cost": "free",
+      "payload_example": {
+        "action": "unpublish"
+      }
+    },
+    {
+      "id": "article_delete",
+      "method": "DELETE",
+      "path": "/api/agent/articles/{id}",
+      "description": "Permanently delete an article and associated storage files",
+      "cost": "free"
     },
     {
       "id": "adapt",
