@@ -20,7 +20,7 @@ metadata:
       env:
         - CITEDY_API_KEY
     primaryEnv: CITEDY_API_KEY
-  compatible_with: "citedy-seo-agent@3.0.0"
+  compatible_with: "citedy-seo-agent@3.2.0"
 privacy_policy_url: https://www.citedy.com/privacy
 security_notes: |
   API keys (prefixed citedy_agent_) are stored in the user's local agent
@@ -106,10 +106,10 @@ Generate a branded AI avatar image for use in the video.
 ```json
 {
   "gender": "female",
-  "origin": "american",
-  "age_range": "25-35",
-  "type": "professional",
-  "location": "office"
+  "origin": "latin",
+  "age_range": "26-35",
+  "type": "tech_founder",
+  "location": "coffee_shop"
 }
 ```
 
@@ -151,11 +151,13 @@ Combine one or more video segments and burn in subtitles.
 ```json
 {
   "video_urls": ["https://download.citedy.com/shorts/seg1.mp4"],
-  "phrases": ["Here is exactly what the avatar says in quotes."],
+  "phrases": [
+    {"text": "Here is exactly what the avatar says in quotes."}
+  ],
   "config": {
+    "words_per_phrase": 4,
     "font_size": 48,
-    "font_color": "white",
-    "position": "bottom"
+    "text_color": "#FFFFFF"
   }
 }
 ```
@@ -259,11 +261,11 @@ Generate an AI avatar image.
 
 | Parameter   | Type                                             | Required | Description                                                         |
 | ----------- | ------------------------------------------------ | -------- | ------------------------------------------------------------------- |
-| `gender`    | `"male"` \| `"female"` \| `"neutral"`            | no       | Avatar gender                                                       |
-| `origin`    | string                                           | no       | Ethnicity/nationality (e.g., `"american"`, `"european"`, `"asian"`) |
-| `age_range` | string                                           | no       | Age group (e.g., `"18-25"`, `"25-35"`, `"35-50"`)                   |
-| `type`      | `"professional"` \| `"casual"` \| `"influencer"` | no       | Avatar style                                                        |
-| `location`  | string                                           | no       | Background setting (e.g., `"office"`, `"studio"`, `"outdoors"`)     |
+| `gender`    | `"male"` \| `"female"`                           | no       | Avatar gender                                                       |
+| `origin`    | string                                           | no       | `"european"`, `"asian"`, `"african"`, `"latin"`, `"middle_eastern"`, `"south_asian"` |
+| `age_range` | string                                           | no       | `"18-25"`, `"26-35"` (default), `"36-50"`                           |
+| `type`      | string                                           | no       | `"tech_founder"` (default), `"vibe_coder"`, `"student"`, `"executive"` |
+| `location`  | string                                           | no       | `"coffee_shop"` (default), `"dev_cave"`, `"street"`, `"car"`, `"home_office"`, `"podcast_studio"`, `"glass_office"`, `"rooftop"`, `"bedroom"`, `"park"`, `"gym"` |
 
 **Cost:** 3 credits
 
@@ -286,7 +288,7 @@ Submit a video generation job. **Asynchronous** — poll for completion.
 | `prompt`       | string                            | yes      | 5-layer scene description (see Prompt Best Practices)   |
 | `avatar_url`   | string                            | yes      | URL from `/api/agent/shorts/avatar` or custom URL       |
 | `duration`     | `5` \| `10` \| `15`               | no       | Segment length in seconds (default: `10`)               |
-| `resolution`   | `"480p"` \| `"720p"` \| `"1080p"` | no       | Video resolution (default: `"480p"`)                    |
+| `resolution`   | `"480p"` \| `"720p"`              | no       | Video resolution (default: `"480p"`)                    |
 | `aspect_ratio` | `"9:16"` \| `"16:9"` \| `"1:1"`   | no       | Aspect ratio (default: `"9:16"`)                        |
 | `speech_text`  | string                            | yes      | Exact text the avatar speaks. Must match script output. |
 
@@ -340,17 +342,20 @@ Merge video segments and burn in subtitles.
 
 | Parameter    | Type     | Required | Description                           |
 | ------------ | -------- | -------- | ------------------------------------- |
-| `video_urls` | string[] | yes      | Array of video URLs to merge in order |
-| `phrases`    | string[] | yes      | Subtitle text per segment             |
+| `video_urls` | string[] | yes      | Array of video URLs to merge (must start with `https://download.citedy.com/`). Count must equal `phrases` count |
+| `phrases`    | object[] | yes      | One per segment, each `{ "text": "..." }` (max 500 chars) |
 | `config`     | object   | no       | Subtitle config (see below)           |
 
 **config object:**
 
-| Field        | Type                                | Default    | Description              |
-| ------------ | ----------------------------------- | ---------- | ------------------------ |
-| `font_size`  | number                              | `48`       | Subtitle font size in px |
-| `font_color` | string                              | `"white"`  | CSS color string         |
-| `position`   | `"bottom"` \| `"center"` \| `"top"` | `"bottom"` | Subtitle placement       |
+| Field                 | Type   | Default      | Description                  |
+| --------------------- | ------ | ------------ | ---------------------------- |
+| `words_per_phrase`    | number | `4`          | Words per subtitle chunk (2-8) |
+| `font_size`           | number | `48`         | Subtitle font size in px (16-72) |
+| `text_color`          | string | `"#FFFFFF"`  | Hex or named color           |
+| `stroke_color`        | string | —            | Outline color (hex or named) |
+| `stroke_width`        | number | —            | Outline width (0-5)         |
+| `position_from_bottom`| number | —            | Pixels from bottom (50-300) |
 
 **Cost:** 5 credits
 
@@ -431,7 +436,7 @@ Audio: no background music.
 - Maximum **1 concurrent** video generation per API key
 - Supported aspect ratios: `9:16` (vertical), `16:9` (horizontal), `1:1` (square)
 - Maximum **15 seconds** per segment; use multiple segments for longer videos
-- Default resolution is `480p`; use `720p` or `1080p` for higher quality (same credit cost)
+- Default resolution is `480p`; use `720p` for higher quality (same credit cost)
 - Avatar images must be publicly accessible URLs
 - `speech_text` must not exceed ~150 words per segment
 

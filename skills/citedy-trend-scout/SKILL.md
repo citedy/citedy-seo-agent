@@ -22,7 +22,7 @@ metadata:
       env:
         - CITEDY_API_KEY
     primaryEnv: CITEDY_API_KEY
-  compatible_with: "citedy-seo-agent@3.0.0"
+  compatible_with: "citedy-seo-agent@3.2.0"
 privacy_policy_url: https://www.citedy.com/privacy
 security_notes: |
   API keys (prefixed citedy_agent_) authenticate against Citedy API endpoints only.

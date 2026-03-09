@@ -23,7 +23,7 @@ metadata:
       env:
         - CITEDY_API_KEY
     primaryEnv: CITEDY_API_KEY
-  compatible_with: "citedy-seo-agent@3.0.0"
+  compatible_with: "citedy-seo-agent@3.2.0"
 privacy_policy_url: https://www.citedy.com/privacy
 security_notes: |
   API keys (prefixed citedy_agent_) authenticate against Citedy API endpoints only.
@@ -217,13 +217,13 @@ Content-Type: application/json
   "categories": ["SaaS", "productivity", "remote work"],
   "problems": ["user churn", "onboarding friction", "team alignment"],
   "languages": ["en"],
-  "interval_minutes": 1440,
+  "interval_minutes": 720,
   "article_size": "standard",
   "disable_competition": false
 }
 ```
 
-`interval_minutes: 1440` = once per day. Sessions run automatically and publish articles to the connected blog.
+`interval_minutes: 720` = every 12 hours. Sessions run automatically and publish articles to the connected blog.
 
 ---
 
@@ -353,7 +353,7 @@ Content-Type: application/json
 
 **Agent flow:**
 
-1. Call `POST /api/agent/session` with `categories: ["fintech", "payments", "banking"]`, `languages: ["en", "es"]`, `interval_minutes: 1440`, `article_size: "standard"`
+1. Call `POST /api/agent/session` with `categories: ["fintech", "payments", "banking"]`, `languages: ["en", "es"]`, `interval_minutes: 720`, `article_size: "standard"`
 2. Confirm session ID and next scheduled run
 3. Optionally register webhook to notify user on each article completion
 
@@ -398,7 +398,8 @@ Generate a full blog article.
 | `size`                | string   | no                       | `mini`, `standard`, `full`, `pillar`. Default `standard` |
 | `mode`                | string   | no                       | `standard`, `turbo`. Default `standard`                  |
 | `enable_search`       | boolean  | no                       | Enable web intelligence. Default `false`                 |
-| `persona`             | string   | no                       | Writing persona slug (see Personas section)              |
+| `persona`             | string   | no                       | Writing persona slug (call GET /api/agent/personas, e.g. "musk", "hemingway", "jobs") |
+| `auto_publish`        | boolean  | no                       | Publish immediately after generation. Default uses tenant setting (if unset, `true`) |
 | `illustrations`       | boolean  | no                       | Generate AI illustrations. Default `false`               |
 | `audio`               | boolean  | no                       | Generate voice-over audio. Default `false`               |
 | `disable_competition` | boolean  | no                       | Skip competitor analysis. Default `false`                |
@@ -422,9 +423,45 @@ List generated articles.
 
 | Parameter | Type    | Description                                |
 | --------- | ------- | ------------------------------------------ |
-| `status`  | string  | Filter: `draft`, `published`, `processing` |
+| `status`  | string  | Filter: `generated` (draft), `published`, `processing` |
 | `limit`   | integer | Max results, default 20                    |
 | `offset`  | integer | Pagination offset                          |
+
+---
+
+### POST /api/agent/articles/{id}/publish
+
+Publish a draft article (`status: "generated"` → `"published"`).
+
+- 0 credits.
+- Returns `{ article_id, status: "publishing", message }`.
+- Only works on articles with `status: "generated"`. Other statuses return `409 Conflict`.
+- Fires `article.published` webhook event.
+
+---
+
+### PATCH /api/agent/articles/{id}
+
+Unpublish a published article (`status: "published"` → `"generated"`).
+
+```json
+{ "action": "unpublish" }
+```
+
+- 0 credits.
+- Returns `{ article_id, status: "generated", message }`.
+- Only works on articles with `status: "published"`. Other statuses return `409 Conflict`.
+- Fires `article.unpublished` webhook event.
+
+---
+
+### DELETE /api/agent/articles/{id}
+
+Permanently delete an article and its associated storage files (images, audio).
+
+- 0 credits. Irreversible. Credits are NOT refunded.
+- Returns `{ article_id, message: "Article deleted" }`.
+- Fires `article.deleted` webhook event.
 
 ---
 
@@ -465,7 +502,7 @@ Create an automated content session.
 | `categories`          | string[] | yes      | Topic categories for generation             |
 | `problems`            | string[] | no       | Specific problems or pain points to cover   |
 | `languages`           | string[] | no       | Language codes. Default `["en"]`            |
-| `interval_minutes`    | integer  | no       | Generation interval. Default `1440` (daily) |
+| `interval_minutes`    | integer  | no       | Generation interval, 60-10080. Default `720` (12h) |
 | `article_size`        | string   | no       | `mini`, `standard`, `full`, `pillar`        |
 | `disable_competition` | boolean  | no       | Skip competitor analysis. Default `false`   |
 
@@ -652,6 +689,12 @@ All costs in credits. **1 credit = $0.01 USD.**
 | +Illustrations (per article) | +9–36 credits depending on count              |
 | +Audio voice-over            | +10–55 credits depending on length & language |
 
+### Micro-Post
+
+| Endpoint           | Cost      |
+| ------------------ | --------- |
+| `/api/agent/post`  | 2 credits |
+
 ### Social Adaptations
 
 ~5 credits per platform per article.
@@ -664,57 +707,9 @@ Products storage is free. Semantic search costs minimal credits per query.
 
 ## Persona List
 
-25 writing personas available. Pass the `slug` to `/api/agent/autopilot`.
+25 writing personas available. Pass the `slug` to `/api/agent/autopilot`. Call `GET /api/agent/personas` for the full dynamic list.
 
-### Writers & Journalists
-
-| Slug                     | Name                   |
-| ------------------------ | ---------------------- |
-| `investigative-reporter` | Investigative Reporter |
-| `science-communicator`   | Science Communicator   |
-| `business-journalist`    | Business Journalist    |
-| `travel-writer`          | Travel Writer          |
-| `food-critic`            | Food Critic            |
-
-### Tech Leaders & Experts
-
-| Slug                   | Name                  |
-| ---------------------- | --------------------- |
-| `saas-founder`         | SaaS Founder          |
-| `cto-engineer`         | CTO / Senior Engineer |
-| `data-scientist`       | Data Scientist        |
-| `cybersecurity-expert` | Cybersecurity Expert  |
-| `product-manager`      | Product Manager       |
-
-### Business & Finance
-
-| Slug                   | Name                 |
-| ---------------------- | -------------------- |
-| `startup-advisor`      | Startup Advisor      |
-| `marketing-strategist` | Marketing Strategist |
-| `venture-capitalist`   | Venture Capitalist   |
-| `hr-consultant`        | HR Consultant        |
-| `financial-analyst`    | Financial Analyst    |
-
-### Entertainment & Lifestyle
-
-| Slug                 | Name               |
-| -------------------- | ------------------ |
-| `comedian-writer`    | Comedian Writer    |
-| `lifestyle-blogger`  | Lifestyle Blogger  |
-| `fitness-coach`      | Fitness Coach      |
-| `parenting-expert`   | Parenting Expert   |
-| `pop-culture-critic` | Pop Culture Critic |
-
-### Creators & Educators
-
-| Slug                   | Name                 |
-| ---------------------- | -------------------- |
-| `youtube-educator`     | YouTube Educator     |
-| `newsletter-writer`    | Newsletter Writer    |
-| `academic-researcher`  | Academic Researcher  |
-| `motivational-speaker` | Motivational Speaker |
-| `creative-storyteller` | Creative Storyteller |
+Example slugs: `"musk"`, `"hemingway"`, `"jobs"`, `"saas-founder"`, `"investigative-reporter"`, `"science-communicator"`, `"business-journalist"`, `"cto-engineer"`, `"data-scientist"`, `"marketing-strategist"`, `"comedian-writer"`, `"lifestyle-blogger"`, `"newsletter-writer"`, `"academic-researcher"`, `"creative-storyteller"`
 
 ---
 
@@ -722,20 +717,17 @@ Products storage is free. Semantic search costs minimal credits per query.
 
 Subscribe to these events when registering a webhook:
 
-| Event                       | Triggered When                      |
-| --------------------------- | ----------------------------------- |
-| `article.started`           | Article generation begins           |
-| `article.completed`         | Article fully generated and ready   |
-| `article.failed`            | Article generation failed           |
-| `article.published`         | Article published to blog           |
-| `adaptation.completed`      | Social adaptation ready             |
-| `adaptation.published`      | Social post published               |
-| `session.started`           | Autopilot session triggered         |
-| `session.article_generated` | Session produced an article         |
-| `session.completed`         | Session cycle finished              |
-| `session.failed`            | Session encountered an error        |
-| `credits.low`               | Credit balance below threshold      |
-| `credits.exhausted`         | Credits depleted, operations paused |
+| Event                          | Triggered When                       |
+| ------------------------------ | ------------------------------------ |
+| `article.generated`           | Article generation completed         |
+| `article.published`           | Article published (auto or manual)   |
+| `article.unpublished`         | Article unpublished (→ draft)        |
+| `article.deleted`             | Article permanently deleted          |
+| `article.failed`              | Article generation failed            |
+| `social_adaptation.generated` | Social post adaptation created       |
+| `session.articles_generated`  | Recurring session published articles |
+| `billing.credits_low`         | Balance below threshold              |
+| `billing.credits_empty`       | Balance at 0                         |
 
 ---
 
