@@ -12,21 +12,21 @@ The Citedy SEO Agent is designed for developers, marketers, and AI enthusiasts w
 
 ## Key Features
 
-| Feature                     | Description                                                                                                                |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Auto-Publishing**         | Automatically publish to **X, LinkedIn, Shopify, Facebook, and YouTube** — no manual posting, no extra cost. This is free. |
-| **Trend Scouting**          | Discover what's trending on X/Twitter and Reddit to create timely and relevant content.                                    |
-| **Competitor Analysis**     | Deep-analyze competitor domains to identify content gaps and opportunities.                                                |
-| **Deep SEO Scan**           | Run fast/deep/ultra/ultra+ scans with AI-powered search analysis and actionable recommendations.                           |
+| Feature                     | Description                                                                                                                   |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **Auto-Publishing**         | Automatically publish to **X, LinkedIn, Shopify, Facebook, and YouTube** — no manual posting, no extra cost. This is free.    |
+| **Trend Scouting**          | Discover what's trending on X/Twitter and Reddit to create timely and relevant content.                                       |
+| **Competitor Analysis**     | Deep-analyze competitor domains to identify content gaps and opportunities.                                                   |
+| **Deep SEO Scan**           | Run fast/deep/ultra/ultra+ scans with AI-powered search analysis and actionable recommendations.                              |
 | **Article Generation**      | Generate SEO-optimized articles in 55 languages, from mini-articles to pillar posts. Draft mode for review before publishing. |
 | **Article Management**      | Publish, unpublish, and delete articles via API — full lifecycle control for regulated industries.                            |
-| **AI-Powered Enhancements** | Add AI-generated illustrations and voice-over narration to your articles.                                                    |
-| **Social Media Adaptation** | Adapt articles for X, LinkedIn, Facebook, Reddit, Threads, Instagram, Instagram Reels, YouTube Shorts, and Shopify.        |
-| **AI UGC Viral Videos**     | Generate short-form AI UGC viral videos (5s/10s/15s) with subtitles for TikTok, Reels, and Shorts.                         |
-| **Content Ingestion**       | Extract content from YouTube videos, web articles, PDFs, and audio files into structured summaries.                        |
-| **Lead Magnets**            | Generate checklists, swipe files, and frameworks for lead capture — from 30 credits.                                       |
-| **Webhooks**                | Get notified on article generation, publishing, scout results, lead magnets, billing events, and more (15 event types).    |
-| **Content Automation**      | Set up cron-based sessions to generate and publish articles on a recurring schedule.                                       |
+| **AI-Powered Enhancements** | Add AI-generated illustrations and voice-over narration to your articles.                                                     |
+| **Social Media Adaptation** | Adapt articles for X, LinkedIn, Facebook, Reddit, Threads, Instagram, Instagram Reels, YouTube Shorts, and Shopify.           |
+| **AI UGC Viral Videos**     | Generate short-form AI UGC viral videos (5s/10s/15s) with subtitles for TikTok, Reels, and Shorts.                            |
+| **Content Ingestion**       | Extract content from YouTube videos, web articles, PDFs, and audio files into structured summaries.                           |
+| **Lead Magnets**            | Generate checklists, swipe files, and frameworks for lead capture — from 30 credits.                                          |
+| **Webhooks**                | Get notified on article generation, publishing, scout results, lead magnets, billing events, and more (15 event types).       |
+| **Content Automation**      | Set up cron-based sessions to generate and publish articles on a recurring schedule.                                          |
 
 ## Who Is This For?
 

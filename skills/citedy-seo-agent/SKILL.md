@@ -1053,59 +1053,59 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 
 ## API Quick Reference
 
-| Endpoint                          | Method | Cost                                 |
-| --------------------------------- | ------ | ------------------------------------ |
-| `/api/agent/register`             | POST   | free (public)                        |
-| `/api/agent/health`               | GET    | free (public)                        |
-| `/api/agent/status`               | GET    | free                                 |
-| `/api/agent/me`                   | GET    | free                                 |
-| `/api/agent/rotate-key`           | POST   | free (1/hour)                        |
-| `/api/agent/settings`             | GET    | free                                 |
-| `/api/agent/settings`             | PUT    | free                                 |
-| `/api/agent/image-style`          | PUT    | free                                 |
-| `/api/agent/personas`             | GET    | free                                 |
-| `/api/agent/articles`             | GET    | free                                 |
-| `/api/agent/articles/{id}/publish`| POST   | free                                 |
-| `/api/agent/articles/{id}`        | PATCH  | free (unpublish)                     |
-| `/api/agent/articles/{id}`        | DELETE | free                                 |
-| `/api/agent/scan`                 | POST   | 2-8 credits (by mode)                |
-| `/api/agent/post`                 | POST   | 2 credits                            |
-| `/api/agent/autopilot`            | POST   | 2-139 credits                        |
-| `/api/agent/adapt`                | POST   | ~5 credits/platform                  |
-| `/api/agent/publish`              | POST   | 0 credits (5 for `instagram_reels`)  |
-| `/api/agent/session`              | POST   | free (articles billed on generation) |
-| `/api/agent/schedule`             | GET    | free                                 |
-| `/api/agent/schedule/gaps`        | GET    | free                                 |
-| `/api/agent/schedule/suggest`     | GET    | free (REST only, not MCP tool)       |
-| `/api/agent/scout/x`              | POST   | 35-70 credits                        |
-| `/api/agent/scout/x/{runId}`      | GET    | free (poll)                          |
-| `/api/agent/scout/reddit`         | POST   | 30 credits                           |
-| `/api/agent/scout/reddit/{runId}` | GET    | free (poll)                          |
-| `/api/agent/gaps`                 | GET    | free                                 |
-| `/api/agent/gaps/generate`        | POST   | 40 credits                           |
-| `/api/agent/competitors/discover` | POST   | 20 credits                           |
-| `/api/agent/competitors/scout`    | POST   | 25-50 credits                        |
-| `/api/agent/products`             | POST   | 1 credit                             |
-| `/api/agent/products`             | GET    | free                                 |
-| `/api/agent/products/{id}`        | DELETE | free                                 |
-| `/api/agent/products/search`      | POST   | free                                 |
-| `/api/agent/ingest`               | POST   | 1-55 credits                         |
-| `/api/agent/ingest`               | GET    | free                                 |
-| `/api/agent/ingest/{id}`          | GET    | free (poll)                          |
-| `/api/agent/ingest/{id}/content`  | GET    | free                                 |
-| `/api/agent/ingest/batch`         | POST   | 1-55 credits per URL                 |
-| `/api/agent/lead-magnets`         | POST   | 30-100 credits                       |
-| `/api/agent/lead-magnets/{id}`    | GET    | free (poll)                          |
-| `/api/agent/lead-magnets/{id}`    | PATCH  | free                                 |
-| `/api/agent/shorts/script`        | POST   | 1 credit                             |
-| `/api/agent/shorts/avatar`        | POST   | 3 credits                            |
-| `/api/agent/shorts`               | POST   | 60-185 credits (by duration)         |
-| `/api/agent/shorts/{id}`          | GET    | free (poll)                          |
-| `/api/agent/shorts/merge`         | POST   | 5 credits                            |
-| `/api/agent/webhooks`             | POST   | free                                 |
-| `/api/agent/webhooks`             | GET    | free                                 |
-| `/api/agent/webhooks/{id}`        | DELETE | free                                 |
-| `/api/agent/webhooks/deliveries`  | GET    | free                                 |
+| Endpoint                           | Method | Cost                                 |
+| ---------------------------------- | ------ | ------------------------------------ |
+| `/api/agent/register`              | POST   | free (public)                        |
+| `/api/agent/health`                | GET    | free (public)                        |
+| `/api/agent/status`                | GET    | free                                 |
+| `/api/agent/me`                    | GET    | free                                 |
+| `/api/agent/rotate-key`            | POST   | free (1/hour)                        |
+| `/api/agent/settings`              | GET    | free                                 |
+| `/api/agent/settings`              | PUT    | free                                 |
+| `/api/agent/image-style`           | PUT    | free                                 |
+| `/api/agent/personas`              | GET    | free                                 |
+| `/api/agent/articles`              | GET    | free                                 |
+| `/api/agent/articles/{id}/publish` | POST   | free                                 |
+| `/api/agent/articles/{id}`         | PATCH  | free (unpublish)                     |
+| `/api/agent/articles/{id}`         | DELETE | free                                 |
+| `/api/agent/scan`                  | POST   | 2-8 credits (by mode)                |
+| `/api/agent/post`                  | POST   | 2 credits                            |
+| `/api/agent/autopilot`             | POST   | 2-139 credits                        |
+| `/api/agent/adapt`                 | POST   | ~5 credits/platform                  |
+| `/api/agent/publish`               | POST   | 0 credits (5 for `instagram_reels`)  |
+| `/api/agent/session`               | POST   | free (articles billed on generation) |
+| `/api/agent/schedule`              | GET    | free                                 |
+| `/api/agent/schedule/gaps`         | GET    | free                                 |
+| `/api/agent/schedule/suggest`      | GET    | free (REST only, not MCP tool)       |
+| `/api/agent/scout/x`               | POST   | 35-70 credits                        |
+| `/api/agent/scout/x/{runId}`       | GET    | free (poll)                          |
+| `/api/agent/scout/reddit`          | POST   | 30 credits                           |
+| `/api/agent/scout/reddit/{runId}`  | GET    | free (poll)                          |
+| `/api/agent/gaps`                  | GET    | free                                 |
+| `/api/agent/gaps/generate`         | POST   | 40 credits                           |
+| `/api/agent/competitors/discover`  | POST   | 20 credits                           |
+| `/api/agent/competitors/scout`     | POST   | 25-50 credits                        |
+| `/api/agent/products`              | POST   | 1 credit                             |
+| `/api/agent/products`              | GET    | free                                 |
+| `/api/agent/products/{id}`         | DELETE | free                                 |
+| `/api/agent/products/search`       | POST   | free                                 |
+| `/api/agent/ingest`                | POST   | 1-55 credits                         |
+| `/api/agent/ingest`                | GET    | free                                 |
+| `/api/agent/ingest/{id}`           | GET    | free (poll)                          |
+| `/api/agent/ingest/{id}/content`   | GET    | free                                 |
+| `/api/agent/ingest/batch`          | POST   | 1-55 credits per URL                 |
+| `/api/agent/lead-magnets`          | POST   | 30-100 credits                       |
+| `/api/agent/lead-magnets/{id}`     | GET    | free (poll)                          |
+| `/api/agent/lead-magnets/{id}`     | PATCH  | free                                 |
+| `/api/agent/shorts/script`         | POST   | 1 credit                             |
+| `/api/agent/shorts/avatar`         | POST   | 3 credits                            |
+| `/api/agent/shorts`                | POST   | 60-185 credits (by duration)         |
+| `/api/agent/shorts/{id}`           | GET    | free (poll)                          |
+| `/api/agent/shorts/merge`          | POST   | 5 credits                            |
+| `/api/agent/webhooks`              | POST   | free                                 |
+| `/api/agent/webhooks`              | GET    | free                                 |
+| `/api/agent/webhooks/{id}`         | DELETE | free                                 |
+| `/api/agent/webhooks/deliveries`   | GET    | free                                 |
 
 **1 credit = $0.01 USD**
 

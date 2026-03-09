@@ -151,9 +151,7 @@ Combine one or more video segments and burn in subtitles.
 ```json
 {
   "video_urls": ["https://download.citedy.com/shorts/seg1.mp4"],
-  "phrases": [
-    {"text": "Here is exactly what the avatar says in quotes."}
-  ],
+  "phrases": [{ "text": "Here is exactly what the avatar says in quotes." }],
   "config": {
     "words_per_phrase": 4,
     "font_size": 48,
@@ -259,13 +257,13 @@ Generate a speech script for the avatar.
 
 Generate an AI avatar image.
 
-| Parameter   | Type                                             | Required | Description                                                         |
-| ----------- | ------------------------------------------------ | -------- | ------------------------------------------------------------------- |
-| `gender`    | `"male"` \| `"female"`                           | no       | Avatar gender                                                       |
-| `origin`    | string                                           | no       | `"european"`, `"asian"`, `"african"`, `"latin"`, `"middle_eastern"`, `"south_asian"` |
-| `age_range` | string                                           | no       | `"18-25"`, `"26-35"` (default), `"36-50"`                           |
-| `type`      | string                                           | no       | `"tech_founder"` (default), `"vibe_coder"`, `"student"`, `"executive"` |
-| `location`  | string                                           | no       | `"coffee_shop"` (default), `"dev_cave"`, `"street"`, `"car"`, `"home_office"`, `"podcast_studio"`, `"glass_office"`, `"rooftop"`, `"bedroom"`, `"park"`, `"gym"` |
+| Parameter   | Type                   | Required | Description                                                                                                                                                      |
+| ----------- | ---------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `gender`    | `"male"` \| `"female"` | no       | Avatar gender                                                                                                                                                    |
+| `origin`    | string                 | no       | `"european"`, `"asian"`, `"african"`, `"latin"`, `"middle_eastern"`, `"south_asian"`                                                                             |
+| `age_range` | string                 | no       | `"18-25"`, `"26-35"` (default), `"36-50"`                                                                                                                        |
+| `type`      | string                 | no       | `"tech_founder"` (default), `"vibe_coder"`, `"student"`, `"executive"`                                                                                           |
+| `location`  | string                 | no       | `"coffee_shop"` (default), `"dev_cave"`, `"street"`, `"car"`, `"home_office"`, `"podcast_studio"`, `"glass_office"`, `"rooftop"`, `"bedroom"`, `"park"`, `"gym"` |
 
 **Cost:** 3 credits
 
@@ -283,14 +281,14 @@ Generate an AI avatar image.
 
 Submit a video generation job. **Asynchronous** — poll for completion.
 
-| Parameter      | Type                              | Required | Description                                             |
-| -------------- | --------------------------------- | -------- | ------------------------------------------------------- |
-| `prompt`       | string                            | yes      | 5-layer scene description (see Prompt Best Practices)   |
-| `avatar_url`   | string                            | yes      | URL from `/api/agent/shorts/avatar` or custom URL       |
-| `duration`     | `5` \| `10` \| `15`               | no       | Segment length in seconds (default: `10`)               |
-| `resolution`   | `"480p"` \| `"720p"`              | no       | Video resolution (default: `"480p"`)                    |
-| `aspect_ratio` | `"9:16"` \| `"16:9"` \| `"1:1"`   | no       | Aspect ratio (default: `"9:16"`)                        |
-| `speech_text`  | string                            | yes      | Exact text the avatar speaks. Must match script output. |
+| Parameter      | Type                            | Required | Description                                             |
+| -------------- | ------------------------------- | -------- | ------------------------------------------------------- |
+| `prompt`       | string                          | yes      | 5-layer scene description (see Prompt Best Practices)   |
+| `avatar_url`   | string                          | yes      | URL from `/api/agent/shorts/avatar` or custom URL       |
+| `duration`     | `5` \| `10` \| `15`             | no       | Segment length in seconds (default: `10`)               |
+| `resolution`   | `"480p"` \| `"720p"`            | no       | Video resolution (default: `"480p"`)                    |
+| `aspect_ratio` | `"9:16"` \| `"16:9"` \| `"1:1"` | no       | Aspect ratio (default: `"9:16"`)                        |
+| `speech_text`  | string                          | yes      | Exact text the avatar speaks. Must match script output. |
 
 **Cost:** 60 credits (5s) / 130 credits (10s) / 185 credits (15s)
 
@@ -340,22 +338,22 @@ Poll every 5–10 seconds. Typical generation time: 60–120 seconds.
 
 Merge video segments and burn in subtitles.
 
-| Parameter    | Type     | Required | Description                           |
-| ------------ | -------- | -------- | ------------------------------------- |
+| Parameter    | Type     | Required | Description                                                                                                     |
+| ------------ | -------- | -------- | --------------------------------------------------------------------------------------------------------------- |
 | `video_urls` | string[] | yes      | Array of video URLs to merge (must start with `https://download.citedy.com/`). Count must equal `phrases` count |
-| `phrases`    | object[] | yes      | One per segment, each `{ "text": "..." }` (max 500 chars) |
-| `config`     | object   | no       | Subtitle config (see below)           |
+| `phrases`    | object[] | yes      | One per segment, each `{ "text": "..." }` (max 500 chars)                                                       |
+| `config`     | object   | no       | Subtitle config (see below)                                                                                     |
 
 **config object:**
 
-| Field                 | Type   | Default      | Description                  |
-| --------------------- | ------ | ------------ | ---------------------------- |
-| `words_per_phrase`    | number | `4`          | Words per subtitle chunk (2-8) |
-| `font_size`           | number | `48`         | Subtitle font size in px (16-72) |
-| `text_color`          | string | `"#FFFFFF"`  | Hex or named color           |
-| `stroke_color`        | string | —            | Outline color (hex or named) |
-| `stroke_width`        | number | —            | Outline width (0-5)         |
-| `position_from_bottom`| number | —            | Pixels from bottom (50-300) |
+| Field                  | Type   | Default     | Description                      |
+| ---------------------- | ------ | ----------- | -------------------------------- |
+| `words_per_phrase`     | number | `4`         | Words per subtitle chunk (2-8)   |
+| `font_size`            | number | `48`        | Subtitle font size in px (16-72) |
+| `text_color`           | string | `"#FFFFFF"` | Hex or named color               |
+| `stroke_color`         | string | —           | Outline color (hex or named)     |
+| `stroke_width`         | number | —           | Outline width (0-5)              |
+| `position_from_bottom` | number | —           | Pixels from bottom (50-300)      |
 
 **Cost:** 5 credits
 

@@ -52,12 +52,12 @@ server.tool(
               },
             },
             null,
-            2
+            2,
           ),
         ].join("\n"),
       },
     ],
-  })
+  }),
 );
 
 const transport = new StdioServerTransport();

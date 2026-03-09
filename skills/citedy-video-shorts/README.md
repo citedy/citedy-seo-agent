@@ -4,7 +4,7 @@
 
 ## What It Does
 
-Turn any topic or product description into a professional 5–15 second talking-head video. The skill generates a speech script, creates a custom AI avatar, renders the lip-sync video, and burns in subtitles — all in one automated pipeline. No other MCP skill or agent tool offers end-to-end branded UGC viral video generation with full pipeline control.
+Turn any topic or product description into a professional 5–15 second talkinghead UGC viral video. The skill generates a speech script, creates a custom AI avatar, renders the lip-sync video, and burns in subtitles — all in one automated pipeline. No other MCP skill or agent tool offers end-to-end branded UGC viral video generation with full pipeline control.
 
 ## Install
 

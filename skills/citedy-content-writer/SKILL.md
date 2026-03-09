@@ -390,19 +390,19 @@ Content-Type: application/json
 
 Generate a full blog article.
 
-| Parameter             | Type     | Required                 | Description                                              |
-| --------------------- | -------- | ------------------------ | -------------------------------------------------------- |
-| `topic`               | string   | one of topic/source_urls | Article topic or title                                   |
-| `source_urls`         | string[] | one of topic/source_urls | URLs to base the article on                              |
-| `language`            | string   | no                       | Language code, default `en`. 55 languages supported      |
-| `size`                | string   | no                       | `mini`, `standard`, `full`, `pillar`. Default `standard` |
-| `mode`                | string   | no                       | `standard`, `turbo`. Default `standard`                  |
-| `enable_search`       | boolean  | no                       | Enable web intelligence. Default `false`                 |
+| Parameter             | Type     | Required                 | Description                                                                           |
+| --------------------- | -------- | ------------------------ | ------------------------------------------------------------------------------------- |
+| `topic`               | string   | one of topic/source_urls | Article topic or title                                                                |
+| `source_urls`         | string[] | one of topic/source_urls | URLs to base the article on                                                           |
+| `language`            | string   | no                       | Language code, default `en`. 55 languages supported                                   |
+| `size`                | string   | no                       | `mini`, `standard`, `full`, `pillar`. Default `standard`                              |
+| `mode`                | string   | no                       | `standard`, `turbo`. Default `standard`                                               |
+| `enable_search`       | boolean  | no                       | Enable web intelligence. Default `false`                                              |
 | `persona`             | string   | no                       | Writing persona slug (call GET /api/agent/personas, e.g. "musk", "hemingway", "jobs") |
-| `auto_publish`        | boolean  | no                       | Publish immediately after generation. Default uses tenant setting (if unset, `true`) |
-| `illustrations`       | boolean  | no                       | Generate AI illustrations. Default `false`               |
-| `audio`               | boolean  | no                       | Generate voice-over audio. Default `false`               |
-| `disable_competition` | boolean  | no                       | Skip competitor analysis. Default `false`                |
+| `auto_publish`        | boolean  | no                       | Publish immediately after generation. Default uses tenant setting (if unset, `true`)  |
+| `illustrations`       | boolean  | no                       | Generate AI illustrations. Default `false`                                            |
+| `audio`               | boolean  | no                       | Generate voice-over audio. Default `false`                                            |
+| `disable_competition` | boolean  | no                       | Skip competitor analysis. Default `false`                                             |
 
 **Response:**
 
@@ -421,11 +421,11 @@ Generate a full blog article.
 
 List generated articles.
 
-| Parameter | Type    | Description                                |
-| --------- | ------- | ------------------------------------------ |
+| Parameter | Type    | Description                                            |
+| --------- | ------- | ------------------------------------------------------ |
 | `status`  | string  | Filter: `generated` (draft), `published`, `processing` |
-| `limit`   | integer | Max results, default 20                    |
-| `offset`  | integer | Pagination offset                          |
+| `limit`   | integer | Max results, default 20                                |
+| `offset`  | integer | Pagination offset                                      |
 
 ---
 
@@ -497,14 +497,14 @@ Publish or schedule an adaptation.
 
 Create an automated content session.
 
-| Parameter             | Type     | Required | Description                                 |
-| --------------------- | -------- | -------- | ------------------------------------------- |
-| `categories`          | string[] | yes      | Topic categories for generation             |
-| `problems`            | string[] | no       | Specific problems or pain points to cover   |
-| `languages`           | string[] | no       | Language codes. Default `["en"]`            |
+| Parameter             | Type     | Required | Description                                        |
+| --------------------- | -------- | -------- | -------------------------------------------------- |
+| `categories`          | string[] | yes      | Topic categories for generation                    |
+| `problems`            | string[] | no       | Specific problems or pain points to cover          |
+| `languages`           | string[] | no       | Language codes. Default `["en"]`                   |
 | `interval_minutes`    | integer  | no       | Generation interval, 60-10080. Default `720` (12h) |
-| `article_size`        | string   | no       | `mini`, `standard`, `full`, `pillar`        |
-| `disable_competition` | boolean  | no       | Skip competitor analysis. Default `false`   |
+| `article_size`        | string   | no       | `mini`, `standard`, `full`, `pillar`               |
+| `disable_competition` | boolean  | no       | Skip competitor analysis. Default `false`          |
 
 ---
 
@@ -691,9 +691,9 @@ All costs in credits. **1 credit = $0.01 USD.**
 
 ### Micro-Post
 
-| Endpoint           | Cost      |
-| ------------------ | --------- |
-| `/api/agent/post`  | 2 credits |
+| Endpoint          | Cost      |
+| ----------------- | --------- |
+| `/api/agent/post` | 2 credits |
 
 ### Social Adaptations
 
@@ -717,8 +717,8 @@ Example slugs: `"musk"`, `"hemingway"`, `"jobs"`, `"saas-founder"`, `"investigat
 
 Subscribe to these events when registering a webhook:
 
-| Event                          | Triggered When                       |
-| ------------------------------ | ------------------------------------ |
+| Event                         | Triggered When                       |
+| ----------------------------- | ------------------------------------ |
 | `article.generated`           | Article generation completed         |
 | `article.published`           | Article published (auto or manual)   |
 | `article.unpublished`         | Article unpublished (→ draft)        |

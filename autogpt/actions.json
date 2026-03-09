@@ -1,5 +1,5 @@
 {
-  "version": "3.2.0",
+  "version": "3.3.0",
   "base_url": "https://www.citedy.com",
   "auth": {
     "type": "bearer",
@@ -92,6 +92,13 @@
       "description": "List generated/published articles",
       "cost": "free",
       "query_params": ["limit", "offset", "status"]
+    },
+    {
+      "id": "article_get",
+      "method": "GET",
+      "path": "/api/agent/articles/{id}",
+      "description": "Get a single article by id (poll after autopilot generation)",
+      "cost": "free"
     },
     {
       "id": "scan",
@@ -414,6 +421,30 @@
       }
     },
     {
+      "id": "lead_magnets_archive",
+      "method": "PATCH",
+      "path": "/api/agent/lead-magnets/{id}",
+      "description": "Archive a lead magnet",
+      "cost": "free",
+      "payload_example": {
+        "status": "archived"
+      }
+    },
+    {
+      "id": "lead_magnets_wait",
+      "method": "GET",
+      "path": "/api/agent/lead-magnets/{id}/wait",
+      "description": "Long-poll lead magnet generation (blocks until complete or timeout)",
+      "cost": "free"
+    },
+    {
+      "id": "pending_status",
+      "method": "GET",
+      "path": "/api/agent/pending/{id}",
+      "description": "Universal async job poller (works for any pending operation)",
+      "cost": "free"
+    },
+    {
       "id": "shorts_script",
       "method": "POST",
       "path": "/api/agent/shorts/script",
@@ -473,6 +504,116 @@
         ],
         "phrases": [{ "text": "First part" }, { "text": "Second part" }]
       }
+    },
+    {
+      "id": "seo_meta_tags",
+      "method": "POST",
+      "path": "/api/agent/tools/meta-tags",
+      "description": "Check meta tags (title, description, OG) for any URL",
+      "cost": "1 credit",
+      "payload_example": {
+        "url": "https://example.com"
+      }
+    },
+    {
+      "id": "seo_headings",
+      "method": "POST",
+      "path": "/api/agent/tools/headings",
+      "description": "Analyze heading structure (H1-H6) for any URL",
+      "cost": "1 credit",
+      "payload_example": {
+        "url": "https://example.com"
+      }
+    },
+    {
+      "id": "seo_links",
+      "method": "POST",
+      "path": "/api/agent/tools/links",
+      "description": "Analyze internal and external links on a page",
+      "cost": "1 credit",
+      "payload_example": {
+        "url": "https://example.com"
+      }
+    },
+    {
+      "id": "seo_internal_links",
+      "method": "POST",
+      "path": "/api/agent/tools/internal-links",
+      "description": "Plan internal linking strategy between pages",
+      "cost": "1 credit",
+      "payload_example": {
+        "url": "https://example.com",
+        "targetUrls": ["https://example.com/docs"]
+      }
+    },
+    {
+      "id": "seo_og_preview",
+      "method": "POST",
+      "path": "/api/agent/tools/og-preview",
+      "description": "Preview Open Graph social card for any URL",
+      "cost": "1 credit",
+      "payload_example": {
+        "url": "https://example.com"
+      }
+    },
+    {
+      "id": "seo_schema_validate",
+      "method": "POST",
+      "path": "/api/agent/tools/schema-validate",
+      "description": "Validate Schema.org structured data on a page",
+      "cost": "1 credit",
+      "payload_example": {
+        "url": "https://example.com"
+      }
+    },
+    {
+      "id": "seo_robots",
+      "method": "POST",
+      "path": "/api/agent/tools/robots",
+      "description": "Check robots.txt rules for a domain",
+      "cost": "1 credit",
+      "payload_example": {
+        "url": "https://example.com"
+      }
+    },
+    {
+      "id": "seo_sitemap",
+      "method": "POST",
+      "path": "/api/agent/tools/sitemap",
+      "description": "Check sitemap.xml validity and coverage",
+      "cost": "1 credit",
+      "payload_example": {
+        "url": "https://example.com"
+      }
+    },
+    {
+      "id": "seo_og_image",
+      "method": "POST",
+      "path": "/api/agent/tools/og-image",
+      "description": "Generate custom OG image for social sharing",
+      "cost": "10 credits",
+      "payload_example": {
+        "brandName": "MyBrand",
+        "logoUrl": "https://example.com/logo.png",
+        "template": "product"
+      }
+    },
+    {
+      "id": "brand_scan",
+      "method": "POST",
+      "path": "/api/agent/tools/brand-scan",
+      "description": "Scan brand visibility across AI platforms (async, poll with brand_scan_status)",
+      "cost": "8 credits",
+      "payload_example": {
+        "brandName": "MyBrand"
+      }
+    },
+    {
+      "id": "brand_scan_status",
+      "method": "GET",
+      "path": "/api/agent/tools/brand-scan/{id}",
+      "description": "Poll brand scan status",
+      "cost": "free"
     },
     {
       "id": "webhooks_create",
