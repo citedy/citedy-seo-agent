@@ -22,6 +22,7 @@ The Citedy SEO Agent is designed for developers, marketers, and AI enthusiasts w
 | **Article Management**      | Publish, unpublish, and delete articles via API — full lifecycle control for regulated industries.                            |
 | **AI-Powered Enhancements** | Add AI-generated illustrations and voice-over narration to your articles.                                                     |
 | **Social Media Adaptation** | Adapt articles for X, LinkedIn, Facebook, Reddit, Threads, Instagram, Instagram Reels, YouTube Shorts, and Shopify.           |
+| **Direct Publish**          | Publish article content as-is to LinkedIn, Facebook, X, Reddit, and Instagram — no AI adaptation, 0 credits.                 |
 | **AI UGC Viral Videos**     | Generate short-form AI UGC viral videos (5s/10s/15s) with subtitles for TikTok, Reels, and Shorts.                            |
 | **Content Ingestion**       | Extract content from YouTube videos, web articles, PDFs, and audio files into structured summaries.                           |
 | **Lead Magnets**            | Generate checklists, swipe files, and frameworks for lead capture — from 30 credits.                                          |

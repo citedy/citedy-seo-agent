@@ -493,6 +493,45 @@ Response:
 }
 ```
 
+### Direct Publish (Publish as-is)
+
+Publish article content directly to social platforms without AI adaptation. 0 credits.
+
+```http
+POST /api/agent/publish
+{
+  "action": "publish_raw",
+  "articleId": "uuid-of-article",
+  "platform": "linkedin",
+  "accountId": "uuid-of-social-account"
+}
+```
+
+**Required:** `action` ("publish_raw"), `articleId` (UUID), `platform`, `accountId` (UUID)
+
+**Platforms:** `linkedin`, `facebook`, `x_article`, `reddit`, `instagram`
+
+**Optional:**
+
+- `subreddit` (string) — required when platform is `reddit`
+
+**Notes:**
+
+- Instagram requires the article to contain at least one image
+- The article markdown is converted to platform-native format and posted as-is
+- No AI rewriting, no credit charge
+
+Response:
+
+```json
+{
+  "success": true,
+  "action": "publish_raw",
+  "adaptationId": "uuid",
+  "platformPostId": "urn:li:share:456"
+}
+```
+
 ### Create Autopilot Session
 
 ```http

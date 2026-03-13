@@ -139,6 +139,19 @@
       }
     },
     {
+      "id": "publish_raw",
+      "method": "POST",
+      "path": "/api/agent/publish",
+      "description": "Direct publish article as-is to social platform (no AI adaptation, 0 credits)",
+      "cost": "free",
+      "payload_example": {
+        "action": "publish_raw",
+        "articleId": "uuid",
+        "platform": "linkedin",
+        "accountId": "uuid"
+      }
+    },
+    {
       "id": "autopilot",
       "method": "POST",
       "path": "/api/agent/autopilot",
