@@ -26,6 +26,7 @@ The Citedy SEO Agent is designed for developers, marketers, and AI enthusiasts w
 | **AI UGC Viral Videos**     | Generate short-form AI UGC viral videos (5s/10s/15s) with subtitles for TikTok, Reels, and Shorts.                            |
 | **Content Ingestion**       | Extract content from YouTube videos, web articles, PDFs, and audio files into structured summaries.                           |
 | **Lead Magnets**            | Generate checklists, swipe files, and frameworks for lead capture — from 30 credits.                                          |
+| **GSC Reports**             | Google Search Console performance reports — clicks, impressions, positions, movers, opportunities, article suggestions. 0 credits. |
 | **Webhooks**                | Get notified on article generation, publishing, scout results, lead magnets, billing events, and more (15 event types).       |
 | **Content Automation**      | Set up cron-based sessions to generate and publish articles on a recurring schedule.                                          |
 

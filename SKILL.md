@@ -9,9 +9,9 @@ description: >
   Threads, Instagram, Instagram Reels, YouTube Shorts, and Shopify, generate lead magnets (checklists, swipe files,
   frameworks), ingest any URL (YouTube videos, web articles, PDFs, audio files) into structured
   content, ultra-cheap turbo articles from 2 credits, generate short-form
-  AI UGC viral videos with subtitles, and run fully automated content autopilot.
-  Powered by Citedy.
-version: "3.2.0"
+  AI UGC viral videos with subtitles, Google Search Console performance reports,
+  and run fully automated content autopilot. Powered by Citedy.
+version: "3.4.0"
 author: Citedy
 tags:
   - seo

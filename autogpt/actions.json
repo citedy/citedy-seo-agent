@@ -1,5 +1,5 @@
 {
-  "version": "3.3.0",
+  "version": "3.4.0",
   "base_url": "https://www.citedy.com",
   "auth": {
     "type": "bearer",
@@ -627,6 +627,16 @@
       "path": "/api/agent/tools/brand-scan/{id}",
       "description": "Poll brand scan status",
       "cost": "free"
+    },
+    {
+      "id": "gsc_report",
+      "method": "GET",
+      "path": "/api/agent/gsc/report",
+      "description": "Google Search Console performance report — clicks, impressions, CTR, positions, top queries, movers, opportunities, article suggestions. Returns connect URL if GSC not linked.",
+      "cost": "free",
+      "query_params": {
+        "force_refresh": "boolean (optional) — bypass cached report"
+      }
     },
     {
       "id": "webhooks_create",
