@@ -218,5 +218,5 @@ Upload your product documentation, feature specs, or brand guidelines for just 1
 
 ---
 
-*Last updated: 2026-03-09 | SEO Content Autopilot by Citedy v3.1.0*
-*1 credit = $0.01 USD | Get your API key: https://www.citedy.com/dashboard/settings*
+_Last updated: 2026-03-09 | SEO Content Autopilot by Citedy v3.1.0_
+_1 credit = $0.01 USD | Get your API key: https://www.citedy.com/dashboard/settings_

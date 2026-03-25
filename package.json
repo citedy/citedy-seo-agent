@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.0"
+    "@modelcontextprotocol/sdk": "^1.26.0"
   },
   "license": "MIT",
   "repository": {

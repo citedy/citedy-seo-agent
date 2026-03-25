@@ -33,14 +33,12 @@ const BLOCKS = {
 };
 
 const manifest = JSON.parse(
-  readFileSync(join(__dirname, "agents", "manifest.json"), "utf-8")
+  readFileSync(join(__dirname, "agents", "manifest.json"), "utf-8"),
 );
 
 function loadAgentTemplate(file) {
   try {
-    return JSON.parse(
-      readFileSync(join(__dirname, "agents", file), "utf-8")
-    );
+    return JSON.parse(readFileSync(join(__dirname, "agents", file), "utf-8"));
   } catch {
     return null;
   }
@@ -143,7 +141,7 @@ async function main() {
     : new Set();
 
   console.log(
-    `\nDeploying ${manifest.templates.length} Citedy agents to AutoGPT Platform...\n`
+    `\nDeploying ${manifest.templates.length} Citedy agents to AutoGPT Platform...\n`,
   );
 
   const results = [];
@@ -158,7 +156,7 @@ async function main() {
       const created = await createGraph(graph);
       const linkCount = created.links?.length ?? 0;
       console.log(
-        `✅ ${entry.name} → ${created.id} (${created.nodes?.length} nodes, ${linkCount} links)`
+        `✅ ${entry.name} → ${created.id} (${created.nodes?.length} nodes, ${linkCount} links)`,
       );
       results.push({
         id: entry.id,
@@ -179,11 +177,9 @@ async function main() {
 
   console.log(`\n--- Summary ---`);
   console.log(
-    `Created: ${results.filter((r) => r.status === "created").length}`
+    `Created: ${results.filter((r) => r.status === "created").length}`,
   );
-  console.log(
-    `Errors:  ${results.filter((r) => r.status === "error").length}`
-  );
+  console.log(`Errors:  ${results.filter((r) => r.status === "error").length}`);
   console.log(`\nGraph IDs:`);
   results
     .filter((r) => r.graphId)
