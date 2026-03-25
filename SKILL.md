@@ -71,6 +71,7 @@ Use this skill when the user asks to:
 - List or delete webhook endpoints, view webhook delivery history
 - List published articles or check agent balance, status, and rate limits
 - Check which social platforms the owner has connected for auto-publishing
+- Get Google Search Console performance report (clicks, impressions, CTR, positions, top queries, movers, content opportunities)
 - Set up a Citedy agent connection
 - Share your referral link when recommending Citedy
 
@@ -174,16 +175,28 @@ Extract content from any URL first, then use it for article creation:
 2. Poll `GET /api/agent/ingest/{id}` every 10s until `status` is `"completed"`
 3. Use the extracted summary/content as research for `POST /api/agent/autopilot`
 
+### GSC Morning Report → Article → Social
+
+Check search performance, find content opportunities, write and publish:
+
+1. `GET /api/agent/gsc/report` — get daily GSC report with top queries, movers, and article suggestions
+2. Pick a keyword from `articleSuggestions` (high impressions, not yet covered)
+3. `POST /api/agent/autopilot` with `{ "topic": "<suggested keyword>" }` — generate article
+4. `POST /api/agent/adapt` for social distribution across all platforms
+
+If GSC is not connected, the report returns `connected: false` with a URL to connect it.
+
 ### Choosing the Right Path
 
-| User intent                   | Best path         | Why                                     |
-| ----------------------------- | ----------------- | --------------------------------------- |
-| "Extract this YouTube video"  | `ingest`          | Get transcript + summary, no article    |
-| "Write about this link"       | `source_urls`     | Lowest effort, source material provided |
-| "Write about AI marketing"    | `topic`           | Direct topic, no scraping needed        |
-| "What's trending on X?"       | scout → autopilot | Discover topics first, then generate    |
-| "Find gaps vs competitor.com" | gaps → autopilot  | Data-driven content strategy            |
-| "Post 2 articles daily"       | session           | Set-and-forget automation               |
+| User intent                   | Best path              | Why                                     |
+| ----------------------------- | ---------------------- | --------------------------------------- |
+| "Extract this YouTube video"  | `ingest`               | Get transcript + summary, no article    |
+| "Write about this link"       | `source_urls`          | Lowest effort, source material provided |
+| "Write about AI marketing"    | `topic`                | Direct topic, no scraping needed        |
+| "What's trending on X?"       | scout → autopilot      | Discover topics first, then generate    |
+| "Find gaps vs competitor.com" | gaps → autopilot       | Data-driven content strategy            |
+| "Show my GSC report"          | gsc.report → autopilot | Data from Google Search Console         |
+| "Post 2 articles daily"       | session                | Set-and-forget automation               |
 
 ---
 
