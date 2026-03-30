@@ -160,6 +160,10 @@ Once the skill is active, your agent will guide you through a one-time setup:
 
 That's it. Your agent is now connected to Citedy and ready to create content.
 
+## Hosted deployment
+
+A hosted deployment is available on [Fronteir AI](https://fronteir.ai/mcp/citedy-citedy-seo-agent).
+
 ## How It Works
 
 The Citedy SEO Agent provides a simple yet powerful workflow for creating and distributing content:
