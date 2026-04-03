@@ -519,6 +519,19 @@
       }
     },
     {
+      "id": "shorts_publish",
+      "method": "POST",
+      "path": "/api/agent/shorts/publish",
+      "description": "Publish video directly to YouTube Shorts and/or Instagram Reels",
+      "cost": "0-5 credits (YT free, IG 5)",
+      "payload_example": {
+        "video_url": "https://download.citedy.com/agent/shorts/.../video-sub.mp4",
+        "speech_text": "I just found 8 hidden competitors in 3 minutes...",
+        "targets": [{ "platform": "instagram_reels", "account_id": "uuid" }],
+        "privacy_status": "public"
+      }
+    },
+    {
       "id": "seo_meta_tags",
       "method": "POST",
       "path": "/api/agent/tools/meta-tags",

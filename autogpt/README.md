@@ -6,7 +6,7 @@ v3.1.0 — Full API coverage with 19 importable templates.
 
 - `agents/*.agent.json` — 19 importable AutoGPT templates
 - `agents/manifest.json` — template index
-- `actions.json` — 48 endpoint/action reference with pricing
+- `actions.json` — 49 endpoint/action reference with pricing
 - `validate-templates.mjs` — local integrity validator
 - `QUICKSTART.md` — fast operator onboarding
 

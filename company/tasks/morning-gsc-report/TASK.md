@@ -18,21 +18,25 @@ A daily task that turns search data into published content.
 ## Steps
 
 1. **Pull GSC Report**
+
    ```
    GET /api/agent/gsc/report
    ```
+
    Review: clicks, impressions, position changes, top queries
 
 2. **Identify Opportunity**
    Pick the top keyword from `articleSuggestions` — high impressions, not yet covered
 
 3. **Generate Article**
+
    ```
    POST /api/agent/autopilot
    { "topic": "<suggested keyword>", "size": "mini" }
    ```
 
 4. **Create Social Adaptations**
+
    ```
    POST /api/agent/adapt
    { "article_id": "<id>", "platforms": ["linkedin", "x_thread", "facebook"] }

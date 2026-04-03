@@ -9,9 +9,9 @@ description: >
   Threads, Instagram, Instagram Reels, YouTube Shorts, and Shopify, generate lead magnets (checklists, swipe files,
   frameworks), ingest any URL (YouTube videos, web articles, PDFs, audio files) into structured
   content, ultra-cheap turbo articles from 2 credits, generate short-form
-  AI UGC viral videos with subtitles, Google Search Console performance reports,
+  AI UGC viral videos with subtitles and direct publishing to Instagram Reels and YouTube Shorts, Google Search Console performance reports,
   and run fully automated content autopilot. Powered by Citedy.
-version: "3.4.0"
+version: "3.5.0"
 author: Citedy
 tags:
   - seo
@@ -66,7 +66,7 @@ Use this skill when the user asks to:
 - Set up automated content sessions (cron-based article generation)
 - Generate lead magnets (checklists, swipe files, frameworks) for lead capture
 - Ingest any URL (YouTube video, web article) into structured content with summary and metadata
-- Generate short-form AI UGC viral videos with subtitles (script, avatar, video, merge)
+- Generate short-form AI UGC viral videos with subtitles (script, avatar, video, merge) and publish directly to Instagram Reels and YouTube Shorts
 - Register webhook endpoints to receive real-time event notifications (article published, ingestion complete, etc.)
 - List or delete webhook endpoints, view webhook delivery history
 - List published articles or check agent balance, status, and rate limits
@@ -729,6 +729,7 @@ Generate AI UGC viral videos with subtitles — from script to finished video.
 2. `/shorts/avatar` — generate AI avatar image (user approves)
 3. `/shorts` — generate video segment(s) with avatar + prompt + speech_text
 4. `/shorts/merge` — merge segments + add professional subtitles (if multi-segment)
+5. `/shorts/publish` — publish video directly to YouTube Shorts and/or Instagram Reels
 
 **Generate Script:**
 
@@ -816,17 +817,43 @@ POST /api/agent/shorts/merge
 - Returns `{ video_url, r2_key, duration, segment_durations, credits_charged }`
 - Only 1 concurrent merge per agent (returns 409 if busy)
 
+**Publish Video:**
+
+```http
+POST /api/agent/shorts/publish
+{
+  "video_url": "https://download.citedy.com/agent/shorts/.../video-sub.mp4",
+  "speech_text": "I just found 8 hidden competitors in 3 minutes...",
+  "targets": [
+    {"platform": "instagram_reels", "account_id": "uuid-of-ig-account"},
+    {"platform": "youtube_shorts", "account_id": "uuid-of-yt-account"}
+  ],
+  "privacy_status": "public"
+}
+```
+
+- Instagram Reels: 5 credits. YouTube Shorts: 0 credits (free)
+- `video_url` — HTTPS URL from `/shorts` or `/shorts/merge` response (must be `download.citedy.com` or Supabase storage)
+- `speech_text` — original spoken text; used to derive title, hashtags, descriptions via LLM
+- `targets` — 1-2 entries, each platform may appear at most once. Get `account_id` from `GET /api/agent/me` → `connected_platforms`
+- `privacy_status` — `public` (default), `unlisted`, `private` (YouTube only, ignored for Instagram)
+- Returns `{ results: [{ platform, ok, post_id?, error? }], metadata_provider, metadata_degraded, timings: { metadata_ms, total_ms }, credits_charged }`
+- Does **not** require an article — publishes directly from video URL + speech text
+
 **Pricing:**
 
-| Step               | Credits |
-| ------------------ | ------- |
-| Script             | 1       |
-| Avatar             | 3       |
-| Video (5s)         | 60      |
-| Video (10s)        | 130     |
-| Video (15s)        | 185     |
-| Merge + subtitles  | 5       |
-| **Full 10s video** | **139** |
+| Step                        | Credits |
+| --------------------------- | ------- |
+| Script                      | 1       |
+| Avatar                      | 3       |
+| Video (5s)                  | 60      |
+| Video (10s)                 | 130     |
+| Video (15s)                 | 185     |
+| Merge + subtitles           | 5       |
+| Publish (IG Reels)          | 5       |
+| Publish (YT Shorts)         | 0       |
+| **Full 10s video**          | **139** |
+| **Full 10s + publish both** | **144** |
 
 ### Trend Scan
 
@@ -1154,6 +1181,7 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | `/api/agent/shorts`                | POST   | 60-185 credits (by duration)         |
 | `/api/agent/shorts/{id}`           | GET    | free (poll)                          |
 | `/api/agent/shorts/merge`          | POST   | 5 credits                            |
+| `/api/agent/shorts/publish`        | POST   | 0-5 credits (YT free, IG 5)          |
 | `/api/agent/webhooks`              | POST   | free                                 |
 | `/api/agent/webhooks`              | GET    | free                                 |
 | `/api/agent/webhooks/{id}`         | DELETE | free                                 |

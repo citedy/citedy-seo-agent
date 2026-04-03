@@ -28,11 +28,11 @@ Trend Scout → SEO Strategist → Content Writer → Social Distribution
 
 ## Agents
 
-| Agent | Role | Key Skills |
-|-------|------|------------|
-| **SEO Strategist** | Team lead. Competitor analysis, content gaps, strategy | citedy-seo-agent |
-| **Trend Scout** | X/Twitter and Reddit trend discovery | citedy-trend-scout |
-| **Content Writer** | Article generation, social adaptations | citedy-content-writer |
-| **GSC Analyst** | Search Console reports, opportunity identification | citedy-seo-agent (gsc.report) |
-| **Video Creator** | AI UGC viral shorts with subtitles | citedy-video-shorts |
-| **Lead Gen** | Checklists, swipe files, frameworks | citedy-lead-magnets |
+| Agent              | Role                                                   | Key Skills                    |
+| ------------------ | ------------------------------------------------------ | ----------------------------- |
+| **SEO Strategist** | Team lead. Competitor analysis, content gaps, strategy | citedy-seo-agent              |
+| **Trend Scout**    | X/Twitter and Reddit trend discovery                   | citedy-trend-scout            |
+| **Content Writer** | Article generation, social adaptations                 | citedy-content-writer         |
+| **GSC Analyst**    | Search Console reports, opportunity identification     | citedy-seo-agent (gsc.report) |
+| **Video Creator**  | AI UGC viral shorts with subtitles                     | citedy-video-shorts           |
+| **Lead Gen**       | Checklists, swipe files, frameworks                    | citedy-lead-magnets           |
