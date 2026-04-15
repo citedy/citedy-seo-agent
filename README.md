@@ -84,7 +84,7 @@ npx openskills install Citedy/citedy-seo-agent
 
 ## Compatible Platforms
 
-This skill follows the open [Agent Skills](https://github.com/topics/agent-skills) standard and works with:
+This skill follows the open [Agent Skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview) standard and works with:
 
 - **Claude Code** — install as a plugin from the `citedy` marketplace (see above)
 - **OpenAI Codex CLI** — clone into `~/.agents/skills/` (see above)
