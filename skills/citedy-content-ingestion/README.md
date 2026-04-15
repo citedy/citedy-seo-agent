@@ -17,13 +17,13 @@ Submit a URL and get back clean structured content: full transcript, summary, me
 ### OpenAI Codex CLI
 
 ```bash
-git clone https://github.com/Citedy/citedy-seo-agent.git ~/.agents/skills/citedy-content-ingestion
+git clone https://github.com/citedy/ingest.git ~/.agents/skills/citedy-content-ingestion
 ```
 
 ### Universal (openskills)
 
 ```bash
-npx openskills install Citedy/citedy-content-ingestion
+npx openskills install citedy/ingest
 ```
 
 ## Quick Start

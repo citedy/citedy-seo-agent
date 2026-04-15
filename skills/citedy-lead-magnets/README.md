@@ -17,13 +17,13 @@ Produces ready-to-publish PDF lead magnets in minutes. Choose from three types: 
 ### OpenAI Codex CLI
 
 ```bash
-git clone https://github.com/Citedy/citedy-seo-agent.git ~/.agents/skills/citedy-lead-magnets
+git clone https://github.com/citedy/leads.git ~/.agents/skills/citedy-lead-magnets
 ```
 
 ### Universal (openskills)
 
 ```bash
-npx openskills install Citedy/citedy-lead-magnets
+npx openskills install citedy/leads
 ```
 
 ## Quick Start

@@ -17,13 +17,13 @@ Turn any topic or product description into a professional 5–15 second talkingh
 ### OpenAI Codex CLI
 
 ```bash
-git clone https://github.com/Citedy/citedy-seo-agent.git ~/.agents/skills/citedy-video-shorts
+git clone https://github.com/citedy/shorts.git ~/.agents/skills/citedy-video-shorts
 ```
 
 ### Universal (openskills)
 
 ```bash
-npx openskills install Citedy/citedy-video-shorts
+npx openskills install citedy/shorts
 ```
 
 ## Quick Start
