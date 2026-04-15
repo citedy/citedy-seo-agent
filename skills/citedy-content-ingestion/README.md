@@ -79,7 +79,7 @@ Top up at [citedy.com/dashboard/billing](https://www.citedy.com/dashboard/billin
 
 ## Part of Citedy SEO Agent
 
-This is a focused skill from the [Citedy SEO Agent](../citedy-seo-agent/) full suite. Install the full suite for articles, social media, video shorts, trend scouting, lead magnets, content ingestion, and more.
+This is a focused skill from the [Citedy SEO Agent](https://github.com/citedy/citedy-seo-agent) full suite. Install the full suite for articles, social media, video shorts, trend scouting, lead magnets, content ingestion, and more.
 
 ---
 
