@@ -91,6 +91,8 @@ This skill follows the open [Agent Skills](https://docs.claude.com/en/docs/agent
 - **Factory Droid** — clone into `~/.factory/skills/` (see above)
 - **Manus, Kimi** — import directly from GitHub or add via the Skills Directory
 - **Skills Directory** — [skillsdirectory.com](https://skillsdirectory.com)
+- **Smithery** — [smithery.ai/skills/citedy/citedy-seo-agent](https://smithery.ai/skills/citedy/citedy-seo-agent)
+- **Skills.sh** — [skills.sh/citedy/citedy-seo-agent/citedy-seo-agent](https://skills.sh/citedy/citedy-seo-agent/citedy-seo-agent)
 - **Any Agent Skills-compatible platform** — Kilo, SkillHub, and others
 
 ## Support Matrix
