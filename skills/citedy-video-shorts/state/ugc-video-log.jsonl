@@ -1,0 +1,1 @@
+{"type":"meta","schema_version":1,"note":"Append one JSON object per successful run with timestamp, topic, hook style, avatar recipe, duration, transport, output URL, and publish result."}
