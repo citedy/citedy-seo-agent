@@ -37,7 +37,7 @@ Most video tools stop at "generate a clip".
 
 ## Install
 
-### OpenSkills
+### Claude Code, Codex, Droid, Antigravity, Cursor, OpenClaw, and more
 
 ```bash
 npx @smithery/cli@latest skill add citedy/shorts
