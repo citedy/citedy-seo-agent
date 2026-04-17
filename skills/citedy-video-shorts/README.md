@@ -40,7 +40,7 @@ Most video tools stop at "generate a clip".
 ### OpenSkills
 
 ```bash
-npx openskills install citedy/shorts
+npx @smithery/cli@latest skill add citedy/shorts
 ```
 
 ### Codex / local agent setup
