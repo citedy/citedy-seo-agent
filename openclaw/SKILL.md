@@ -735,7 +735,7 @@ Generate AI UGC viral videos with subtitles — from script to finished video.
 2. `/shorts/avatar` — generate AI avatar image (user approves)
 3. `/shorts` — generate video segment(s) with avatar + prompt + speech_text
 4. `/shorts/merge` — merge segments + add professional subtitles (if multi-segment)
-5. `/shorts/publish` — publish video directly to YouTube Shorts and/or Instagram Reels
+5. `/shorts/publish` — publish video directly to YouTube Shorts, Instagram Reels, and/or TikTok
 
 **Generate Script:**
 
@@ -832,17 +832,20 @@ POST /api/agent/shorts/publish
   "speech_text": "I just found 8 hidden competitors in 3 minutes...",
   "targets": [
     {"platform": "instagram_reels", "account_id": "uuid-of-ig-account"},
-    {"platform": "youtube_shorts", "account_id": "uuid-of-yt-account"}
+    {"platform": "youtube_shorts", "account_id": "uuid-of-yt-account"},
+    {"platform": "tiktok", "account_id": "uuid-of-tt-account"}
   ],
-  "privacy_status": "public"
+  "privacy_status": "public",
+  "tiktok_privacy_level": "PUBLIC_TO_EVERYONE"
 }
 ```
 
-- Instagram Reels: 5 credits. YouTube Shorts: 0 credits (free)
+- Publishing is free across all platforms (Instagram Reels: 0 credits, YouTube Shorts: 0 credits, TikTok: 0 credits) since 2026-04-15. See `lib/billing/pricing-constants.ts` `SOCIAL_PUBLISH_CREDITS` — revenue moved to generation only.
 - `video_url` — HTTPS URL from `/shorts` or `/shorts/merge` response (must be `download.citedy.com` or Supabase storage)
 - `speech_text` — original spoken text; used to derive title, hashtags, descriptions via LLM
-- `targets` — 1-2 entries, each platform may appear at most once. Get `account_id` from `GET /api/agent/me` → `connected_platforms`
-- `privacy_status` — `public` (default), `unlisted`, `private` (YouTube only, ignored for Instagram)
+- `targets` — 1-3 entries (max 3 platforms), each platform may appear at most once. `platform` is one of `youtube_shorts` | `instagram_reels` | `tiktok`. Get `account_id` from `GET /api/agent/me` → `connected_platforms`
+- `privacy_status` — `public` (default), `unlisted`, `private`. YouTube respects all three. Instagram Reels ignores it. TikTok ignores it whenever `tiktok_privacy_level` is provided (always set `tiktok_privacy_level` explicitly when publishing to TikTok)
+- `tiktok_privacy_level` — TikTok-only and **required** when `targets` includes TikTok. One of `PUBLIC_TO_EVERYONE` | `FOLLOWER_OF_CREATOR` | `MUTUAL_FOLLOW_FRIENDS` | `SELF_ONLY`. The end user must pick the value from the latest `creator_info.privacy_level_options` per TikTok policy — surface a chooser in your client (see Citedy's `PublishDestinationPopover` for reference UX)
 - Returns `{ results: [{ platform, ok, post_id?, error? }], metadata_provider, metadata_degraded, timings: { metadata_ms, total_ms }, credits_charged }`
 - Does **not** require an article — publishes directly from video URL + speech text
 
@@ -856,10 +859,11 @@ POST /api/agent/shorts/publish
 | Video (10s)                 | 130     |
 | Video (15s)                 | 185     |
 | Merge + subtitles           | 5       |
-| Publish (IG Reels)          | 5       |
+| Publish (IG Reels)          | 0       |
 | Publish (YT Shorts)         | 0       |
+| Publish (TikTok)            | 0       |
 | **Full 10s video**          | **139** |
-| **Full 10s + publish both** | **144** |
+| **Full 10s + publish all**  | **139** |
 
 ### Trend Scan
 
@@ -912,9 +916,9 @@ POST /api/agent/publish
 }
 ```
 
-- 0 credits (5 for `instagram_reels`)
+- 0 credits (publishing is free across all platforms since 2026-04-15)
 - `action` — `now` (publish immediately) | `schedule` (requires `scheduledAt`) | `cancel` (cancel scheduled)
-- `platform` — `facebook` | `linkedin` | `x_article` | `x_thread` | `reddit` | `threads` | `instagram` | `instagram_reels`
+- `platform` — `facebook` | `linkedin` | `x_article` | `x_thread` | `reddit` | `threads` | `instagram` | `instagram_reels` | `youtube_shorts`
 - `accountId` — social account UUID (from `/me` connected_platforms)
 - `scheduledAt` — ISO datetime, required for `action=schedule`
 
@@ -1157,7 +1161,7 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | `/api/agent/post`                  | POST   | 2 credits                            |
 | `/api/agent/autopilot`             | POST   | 2-139 credits                        |
 | `/api/agent/adapt`                 | POST   | ~5 credits/platform                  |
-| `/api/agent/publish`               | POST   | 0 credits (5 for `instagram_reels`)  |
+| `/api/agent/publish`               | POST   | 0 credits (publishing is free)       |
 | `/api/agent/session`               | POST   | free (articles billed on generation) |
 | `/api/agent/schedule`              | GET    | free                                 |
 | `/api/agent/schedule/gaps`         | GET    | free                                 |
