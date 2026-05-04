@@ -51,7 +51,7 @@ In the Actions editor, under **Authentication**:
 
 GPT Actions has a payload size limit. The full spec may hit this limit. Extract only the operations your GPT needs.
 
-**Minimal SEO assistant spec** (5 key operations):
+**Minimal SEO assistant spec** (6 key operations):
 
 ```json
 {
@@ -410,7 +410,7 @@ Once connected, ChatGPT can invoke Citedy tools directly in conversation without
 
 ## Trimming the OpenAPI Spec for GPT Actions
 
-GPT Actions enforces limits on spec size. If you need more than the 5 operations in the minimal spec above, follow this approach.
+GPT Actions enforces limits on spec size. If you need more than the 6 operations in the minimal spec above, follow this approach.
 
 ### Operations Reference
 
