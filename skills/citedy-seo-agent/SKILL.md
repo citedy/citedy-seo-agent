@@ -304,19 +304,25 @@ POST /api/agent/scout/reddit
 ### Get Content Gaps
 
 ```http
-GET /api/agent/gaps
+GET /api/agent/gaps?favorite_id=<uuid>&limit=<1-100>
 ```
 
 - 0 credits (free read)
+- `favorite_id` (uuid, optional) — scope results to a specific product/identity (`ai_favorites` row). Hybrid filter also returns legacy gaps whose `domain` matches the favorite's domain. Owner-checked → `403` for cross-tenant favorites.
+- `limit` (1-100, default 100, optional)
 
 ### Generate Content Gaps
 
 ```http
 POST /api/agent/gaps/generate
-{"competitor_urls": ["https://competitor1.com", "https://competitor2.com"]}
+{
+  "competitor_urls": ["https://competitor1.com", "https://competitor2.com"],
+  "favorite_id": "00000000-0000-0000-0000-000000000000"
+}
 ```
 
 - 40 credits. Synchronous — returns results directly.
+- `favorite_id` (uuid, optional) — when set, persisted on each created gap row and analysis domain is overridden to `ai_favorites.domain`. Owner-checked **before** charge → `403` for cross-tenant.
 
 ### Discover Competitors
 

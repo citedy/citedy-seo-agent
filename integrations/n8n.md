@@ -143,13 +143,16 @@ opportunities.
   "competitor_urls": [
     "https://competitor-one.com/blog",
     "https://competitor-two.com"
-  ]
+  ],
+  "favorite_id": "00000000-0000-0000-0000-000000000000"
 }
 ```
 
+`favorite_id` (optional uuid) scopes the run to a product/identity (owner-checked, 403 cross-tenant before charge). Persisted on each gap row; analysis domain switches to `ai_favorites.domain`.
+
 ### 4. gaps.list
 
-No parameters required. Returns saved gap opportunities with `score`, `priority`, `keyword`, and `rationale` fields.
+Optional query: `?favorite_id=<uuid>&limit=<1-100>`. With `favorite_id` set, returns gaps tagged with that favorite plus legacy NULL gaps whose `domain` matches the favorite's domain (hybrid filter). Default limit is 100. Response items include `score`, `priority`, `keyword`, `rationale`, and `favorite_id`.
 
 ### 5. Write to Google Sheets
 

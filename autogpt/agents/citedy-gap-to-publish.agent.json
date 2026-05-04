@@ -47,7 +47,7 @@
       "input_default": {
         "name": "Request JSON",
         "title": null,
-        "value": "{\n  \"competitor_urls\": [\n    \"https://example1.com\",\n    \"https://example2.com\"\n  ]\n}",
+        "value": "{\n  \"competitor_urls\": [\n    \"https://example1.com\",\n    \"https://example2.com\"\n  ],\n  \"favorite_id\": \"\"\n}",
         "secret": false,
         "advanced": false,
         "description": "JSON payload for this endpoint.",
@@ -563,7 +563,7 @@
         "secret": false,
         "title": "Request JSON",
         "description": "JSON payload for the selected Citedy endpoint.",
-        "default": "{\n  \"competitor_urls\": [\n    \"https://example1.com\",\n    \"https://example2.com\"\n  ]\n}"
+        "default": "{\n  \"competitor_urls\": [\n    \"https://example1.com\",\n    \"https://example2.com\"\n  ],\n  \"favorite_id\": \"\"\n}"
       }
     },
     "required": ["API Key", "Request JSON"]
