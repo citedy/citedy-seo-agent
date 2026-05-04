@@ -1191,7 +1191,7 @@ Use `connected_platforms` to decide which platforms to pass to `/api/agent/adapt
 | `/api/agent/shorts`                | POST   | 60-185 credits (by duration)         |
 | `/api/agent/shorts/{id}`           | GET    | free (poll)                          |
 | `/api/agent/shorts/merge`          | POST   | 5 credits                            |
-| `/api/agent/shorts/publish`        | POST   | 0-5 credits (YT free, IG 5)          |
+| `/api/agent/shorts/publish`        | POST   | 0 credits (publishing is free)       |
 | `/api/agent/webhooks`              | POST   | free                                 |
 | `/api/agent/webhooks`              | GET    | free                                 |
 | `/api/agent/webhooks/{id}`         | DELETE | free                                 |
