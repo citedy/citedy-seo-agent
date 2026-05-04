@@ -118,9 +118,12 @@ Every Friday at 09:00 AM.
   "competitor_urls": [
     "https://www.competitor-one.com",
     "https://www.competitor-two.com"
-  ]
+  ],
+  "favorite_id": "00000000-0000-0000-0000-000000000000"
 }
 ```
+
+`favorite_id` (optional uuid) scopes the run to a product/identity in `ai_favorites`. Owner-checked before charge (403 cross-tenant). Each created gap row is tagged with the favorite, and analysis domain is overridden to the favorite's domain.
 
 ### Step 3 — Action: Retrieve gap results
 

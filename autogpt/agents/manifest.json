@@ -53,7 +53,7 @@
       "id": "citedy-gap-generator",
       "file": "citedy-gap-to-publish.agent.json",
       "name": "Citedy Gap Generator",
-      "description": "Analyze competitors and surface content gaps where they earn traffic and you don't (~40 credits). Get a prioritized list of topics with genuine ranking potential.",
+      "description": "Analyze competitors and surface content gaps where they earn traffic and you don't (~40 credits). Get a prioritized list of topics with genuine ranking potential. Optional `favorite_id` (uuid) scopes the run to a specific product/identity (owner-checked).",
       "endpoint": "https://www.citedy.com/api/agent/gaps/generate",
       "method": "POST"
     },

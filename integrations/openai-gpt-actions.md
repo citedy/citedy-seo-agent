@@ -102,6 +102,11 @@ GPT Actions has a payload size limit. The full spec may hit this limit. Extract 
                   "competitor_urls": {
                     "type": "array",
                     "items": { "type": "string" }
+                  },
+                  "favorite_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Optional product/identity scope (ai_favorites row). Owner-checked before charge → 403 cross-tenant. Persisted on each gap row; analysis domain overridden to ai_favorites.domain."
                   }
                 },
                 "required": ["competitor_urls"]
@@ -109,7 +114,35 @@ GPT Actions has a payload size limit. The full spec may hit this limit. Extract 
             }
           }
         },
-        "responses": { "200": { "description": "Gaps generated" } }
+        "responses": {
+          "200": { "description": "Gaps generated" },
+          "403": { "description": "favorite_id not owned by tenant" }
+        }
+      }
+    },
+    "/api/agent/gaps": {
+      "get": {
+        "operationId": "listContentGaps",
+        "summary": "Read saved content gaps",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "favorite_id",
+            "required": false,
+            "schema": { "type": "string", "format": "uuid" },
+            "description": "Filter to gaps tagged with this favorite. Hybrid filter also returns legacy NULL gaps whose domain matches favorite.domain (when normalizeDomain succeeds)."
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 100 }
+          }
+        ],
+        "responses": {
+          "200": { "description": "List of gaps" },
+          "403": { "description": "favorite_id not owned by tenant" }
+        }
       }
     },
     "/api/agent/competitors/scout": {

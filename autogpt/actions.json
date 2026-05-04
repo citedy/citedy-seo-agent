@@ -283,20 +283,21 @@
       "id": "gaps_get",
       "method": "GET",
       "path": "/api/agent/gaps",
-      "description": "Get existing content gaps",
+      "description": "Get existing content gaps. Optional ?favorite_id=<uuid> scopes to a product/identity (owner-checked, hybrid filter); ?limit=1-100 (default 100).",
       "cost": "free"
     },
     {
       "id": "gaps_generate",
       "method": "POST",
       "path": "/api/agent/gaps/generate",
-      "description": "Generate competitor content gaps",
+      "description": "Generate competitor content gaps. Optional favorite_id (uuid) scopes the run to a product/identity — owner-checked before charge (403 cross-tenant), persisted on each gap, overrides analysis domain to ai_favorites.domain.",
       "cost": "40 credits",
       "payload_example": {
         "competitor_urls": [
           "https://competitor1.com",
           "https://competitor2.com"
-        ]
+        ],
+        "favorite_id": "00000000-0000-0000-0000-000000000000"
       }
     },
     {
