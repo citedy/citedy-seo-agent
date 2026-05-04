@@ -11,7 +11,7 @@ description: >
   content, ultra-cheap turbo articles from 2 credits, generate short-form
   AI UGC viral videos with subtitles and direct publishing to Instagram Reels and YouTube Shorts, Google Search Console performance reports,
   and run fully automated content autopilot. Powered by Citedy.
-version: "3.6.0"
+version: "3.6.1"
 author: Citedy
 tags:
   - seo
@@ -914,7 +914,7 @@ POST /api/agent/publish
 
 - 0 credits (5 for `instagram_reels`)
 - `action` — `now` (publish immediately) | `schedule` (requires `scheduledAt`) | `cancel` (cancel scheduled)
-- `platform` — `facebook` | `linkedin` | `x_article` | `x_thread` | `reddit` | `threads` | `instagram`
+- `platform` — `facebook` | `linkedin` | `x_article` | `x_thread` | `reddit` | `threads` | `instagram` | `instagram_reels`
 - `accountId` — social account UUID (from `/me` connected_platforms)
 - `scheduledAt` — ISO datetime, required for `action=schedule`
 
@@ -1380,5 +1380,5 @@ Call `GET /api/agent/me` every 4 hours as a keep-alive. This updates `last_activ
 
 ---
 
-_Citedy SEO Agent Skill v3.1.0_
+_Citedy SEO Agent Skill v3.6.1_
 _https://www.citedy.com_

@@ -340,10 +340,9 @@ Content-Type: application/json
 
 **Agent flow:**
 
-1. Call `POST /api/agent/autopilot` with `source_urls: ["https://competitor.com/best-crm-tools"]`, `size: "standard"`, `language: "en"`
-2. Poll status or wait for webhook `article.completed`
-3. Return article title, URL, and word count to user
-4. Ask: "Want social media adaptations? Which platforms?"
+1. Call `POST /api/agent/autopilot` with `source_urls: ["https://competitor.com/best-crm-tools"]`, `size: "standard"`, `language: "en"` — synchronous; the response includes the full article (title, URL, word count, content)
+2. Return article title, URL, and word count to user
+3. Ask: "Want social media adaptations? Which platforms?"
 
 ---
 
