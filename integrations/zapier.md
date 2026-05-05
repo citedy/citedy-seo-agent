@@ -127,12 +127,14 @@ Every Friday at 09:00 AM.
 
 ### Step 3 — Action: Retrieve gap results
 
-| Field  | Value                                   |
-| ------ | --------------------------------------- |
-| Method | `GET`                                   |
-| URL    | `https://www.citedy.com/api/agent/gaps` |
+| Field  | Value                                                                            |
+| ------ | -------------------------------------------------------------------------------- |
+| Method | `GET`                                                                            |
+| URL    | `https://www.citedy.com/api/agent/gaps?favorite_id=00000000-0000-0000-0000-000000000000` |
 
 No body required for GET requests. Include the `Authorization` header only.
+
+> **Important:** pass the same `favorite_id` you used in Step 2 as a query param so the list is scoped to that product/identity. Without it, the response includes _all_ gaps in the tenant, not just the ones generated above. The hybrid filter also surfaces legacy gaps (created before favorite tagging existed) that match the favorite's domain. Add `&limit=10` (1–100, default 100) if you only want the top opportunities.
 
 ### Step 4 — Filter by Zapier
 
