@@ -14,7 +14,7 @@ The Citedy SEO Agent is designed for developers, marketers, and AI enthusiasts w
 
 | Feature                     | Description                                                                                                                                   |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Auto-Publishing**         | Automatically publish to **X, LinkedIn, Shopify, Facebook, and YouTube** — no manual posting, no extra cost. This is free.                    |
+| **Auto-Publishing**         | Article/post adaptations are auto-published to **LinkedIn, X (article + thread), Facebook, Reddit, Instagram, and YouTube Shorts** — 7 platforms total. Threads and Instagram Reels require an explicit `/api/agent/publish` call after adaptation. TikTok is supported via `/api/agent/shorts/publish` for short-form video. Publishing is free across all platforms.                    |
 | **Trend Scouting**          | Discover what's trending on X/Twitter and Reddit to create timely and relevant content.                                                       |
 | **Competitor Analysis**     | Deep-analyze competitor domains to identify content gaps and opportunities.                                                                   |
 | **Deep SEO Scan**           | Run fast/deep/ultra/ultra+ scans with AI-powered search analysis and actionable recommendations.                                              |

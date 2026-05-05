@@ -1,5 +1,5 @@
 {
-  "version": "3.4.0",
+  "version": "3.6.2",
   "base_url": "https://www.citedy.com",
   "auth": {
     "type": "bearer",
@@ -284,7 +284,11 @@
       "method": "GET",
       "path": "/api/agent/gaps",
       "description": "Get existing content gaps. Optional ?favorite_id=<uuid> scopes to a product/identity (owner-checked, hybrid filter); ?limit=1-100 (default 100).",
-      "cost": "free"
+      "cost": "free",
+      "query_params": {
+        "favorite_id": "uuid (optional) — scope to product/identity; owner-checked against ai_favorites; hybrid filter also includes legacy NULL gaps matching favorite.domain",
+        "limit": "integer (optional, 1-100, default 100) — max items returned"
+      }
     },
     {
       "id": "gaps_generate",
