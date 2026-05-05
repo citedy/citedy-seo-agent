@@ -523,7 +523,7 @@
       "id": "shorts_publish",
       "method": "POST",
       "path": "/api/agent/shorts/publish",
-      "description": "Publish video directly to YouTube Shorts, Instagram Reels, and/or TikTok. tiktok_privacy_level is required when targets includes TikTok.",
+      "description": "Publish video directly to YouTube Shorts, Instagram Reels, and/or TikTok. tiktok_privacy_level is strongly recommended (effectively required) when targets includes TikTok; the only fallback is privacy_status=\"private\" which maps to SELF_ONLY.",
       "cost": "free",
       "payload_example": {
         "video_url": "https://download.citedy.com/agent/shorts/.../video-sub.mp4",
