@@ -340,7 +340,7 @@ Content-Type: application/json
 
 **Agent flow:**
 
-1. Call `POST /api/agent/autopilot` with `source_urls: ["https://competitor.com/best-crm-tools"]`, `size: "standard"`, `language: "en"` — typically returns the full article inline (terminal `status: "generated" | "publishing" | "published"`); if the response is queued (`status: "processing"`), poll `GET /api/agent/articles/{id}` or wait for the `article.generated` / `article.published` webhook
+1. Call `POST /api/agent/autopilot` with `source_urls: ["https://competitor.com/best-crm-tools"]`, `size: "standard"`, `language: "en"` — typically returns the full article inline (terminal `status: "generated" | "publishing" | "published"`); if the response is queued (`status: "processing"`), poll `GET /api/agent/articles/{id}` or wait for one of the `article.generated` / `article.published` / `article.failed` webhooks. On `article.failed` (or terminal `status: "failed"`), surface the error and skip the social-adaptations step
 2. Return article title, URL, and word count to user
 3. Ask: "Want social media adaptations? Which platforms?"
 

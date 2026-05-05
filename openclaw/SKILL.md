@@ -268,7 +268,7 @@ Reply to user:
 - The agent cannot perform off-page SEO tasks such as backlink building, link outreach, or Google Business Profile management.
 - Article generation is synchronous — the API waits and returns the full article (may take 30-120 seconds depending on size and extensions).
 - Only one active autopilot session is allowed per tenant at a time.
-- Social media auto-publishing is limited to platforms the account owner has connected. Currently supported: LinkedIn, X (article + thread), Facebook, Reddit, Threads, Instagram, Instagram Reels, YouTube Shorts, TikTok, and Shopify. Platforms without a connected account return adaptation text only.
+- Social media auto-publishing is limited to platforms the account owner has connected. Article/post auto-publish supports: LinkedIn, X (article + thread), Facebook, Reddit, Threads, Instagram, Instagram Reels, YouTube Shorts (matches `PUBLISH_PLATFORMS`). Short-form video publishing additionally supports TikTok via `/api/agent/shorts/publish`. Platforms without a connected account return adaptation text only.
 - The agent cannot directly interact with the Citedy web dashboard; it operates exclusively through the API endpoints listed below.
 - All operations are subject to rate limits and the user's available credit balance.
 
