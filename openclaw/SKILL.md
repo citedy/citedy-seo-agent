@@ -9,9 +9,9 @@ description: >
   Threads, Instagram, Instagram Reels, YouTube Shorts, and Shopify, generate lead magnets (checklists, swipe files,
   frameworks), ingest any URL (YouTube videos, web articles, PDFs, audio files) into structured
   content, ultra-cheap turbo articles from 2 credits, generate short-form
-  AI UGC viral videos with subtitles and direct publishing to Instagram Reels and YouTube Shorts, Google Search Console performance reports,
+  AI UGC viral videos with subtitles and direct publishing to Instagram Reels, YouTube Shorts, and TikTok, Google Search Console performance reports,
   and run fully automated content autopilot. Powered by Citedy.
-version: "3.6.1"
+version: "3.6.2"
 author: Citedy
 tags:
   - seo
@@ -66,7 +66,7 @@ Use this skill when the user asks to:
 - Set up automated content sessions (cron-based article generation)
 - Generate lead magnets (checklists, swipe files, frameworks) for lead capture
 - Ingest any URL (YouTube video, web article) into structured content with summary and metadata
-- Generate short-form AI UGC viral videos with subtitles (script, avatar, video, merge) and publish directly to Instagram Reels and YouTube Shorts
+- Generate short-form AI UGC viral videos with subtitles (script, avatar, video, merge) and publish directly to Instagram Reels, YouTube Shorts, and TikTok
 - Register webhook endpoints to receive real-time event notifications (article published, ingestion complete, etc.)
 - List or delete webhook endpoints, view webhook delivery history
 - List published articles or check agent balance, status, and rate limits
@@ -268,7 +268,7 @@ Reply to user:
 - The agent cannot perform off-page SEO tasks such as backlink building, link outreach, or Google Business Profile management.
 - Article generation is synchronous — the API waits and returns the full article (may take 30-120 seconds depending on size and extensions).
 - Only one active autopilot session is allowed per tenant at a time.
-- Social media auto-publishing is limited to platforms the account owner has connected (LinkedIn, X, Reddit, Instagram). Other platforms return adaptation text only.
+- Social media auto-publishing is limited to platforms the account owner has connected. Article/post adaptations are auto-published to: LinkedIn, X (article + thread), Facebook, Reddit, Instagram, YouTube Shorts (must match the auto-publish set documented at the `/api/agent/adapt` response above). Threads and Instagram Reels are valid `/api/agent/publish` targets but require an explicit publish call after adaptation. Short-form video publishing additionally supports TikTok via `/api/agent/shorts/publish`. Platforms without a connected account return adaptation text only.
 - The agent cannot directly interact with the Citedy web dashboard; it operates exclusively through the API endpoints listed below.
 - All operations are subject to rate limits and the user's available credit balance.
 
@@ -398,7 +398,7 @@ When `source_urls` is provided, the response includes `extraction_results` showi
 
 The response includes `article_url` — always use this URL when sharing the article link. Do NOT construct URLs manually.
 
-When `auto_publish` is `true` (default), articles are auto-published and the URL works immediately. When `false`, the article is saved as a draft — the response returns `status: "generated"` instead of `"published"`. Use `POST /api/agent/articles/{id}/publish` to publish it later.
+When `auto_publish` is `true` (default), the response returns `status: "publishing"` once the article is saved and the publish pipeline is triggered. Treat `"publishing"` as the terminal article-generation state, not as confirmation that the social publish step has finished — that completes asynchronously. When `auto_publish` is `false`, the article is saved as a draft and the response returns `status: "generated"`. Use `POST /api/agent/articles/{id}/publish` to publish it later.
 
 `/api/agent/me` also returns `blog_url` — the tenant's blog root URL.
 
@@ -844,8 +844,8 @@ POST /api/agent/shorts/publish
 - `video_url` — HTTPS URL from `/shorts` or `/shorts/merge` response (must be `download.citedy.com` or Supabase storage)
 - `speech_text` — original spoken text; used to derive title, hashtags, descriptions via LLM
 - `targets` — 1-3 entries (max 3 platforms), each platform may appear at most once. `platform` is one of `youtube_shorts` | `instagram_reels` | `tiktok`. Get `account_id` from `GET /api/agent/me` → `connected_platforms`
-- `privacy_status` — `public` (default), `unlisted`, `private`. YouTube respects all three. Instagram Reels ignores it. TikTok ignores it whenever `tiktok_privacy_level` is provided (always set `tiktok_privacy_level` explicitly when publishing to TikTok)
-- `tiktok_privacy_level` — TikTok-only and **required** when `targets` includes TikTok. One of `PUBLIC_TO_EVERYONE` | `FOLLOWER_OF_CREATOR` | `MUTUAL_FOLLOW_FRIENDS` | `SELF_ONLY`. The end user must pick the value from the latest `creator_info.privacy_level_options` per TikTok policy — surface a chooser in your client (see Citedy's `PublishDestinationPopover` for reference UX)
+- `privacy_status` — `public` (default), `unlisted`, `private`. YouTube respects all three. Instagram Reels ignores it. For TikTok, `privacy_status: "private"` works as a legacy fallback that maps to `tiktok_privacy_level: "SELF_ONLY"`, but new integrations should always set `tiktok_privacy_level` explicitly
+- `tiktok_privacy_level` — TikTok-only. Strongly recommended (effectively required) when `targets` includes TikTok. One of `PUBLIC_TO_EVERYONE` | `FOLLOWER_OF_CREATOR` | `MUTUAL_FOLLOW_FRIENDS` | `SELF_ONLY`. The only fallback is `privacy_status: "private"` → `SELF_ONLY` (legacy); everything else without an explicit `tiktok_privacy_level` is rejected with a 400. The end user must pick the value from the latest `creator_info.privacy_level_options` per TikTok policy — surface a chooser in your client (see Citedy's `PublishDestinationPopover` for reference UX)
 - Returns `{ results: [{ platform, ok, post_id?, error? }], metadata_provider, metadata_degraded, timings: { metadata_ms, total_ms }, credits_charged }`
 - Does **not** require an article — publishes directly from video URL + speech text
 
@@ -1384,5 +1384,5 @@ Call `GET /api/agent/me` every 4 hours as a keep-alive. This updates `last_activ
 
 ---
 
-_Citedy SEO Agent Skill v3.6.1_
+_Citedy SEO Agent Skill v3.6.2_
 _https://www.citedy.com_

@@ -340,7 +340,7 @@ Content-Type: application/json
 
 **Agent flow:**
 
-1. Call `POST /api/agent/autopilot` with `source_urls: ["https://competitor.com/best-crm-tools"]`, `size: "standard"`, `language: "en"` — synchronous; the response includes the full article (title, URL, word count, content)
+1. Call `POST /api/agent/autopilot` with `source_urls: ["https://competitor.com/best-crm-tools"]`, `size: "standard"`, `language: "en"` — typically returns the full article inline (terminal `status: "generated" | "publishing" | "published"`); if the response is queued (`status: "processing"`), poll `GET /api/agent/articles/{id}` or wait for one of the `article.generated` / `article.published` / `article.failed` webhooks. On `article.failed` (or terminal `status: "failed"`), surface the error and skip the social-adaptations step
 2. Return article title, URL, and word count to user
 3. Ask: "Want social media adaptations? Which platforms?"
 
@@ -797,7 +797,10 @@ When an error occurs:
 ## Response Guidelines for the Agent
 
 - Always show the user the article title and URL after successful generation
-- Article generation is synchronous — the response includes the full article. No polling needed
+- Article generation usually returns the article inline. Check the `/api/agent/autopilot` response `status`:
+  - `"generated"`, `"publishing"`, or `"published"` (success-terminal) → the article payload is in the response; present `title`, `URL`, and `word_count` to the user.
+  - `"failed"` (failure-terminal) → there is no usable article. Surface the error (`error.message` or `error.code`) to the user and follow your retry/fallback path. Do **not** treat this as a success.
+  - `"processing"` or any other non-terminal value (e.g. when the transform pipeline returns 202 admission, or when async generation is requested) → use the response `id`/`article_id` and poll `GET /api/agent/articles/{id}` until `status` reaches a terminal value, or wait for the corresponding webhook (`article.generated`, `article.published`, `article.failed`).
 - Present credit costs before starting expensive operations (full/pillar articles, audio)
 - After generating an article, proactively offer social adaptations
 - After social adaptations, offer to publish or schedule
