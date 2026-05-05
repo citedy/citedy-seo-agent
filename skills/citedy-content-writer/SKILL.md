@@ -340,7 +340,7 @@ Content-Type: application/json
 
 **Agent flow:**
 
-1. Call `POST /api/agent/autopilot` with `source_urls: ["https://competitor.com/best-crm-tools"]`, `size: "standard"`, `language: "en"` — synchronous; the response includes the full article (title, URL, word count, content)
+1. Call `POST /api/agent/autopilot` with `source_urls: ["https://competitor.com/best-crm-tools"]`, `size: "standard"`, `language: "en"` — typically returns the full article inline (terminal `status: "generated" | "publishing" | "published"`); if the response is queued (`status: "processing"`), poll `GET /api/agent/articles/{id}` or wait for the `article.generated` / `article.published` webhook
 2. Return article title, URL, and word count to user
 3. Ask: "Want social media adaptations? Which platforms?"
 
@@ -797,7 +797,7 @@ When an error occurs:
 ## Response Guidelines for the Agent
 
 - Always show the user the article title and URL after successful generation
-- Article generation is synchronous — the response includes the full article. No polling needed
+- Article generation usually returns the article inline. Check the `/api/agent/autopilot` response: if `status` is a terminal value (`"generated"`, `"publishing"`, `"published"`, or `"failed"`), the article is ready and you can present it immediately. If `status` is `"processing"` (or another non-terminal value — e.g. when the transform pipeline returns 202 admission), poll `GET /api/agent/articles/{id}` until it reaches a terminal status, or wait for the corresponding webhook (`article.generated`, `article.published`, `article.failed`)
 - Present credit costs before starting expensive operations (full/pillar articles, audio)
 - After generating an article, proactively offer social adaptations
 - After social adaptations, offer to publish or schedule

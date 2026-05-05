@@ -11,7 +11,7 @@ description: >
   content, ultra-cheap turbo articles from 2 credits, generate short-form
   AI UGC viral videos with subtitles and direct publishing to Instagram Reels and YouTube Shorts, Google Search Console performance reports,
   and run fully automated content autopilot. Powered by Citedy.
-version: "3.6.1"
+version: "3.6.2"
 author: Citedy
 tags:
   - seo
@@ -398,7 +398,7 @@ When `source_urls` is provided, the response includes `extraction_results` showi
 
 The response includes `article_url` — always use this URL when sharing the article link. Do NOT construct URLs manually.
 
-When `auto_publish` is `true` (default), articles are auto-published and the URL works immediately. When `false`, the article is saved as a draft — the response returns `status: "generated"` instead of `"published"`. Use `POST /api/agent/articles/{id}/publish` to publish it later.
+When `auto_publish` is `true` (default), the response returns `status: "publishing"` once the article is saved and the publish pipeline is triggered. Treat `"publishing"` as the terminal article-generation state, not as confirmation that the social publish step has finished — that completes asynchronously. When `auto_publish` is `false`, the article is saved as a draft and the response returns `status: "generated"`. Use `POST /api/agent/articles/{id}/publish` to publish it later.
 
 `/api/agent/me` also returns `blog_url` — the tenant's blog root URL.
 
@@ -1384,5 +1384,5 @@ Call `GET /api/agent/me` every 4 hours as a keep-alive. This updates `last_activ
 
 ---
 
-_Citedy SEO Agent Skill v3.6.1_
+_Citedy SEO Agent Skill v3.6.2_
 _https://www.citedy.com_
