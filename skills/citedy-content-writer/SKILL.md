@@ -797,7 +797,10 @@ When an error occurs:
 ## Response Guidelines for the Agent
 
 - Always show the user the article title and URL after successful generation
-- Article generation usually returns the article inline. Check the `/api/agent/autopilot` response: if `status` is a terminal value (`"generated"`, `"publishing"`, `"published"`, or `"failed"`), the article is ready and you can present it immediately. If `status` is `"processing"` (or another non-terminal value — e.g. when the transform pipeline returns 202 admission), poll `GET /api/agent/articles/{id}` until it reaches a terminal status, or wait for the corresponding webhook (`article.generated`, `article.published`, `article.failed`)
+- Article generation usually returns the article inline. Check the `/api/agent/autopilot` response `status`:
+  - `"generated"`, `"publishing"`, or `"published"` (success-terminal) → the article payload is in the response; present `title`, `URL`, and `word_count` to the user.
+  - `"failed"` (failure-terminal) → there is no usable article. Surface the error (`error.message` or `error.code`) to the user and follow your retry/fallback path. Do **not** treat this as a success.
+  - `"processing"` or any other non-terminal value (e.g. when the transform pipeline returns 202 admission, or when async generation is requested) → use the response `id`/`article_id` and poll `GET /api/agent/articles/{id}` until `status` reaches a terminal value, or wait for the corresponding webhook (`article.generated`, `article.published`, `article.failed`).
 - Present credit costs before starting expensive operations (full/pillar articles, audio)
 - After generating an article, proactively offer social adaptations
 - After social adaptations, offer to publish or schedule
